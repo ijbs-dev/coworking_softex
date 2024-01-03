@@ -66,6 +66,29 @@ usuarioRouter.post("/", async(req: Request, resp: Response): Promise<Response> =
     }
 });
 
+usuarioRouter.patch("/:id", async(req: Request, resp: Response): Promise<Response> => {
+    try {
+        const usuarioRepository = new UsuarioRepository();
+        const idUsuario = parseInt(req.params.id, 10);
+
+        if(isNaN(idUsuario)) {
+            return resp.status(400).json({ error: "ID inválida."});
+        } 
+
+        const usuarioExistente = await usuarioRepository.findById(idUsuario);
+        if(!usuarioExistente) {
+            return resp.status(404).json({ error: "Usuário não encontrado. "});   
+        }
+
+        const updateUsuario = await usuarioRepository.updateUsuario(idUsuario, req.body);
+
+        return resp.status(200).json(updateUsuario);
+    } catch (error) {
+        return resp.status(500).json({ error: "Erro ao atualizar usuário.", details: error });
+    }
+
+})
+
 // o erro ao excluir deve-se ao fato de que a foregein key esta ímpedindo a exclusão do dado, pois ele está associado a várias tabelas
 //para evitar os erros é preciso alterar as opções de deleção no banco de dados, flexibilizando a restrição da chave estrangeira ou 
 // configurando a exclusão em casacada (mais perigoso)

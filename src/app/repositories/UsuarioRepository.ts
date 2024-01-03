@@ -38,6 +38,18 @@ class UsuarioRepository{
     
     }
 
+    updateUsuario = async (idUsuario: number, updatedData: Partial<Usuario>): Promise<Usuario | null> => {
+        try {
+            await this.usuarioRepository.update(idUsuario, updatedData);
+            
+            const usuarioAtualizado = await this.usuarioRepository.findOneOrFail({ where: {idUsuario: idUsuario }});
+
+            return usuarioAtualizado;
+        } catch (error) {
+            return null;
+        }
+    }
+
     deleteUsuario = async (idUsuario: number): Promise<boolean> => {
         const usuarioExistente = await this.usuarioRepository.findOne({where: [{ idUsuario: idUsuario }] });
 
