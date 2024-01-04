@@ -11,4 +11,36 @@ adminRouter.get("/", async (_req: Request, resp: Response): Promise<Response> =>
     return resp.status(200).json(admin);
 });
 
+adminRouter.get("/:id", async (req: Request, resp: Response): Promise<Response> => {
+    try {
+        const adminRepository = new AdminRepository();
+        const idAdmin = parseInt(req.params.id, 10);
+
+        console.log("ID do Admin:", idAdmin);
+
+        if (isNaN(idAdmin)) {
+            console.log("ID do Admin inválido!");
+            return resp.status(400).json({ error: "ID do admin inválido!" });   
+        }
+        
+        const adminEncontrado = await adminRepository.getAdminById(idAdmin);
+
+        console.log("Admin Encontrado:", adminEncontrado);
+
+        if (adminEncontrado && adminEncontrado.length > 0) {
+            return resp.status(200).json(adminEncontrado);
+        } else {
+            console.log("Admin não encontrado.");
+            return resp.status(404).json({ error: "Admin não encontrado." });
+        }        
+    } catch(error) {
+        console.log("Erro ao buscar admin por ID:", error);
+        return resp.status(500).json({ error: "Erro ao buscar admin por ID.", details: error });
+    }
+});
+
+
+    
+
+
 export default adminRouter;

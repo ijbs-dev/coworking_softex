@@ -12,7 +12,7 @@ class RepresentanteRepository{
 
     getRepresentanteById = (id: number): Promise<Representante[]> => {
         return this.representanteRepository.find({ where: { idRepresent: id } });
-    }
+    }    
 }
 
 export default RepresentanteRepository;

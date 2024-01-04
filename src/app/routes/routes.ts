@@ -28,5 +28,6 @@ routes.use('/recepcao', recepcaoRouter);
 routes.use('/retiradaEncomenda', retiradaEncomendaRouter);
 routes.use('/usuario', usuarioRouter);
 
+
 export default routes;
 
