@@ -407,10 +407,6 @@ ALTER TABLE `Cliente` ADD CONSTRAINT `fk_Cliente_Admin`
   ON DELETE CASCADE
   ON UPDATE CASCADE;
 
--- ALTER TABLE `Cliente` ADD CONSTRAINT `fk_Cliente_Recepcao`
---   FOREIGN KEY (`Recepcao_Id_recepcao`)
---   REFERENCES `Recepcao` (`Id_recepcao`);
-
 ALTER TABLE `Cliente` ADD CONSTRAINT `fk_Cliente_EnderecoFiscal`
   FOREIGN KEY (`EnderecoFiscal_Num_End_Fiscal`)
   REFERENCES `EnderecoFiscal` (`Num_End_Fiscal`)
