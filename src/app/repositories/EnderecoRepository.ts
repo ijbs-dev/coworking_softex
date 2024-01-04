@@ -9,6 +9,10 @@ class EnderecoRepository{
     getEndereco = (): Promise<Endereco[]> => {
         return this.enderecoRepository.find();
     }    
+
+    getEnderecoById = (id: number): Promise<Endereco[]> => {
+        return this.enderecoRepository.find({ where: { idEndereco: id } });
+    }
 }
 
 export default EnderecoRepository;

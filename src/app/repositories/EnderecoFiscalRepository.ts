@@ -9,6 +9,10 @@ class EnderecoFiscalRepository{
     getEnderecoFiscal = (): Promise<EnderecoFiscal[]> => {
         return this.enderecoFiscalRepository.find();
     }    
+
+    getEnderecoFiscalById = (id: number): Promise<EnderecoFiscal[]> => {
+        return this.enderecoFiscalRepository.find({ where: { numEndFiscal: id } });
+    }
 }
 
 export default EnderecoFiscalRepository;

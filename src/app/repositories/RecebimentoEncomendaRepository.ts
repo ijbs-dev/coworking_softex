@@ -9,6 +9,10 @@ class RecebimentoEncomendaRepository{
     getRecebimentoEncomenda = (): Promise<RecebimentoEncomenda[]> => {
         return this.recebimentoEncomendaRepository.find();
     }    
+
+    getRecebimentoEncomendaById = (id: number): Promise<RecebimentoEncomenda[]> => {
+        return this.recebimentoEncomendaRepository.find({ where: { idRecebEncomenda: id } });
+    }
 }
 
 export default RecebimentoEncomendaRepository;

@@ -9,6 +9,10 @@ class RetiradaEncomendaRepository{
     getRetiradaEncomenda = (): Promise<RetiradaEncomenda[]> => {
         return this.retiradaEncomendaRepository.find();
     }    
+
+    getRetiradaEncomendaById = (id: number): Promise<RetiradaEncomenda[]> => {
+        return this.retiradaEncomendaRepository.find({ where: { idRetirEncomenda: id } });
+    }
 }
 
 export default RetiradaEncomendaRepository;

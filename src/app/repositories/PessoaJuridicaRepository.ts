@@ -9,6 +9,10 @@ class PessoaJuridicaRepository{
     getPessoaJuridica = (): Promise<PessoaJuridica[]> => {
         return this.pessoaJuridicaRepository.find();
     }    
+
+    getPessoaJuridicaById = (id: number): Promise<PessoaJuridica[]> => {
+        return this.pessoaJuridicaRepository.find({ where: { idPJuridica: id } });
+    }
 }
 
 export default PessoaJuridicaRepository;

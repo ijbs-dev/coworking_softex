@@ -9,6 +9,10 @@ export class AdminRepository{
     getAdmin = (): Promise<Admin[]> => {
         return this.adminRepository.find();
     }
+
+    getAdminById = (id: number): Promise<Admin[]> => {
+        return this.adminRepository.find({ where: { idAdmin: id } });
+    }
 }
 
 export default AdminRepository;
