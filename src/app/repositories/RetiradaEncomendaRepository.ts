@@ -13,6 +13,22 @@ class RetiradaEncomendaRepository{
     getRetiradaEncomendaById = (id: number): Promise<RetiradaEncomenda[]> => {
         return this.retiradaEncomendaRepository.find({ where: { idRetirEncomenda: id } });
     }
+
+    createRetiradaEncomenda = (retiradaEncomenda: RetiradaEncomenda): Promise<RetiradaEncomenda> => {
+        return this.retiradaEncomendaRepository.save(retiradaEncomenda);
+    }
+
+    updateRetiradaEncomenda = (retiradaEncomenda: RetiradaEncomenda): Promise<RetiradaEncomenda> => {
+        return this.retiradaEncomendaRepository.save(retiradaEncomenda);
+    }
+
+    deleteRetiradaEncomendaById = async (id: number): Promise<RetiradaEncomenda | null> => {
+        const retiradaEncomenda = await this.retiradaEncomendaRepository.findOne({ where: { idRetirEncomenda: id } });
+        if (retiradaEncomenda) {
+            return this.retiradaEncomendaRepository.remove(retiradaEncomenda);
+        }
+        return null;
+    }
 }
 
 export default RetiradaEncomendaRepository;

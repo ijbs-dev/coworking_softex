@@ -13,6 +13,22 @@ class PessoaFisicaRepository{
     getPessoaFisicaById = (id: number): Promise<PessoaFisica[]> => {
         return this.pessoaFisicaRepository.find({ where: { idPfisica: id } });
     }
+
+    createPessoaFisica = (pessoaFisica: PessoaFisica): Promise<PessoaFisica> => {
+        return this.pessoaFisicaRepository.save(pessoaFisica);
+    }
+
+    updatePessoaFisica = (pessoaFisica: PessoaFisica): Promise<PessoaFisica> => {
+        return this.pessoaFisicaRepository.save(pessoaFisica);
+    }
+
+    deletePessoaFisicaById = async (id: number): Promise<PessoaFisica | null> => {
+        const pessoaFisica = await this.pessoaFisicaRepository.findOne({ where: { idPfisica: id } });
+        if (pessoaFisica) {
+            return this.pessoaFisicaRepository.remove(pessoaFisica);
+        }
+        return null;
+    }
 }
 
 export default PessoaFisicaRepository;

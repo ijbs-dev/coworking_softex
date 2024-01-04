@@ -22,10 +22,6 @@ export class AdminRepository{
         return this.adminRepository.save(admin);
     }
 
-    deleteAdmin = (admin: Admin): Promise<Admin> => {
-        return this.adminRepository.remove(admin);
-    }
-
     deleteAdminById = async (id: number): Promise<Admin | null> => {
         const admin = await this.adminRepository.findOne({ where: { idAdmin: id } });
         if (admin) {
