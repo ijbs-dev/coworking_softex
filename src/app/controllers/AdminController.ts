@@ -80,4 +80,27 @@ adminRouter.put("/updateAdmin", async (req: Request, resp: Response): Promise<Re
     }
 });
 
+adminRouter.delete("/:id", async (req: Request, resp: Response): Promise<Response> => {
+    try {
+        const adminRepository = new AdminRepository();
+        const idAdmin = parseInt(req.params.id, 10);
+
+        if(isNaN(idAdmin)) {
+            return resp.status(400).json({ error: "ID inválida."});
+        } 
+
+        const deleteAdmin = await adminRepository.deleteAdminById(idAdmin);
+
+        if (deleteAdmin !== null) {                        
+            return resp.status(200).json({ message: "Admin apagado com sucesso!" });
+        } else {         
+            return resp.status(404).json({ error: "Admin não encontrado." });
+        }
+    
+    } catch (error) {
+        return resp.status(500).json({ error: "Erro ao deletar admin.", details: error });
+    }
+
+})
+
 export default adminRouter;
