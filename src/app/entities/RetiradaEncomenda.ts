@@ -27,5 +27,7 @@ export default class RetiradaEncomenda {
 
 ALTER TABLE `RetiradaEncomenda` ADD CONSTRAINT `fk_RetiradaEncomenda_Encomenda`
   FOREIGN KEY (`Encomenda_Id_Encomenda`)
-  REFERENCES `Encomenda` (`Id_Encomenda`);
+  REFERENCES `Encomenda` (`Id_Encomenda`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT;
  */

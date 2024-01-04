@@ -14,6 +14,7 @@ import usuarioRouter from "../controllers/UsuarioController";
 
 const routes  = Router();
 
+// Configuração das rotas 
 routes.use('/cliente', clienteRouter);
 routes.use('/admin', adminRouter);
 routes.use('/representante', representanteRouter);

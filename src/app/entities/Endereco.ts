@@ -6,6 +6,7 @@ export default class Endereco {
     @PrimaryColumn({ name: 'Id_Endereco' })
     idEndereco: number;
 
+    // Adicionando NOT NULL e tamanho máximo de 100 caracteres
     @Column({ name: 'Logradouro', length: 100 })
     logradouro: string;
 

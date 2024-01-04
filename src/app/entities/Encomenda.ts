@@ -15,15 +15,15 @@ export default class Encomenda {
     @Column({ name: 'Status_Retirada' })
     statusRetirada: number;
 
-    @OneToOne(() => Cliente)
+    @OneToOne(() => Cliente, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     @JoinColumn({ name: 'Cliente_Id_Cliente', referencedColumnName: 'idCliente' })
     cliente: Cliente;
 
-    @OneToOne(() => Endereco)
+    @OneToOne(() => Endereco, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     @JoinColumn({ name: 'Cliente_Endereco_Id_Endereco', referencedColumnName: 'idEndereco' })
     endereco: Endereco;
 
-    @OneToOne(() => EnderecoFiscal)
+    @OneToOne(() => EnderecoFiscal, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     @JoinColumn({ name: 'Cliente_EnderecoFiscal_Num_End_Fiscal', referencedColumnName: 'numEndFiscal' })
     enderecoFiscal: EnderecoFiscal;
 }
@@ -43,5 +43,8 @@ export default class Encomenda {
 
 ALTER TABLE `Encomenda` ADD CONSTRAINT `fk_Encomenda_Cliente`
   FOREIGN KEY (`Cliente_Id_Cliente`, `Cliente_Endereco_Id_Endereco`, `Cliente_EnderecoFiscal_Num_End_Fiscal`)
-  REFERENCES `Cliente` (`Id_Cliente`, `Endereco_Id_Endereco`, `EnderecoFiscal_Num_End_Fiscal`);
- */
+  REFERENCES `Cliente` (`Id_Cliente`, `Endereco_Id_Endereco`, `EnderecoFiscal_Num_End_Fiscal`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+  
+  */

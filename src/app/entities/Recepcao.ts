@@ -7,11 +7,11 @@ export default class Recepcao {
     @PrimaryGeneratedColumn({ name: 'Id_recepcao' })
     idRecepcao: number;
 
-    @OneToOne(() => Usuario)
+    @OneToOne(() => Usuario, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     @JoinColumn({ name: 'Id_Usuario', referencedColumnName: 'idUsuario' })
     usuario: Usuario;
 
-    @OneToOne(() => RecebimentoEncomenda)
+    @OneToOne(() => RecebimentoEncomenda, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     @JoinColumn({ name: 'Id_Receb_Encomenda', referencedColumnName: 'idRecebEncomenda' })
     recebimentoEncomenda: RecebimentoEncomenda;
 }

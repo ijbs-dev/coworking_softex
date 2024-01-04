@@ -13,11 +13,11 @@ export default class RecebimentoEncomenda {
     @Column({ name: 'Obs_Receb_encomenda', length: 200 })
     obsRecebEncomenda: string;
 
-    @OneToOne(() => Encomenda)
+    @OneToOne(() => Encomenda, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     @JoinColumn({ name: 'Encomenda_Id_Encomenda', referencedColumnName: 'idEncomenda' })
     encomenda: Encomenda;
 
-    @OneToOne(() => EnderecoFiscal)
+    @OneToOne(() => EnderecoFiscal, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     @JoinColumn({ name: 'EnderecoFiscal_Num_End_Fiscal', referencedColumnName: 'numEndFiscal' })
     enderecoFiscal: EnderecoFiscal;
 }
@@ -37,10 +37,16 @@ export default class RecebimentoEncomenda {
 
 ALTER TABLE `RecebimentoEncomenda` ADD CONSTRAINT `fk_RecebimentoEncomenda_Encomenda`
   FOREIGN KEY (`Encomenda_Id_Encomenda`)
-  REFERENCES `Encomenda` (`Id_Encomenda`);
+  REFERENCES `Encomenda` (`Id_Encomenda`)
+    ON DELETE CASCADE
+  ON UPDATE CASCADE;
+  
 
 ALTER TABLE `RecebimentoEncomenda` ADD CONSTRAINT `fk_RecebimentoEncomenda_EnderecoFiscal`
   FOREIGN KEY (`EnderecoFiscal_Num_End_Fiscal`)
-  REFERENCES `EnderecoFiscal` (`Num_End_Fiscal`);
+  REFERENCES `EnderecoFiscal` (`Num_End_Fiscal`)
+    ON DELETE CASCADE
+  ON UPDATE CASCADE;
+  
 
  */

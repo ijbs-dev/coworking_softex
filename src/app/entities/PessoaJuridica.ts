@@ -12,7 +12,7 @@ export default class PessoaJuridica {
     @Column({ name: 'Razao_social', length: 200 })
     razaoSocial: string;
 
-    @OneToOne(() => Cliente)
+    @OneToOne(() => Cliente, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     @JoinColumn({ name: 'Cliente_Id_Cliente', referencedColumnName: 'idCliente' })
     cliente: Cliente;
 }
@@ -31,5 +31,8 @@ export default class PessoaJuridica {
 
 ALTER TABLE `PessoaJuridica` ADD CONSTRAINT `fk_PessoaJuridica_Cliente`
   FOREIGN KEY (`Cliente_Id_Cliente`, `Cliente_Endereco_Id_Endereco`)
-  REFERENCES `Cliente` (`Id_Cliente`, `Endereco_Id_Endereco`);
+  REFERENCES `Cliente` (`Id_Cliente`, `Endereco_Id_Endereco`)
+    ON DELETE CASCADE
+  ON UPDATE CASCADE;
+  
  */

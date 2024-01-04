@@ -9,7 +9,7 @@ export default class PessoaFisica {
     @Column({ name: 'Cpf' })
     cpf: string;
 
-    @OneToOne(() => Cliente)
+    @OneToOne(() => Cliente, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     @JoinColumn({ name: 'Id_Cliente' })
     cliente: Cliente;
 }
@@ -27,5 +27,8 @@ export default class PessoaFisica {
 
 ALTER TABLE `PessoaFisica` ADD CONSTRAINT `fk_PessoaFisica_Cliente`
   FOREIGN KEY (`Id_Cliente`)
-  REFERENCES `Cliente` (`Id_Cliente`);
+  REFERENCES `Cliente` (`Id_Cliente`)
+    ON DELETE CASCADE
+  ON UPDATE CASCADE;
+  
  */

@@ -25,11 +25,11 @@ export default class Representante {
     @Column({ name: 'Created_at_Represent' })
     createdAtRepresent: Date;
 
-    @ManyToOne(() => PessoaJuridica)
+    @ManyToOne(() => PessoaJuridica, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     @JoinColumn({ name: 'Id_PJuridica', referencedColumnName: 'idPJuridica' })
     pessoaJuridica: PessoaJuridica;
 
-    @ManyToOne(() => RetiradaEncomenda)
+    @ManyToOne(() => RetiradaEncomenda, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     @JoinColumn({ name: 'RetiradaEncomenda_Id_Retir_Encomenda', referencedColumnName: 'idRetirEncomenda' })
     retiradaEncomenda: RetiradaEncomenda;
 }
@@ -52,9 +52,14 @@ export default class Representante {
 
 ALTER TABLE `Representante` ADD CONSTRAINT `fk_Representante_PessoaJuridica`
   FOREIGN KEY (`Id_PJuridica`)
-  REFERENCES `PessoaJuridica` (`Id_PJuridica`);
+  REFERENCES `PessoaJuridica` (`Id_PJuridica`)
+    ON DELETE RESTRICT
+  ON UPDATE RESTRICT;
     
 ALTER TABLE `Representante` ADD CONSTRAINT `fk_Representante_RetiradaEncomenda`
   FOREIGN KEY (`RetiradaEncomenda_Id_Retir_Encomenda`)
-  REFERENCES `RetiradaEncomenda` (`Id_Retir_Encomenda`);
- */
+  REFERENCES `RetiradaEncomenda` (`Id_Retir_Encomenda`)
+    ON DELETE RESTRICT
+  ON UPDATE RESTRICT;
+  
+  */
