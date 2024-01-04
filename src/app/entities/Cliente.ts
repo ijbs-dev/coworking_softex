@@ -12,46 +12,47 @@ import Recepcao from "./Recepcao";
 @Index('fk_Cliente_EnderecoFiscal_idx', ['enderecoFiscalNumEndFiscal'])
 export default class Cliente {
 
-  @PrimaryGeneratedColumn({ name: 'Id_Cliente' })
+  @PrimaryGeneratedColumn({ name: 'Id_Cliente'})
   idCliente: number;
 
-  @Column({ name: 'Nome_Cliente', length: 100 })
+  // adicionar not null
+  @Column({ name: 'Nome_Cliente', length: 100, nullable: false})
   nomeCliente: string;
 
-  @Column({ name: 'Telefone_Cliente', length: 11 })
+  @Column({ name: 'Telefone_Cliente', length: 11, nullable: false })
   telefoneCliente: string;
 
-  @Column({ name: 'Email_Cliente', length: 100 })
+  @Column({ name: 'Email_Cliente', length: 100, nullable: false })
   emailCliente: string;
 
-  @Column({ name: 'Qtd_pontos_Cliente' })
+  @Column({ name: 'Qtd_pontos_Cliente', nullable: false })
   qtdPontosCliente: number;
 
-  @Column({ name: 'Prazo_Cliente', type: 'date' })
+  @Column({ name: 'Prazo_Cliente', type: 'date', nullable: false })
   prazoCliente: Date;
 
-  @Column({ name: 'Valor_mensal_Cliente', type: 'decimal' })
+  @Column({ name: 'Valor_mensal_Cliente', type: 'decimal', nullable: false })
   valorMensalCliente: number;
 
-  @Column({ name: 'Status_Cliente' })
+  @Column({ name: 'Status_Cliente', nullable: false })
   statusCliente: boolean;
 
-  @Column({ name: 'Created_at_Cliente', type: 'datetime' })
+  @Column({ name: 'Created_at_Cliente', type: 'datetime', nullable: false })
   createdAtCliente: Date;
 
-  @Column({ name: 'Updated_at_Cliente', type: 'datetime' })
+  @Column({ name: 'Updated_at_Cliente', type: 'datetime', nullable: false })
   updatedAtCliente: Date;
 
-  @Column({ name: 'Endereco_Id_Endereco' })
+  @Column({ name: 'Endereco_Id_Endereco', nullable: false })
   enderecoIdEndereco: number;
 
-  @Column({ name: 'Admin_Id_Admin' })
+  @Column({ name: 'Admin_Id_Admin', nullable: false })
   adminIdAdmin: number;
 
-  @Column({ name: 'Recepcao_Id_recepcao' })
+  @Column({ name: 'Recepcao_Id_recepcao', nullable: false })
   recepcaoIdRecepcao: number;
 
-  @Column({ name: 'EnderecoFiscal_Num_End_Fiscal' })
+  @Column({ name: 'EnderecoFiscal_Num_End_Fiscal', nullable: false })
   enderecoFiscalNumEndFiscal: number;
 
   @ManyToOne(() => Admin, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })

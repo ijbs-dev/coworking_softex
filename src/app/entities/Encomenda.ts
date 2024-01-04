@@ -9,10 +9,10 @@ export default class Encomenda {
     @PrimaryGeneratedColumn({ name: 'Id_Encomenda' })
     idEncomenda: number;
 
-    @Column({ name: 'Obs_Encomenda', length: 100 })
+    @Column({ name: 'Obs_Encomenda', length: 100, nullable: false })
     obsEncomenda: string;
 
-    @Column({ name: 'Status_Retirada' })
+    @Column({ name: 'Status_Retirada', nullable: false })
     statusRetirada: number;
 
     @OneToOne(() => Cliente, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })

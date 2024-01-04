@@ -6,7 +6,7 @@ export default class PessoaFisica {
     @PrimaryGeneratedColumn({ name: 'Id_Pfisica' })
     idPfisica: number;
 
-    @Column({ name: 'Cpf' })
+    @Column({ name: 'Cpf', nullable: false  })
     cpf: string;
 
     @OneToOne(() => Cliente, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })

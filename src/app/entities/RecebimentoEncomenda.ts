@@ -7,10 +7,10 @@ export default class RecebimentoEncomenda {
     @PrimaryGeneratedColumn({ name: 'Id_Receb_Encomenda' })
     idRecebEncomenda: number;
 
-    @Column({ name: 'DataHora_Receb_Encomenda' })
+    @Column({ name: 'DataHora_Receb_Encomenda', nullable: false  })
     dataHoraRecebEncomenda: Date;
 
-    @Column({ name: 'Obs_Receb_encomenda', length: 200 })
+    @Column({ name: 'Obs_Receb_encomenda', length: 200, nullable: false  })
     obsRecebEncomenda: string;
 
     @OneToOne(() => Encomenda, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })

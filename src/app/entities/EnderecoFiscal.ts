@@ -5,13 +5,13 @@ export default class EnderecoFiscal {
     @PrimaryGeneratedColumn({ name: 'Num_End_Fiscal' })
     numEndFiscal: number;
 
-    @Column({ name: 'Status_End_Fiscal' })
+    @Column({ name: 'Status_End_Fiscal', nullable: false  })
     statusEndFiscal: number;
 
-    @CreateDateColumn({ name: 'Created_at_End_Fiscal' })
+    @CreateDateColumn({ name: 'Created_at_End_Fiscal', nullable: false  })
     createdAtEndFiscal: Date;
 
-    @UpdateDateColumn({ name: 'Updated_at_End_Fiscal' })
+    @UpdateDateColumn({ name: 'Updated_at_End_Fiscal', nullable: false  })
     updatedAtEndFiscal: Date;
 }
 

@@ -6,28 +6,28 @@ export default class Usuario {
     @PrimaryGeneratedColumn({ name: 'Id_Usuario', type: 'int' })
     idUsuario: number;
 
-    @Column({ name: 'Nome_Usuario', type: 'varchar', length: 100 })
+    @Column({ name: 'Nome_Usuario', type: 'varchar', length: 100, nullable: false })
     nomeUsuario: string;
 
-    @Column({ name: 'Funcao_Usuario', type: 'varchar', length: 50 })
+    @Column({ name: 'Funcao_Usuario', type: 'varchar', length: 50, nullable: false })
     funcaoUsuario: string;
 
-    @Column({ name: 'Email_Usuario', type: 'varchar', length: 100 })
+    @Column({ name: 'Email_Usuario', type: 'varchar', length: 100, nullable: false })
     emailUsuario: string;
 
-    @Column({ name: 'Login_Usuario', type: 'varchar', length: 50 })
+    @Column({ name: 'Login_Usuario', type: 'varchar', length: 50, nullable: false })
     loginUsuario: string;
 
-    @Column({ name: 'Senha_Usuario', type: 'varchar', length: 50 })
+    @Column({ name: 'Senha_Usuario', type: 'varchar', length: 50, nullable: false })
     senhaUsuario: string;
 
-    @Column({ name: 'Status_Usuario', type: 'tinyint' })
+    @Column({ name: 'Status_Usuario', type: 'tinyint', nullable: false })
     statusUsuario: number;
 
-    @Column({ name: 'Created_at_Usuario', type: 'datetime' })
+    @Column({ name: 'Created_at_Usuario', type: 'datetime', nullable: false })
     createdatUsuario: Date;
 
-    @Column({ name: 'Updated_at_Usuario', type: 'datetime' })
+    @Column({ name: 'Updated_at_Usuario', type: 'datetime', nullable: false })
     updatedatUsuario: Date;
 }
 

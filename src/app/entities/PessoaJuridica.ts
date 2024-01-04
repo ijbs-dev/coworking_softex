@@ -6,10 +6,10 @@ export default class PessoaJuridica {
     @PrimaryGeneratedColumn({ name: 'Id_PJuridica' })
     idPJuridica: number;
 
-    @Column({ name: 'Cnpj', length: 14 })
+    @Column({ name: 'Cnpj', length: 14, nullable: false  })
     cnpj: string;
 
-    @Column({ name: 'Razao_social', length: 200 })
+    @Column({ name: 'Razao_social', length: 200, nullable: false  })
     razaoSocial: string;
 
     @OneToOne(() => Cliente, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })

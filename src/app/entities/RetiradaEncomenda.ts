@@ -5,10 +5,10 @@ export default class RetiradaEncomenda {
     @PrimaryGeneratedColumn({ name: 'Id_Retir_Encomenda' })
     idRetirEncomenda: number;
 
-    @Column({ name: 'DataHora_Retir_encomenda' })
+    @Column({ name: 'DataHora_Retir_encomenda', nullable: false })
     dataHoraRetirEncomenda: Date;
 
-    @Column({ name: 'Obs_Retir_encomenda', length: 200 })
+    @Column({ name: 'Obs_Retir_encomenda', length: 200, nullable: false })
     obsRetirEncomenda: string;
 
 }

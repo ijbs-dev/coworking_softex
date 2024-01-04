@@ -7,22 +7,22 @@ export default class Representante {
     @PrimaryGeneratedColumn({ name: 'Id_Represent' })
     idRepresent: number;
 
-    @Column({ name: 'Nome_Represent', length: 100 })
+    @Column({ name: 'Nome_Represent', length: 100, nullable: false  })
     nomeRepresent: string;
 
-    @Column({ name: 'Email_Represent', length: 100 })
+    @Column({ name: 'Email_Represent', length: 100, nullable: false  })
     emailRepresent: string;
-
-    @Column({ name: 'Status_Represent' })
+    
+    @Column({ name: 'Status_Represent', nullable: false  })
     statusRepresent: number;
 
-    @Column({ name: 'Telefone_Represent', length: 11 })
+    @Column({ name: 'Telefone_Represent', length: 11, nullable: false  })
     telefoneRepresent: string;
 
-    @Column({ name: 'Updated_at_Represent' })
+    @Column({ name: 'Updated_at_Represent', nullable: false })
     updatedAtRepresent: Date;
 
-    @Column({ name: 'Created_at_Represent' })
+    @Column({ name: 'Created_at_Represent', nullable: false })
     createdAtRepresent: Date;
 
     @ManyToOne(() => PessoaJuridica, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })

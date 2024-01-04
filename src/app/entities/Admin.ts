@@ -3,12 +3,13 @@ import Usuario from "./Usuario";
 
 @Entity('Admin')
 export default class Admin {
-    @PrimaryGeneratedColumn()
-    Id_Admin: number;
+  // add not null
+    @PrimaryGeneratedColumn({name: 'Id_Admin', type: 'int'})
+    idAdmin: number;
 
-    @OneToOne(() => Usuario, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+    @OneToOne(() => Usuario, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     @JoinColumn({ name: 'Id_Usuario' })
-    Id_Usuario: Usuario;
+    idUsuario: Usuario;
 }
 
 /**
