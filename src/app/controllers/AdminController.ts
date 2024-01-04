@@ -64,5 +64,20 @@ adminRouter.post("/createAdmin", async (req: Request, resp: Response): Promise<R
     }
 });
 
+adminRouter.put("/updateAdmin", async (req: Request, resp: Response): Promise<Response> => {
+    try {
+        const adminRepository = new AdminRepository();
+        const novoAdmin = req.body as Admin;
+        const adminAtualizado = await adminRepository.updateAdmin(novoAdmin);
+        
+        if(adminAtualizado !== null) {
+            return resp.status(201).json(adminAtualizado);
+        } else {
+            return resp.status(409).json({ error: "Admin com o mesmo e-mail ou login já existente"});
+        }
+    } catch (error) {
+        return resp.status(500).json({ message: "Erro ao atualizar admin", error: error});
+    }
+});
 
 export default adminRouter;
