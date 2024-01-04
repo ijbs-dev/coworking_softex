@@ -39,8 +39,30 @@ adminRouter.get("/:id", async (req: Request, resp: Response): Promise<Response> 
     }
 });
 
+/**
+ * [
+	{
+		"idAdmin": 1000,
+		"idUsuario": 1		
+	}
+   ]
+ */
 
-    
+adminRouter.post("/createAdmin", async (req: Request, resp: Response): Promise<Response> => {
+    try {
+        const adminRepository = new AdminRepository();
+        const novoAdmin = req.body as Admin;
+        const adminCriado = await adminRepository.createAdmin(novoAdmin);
+              
+        if(adminCriado !== null) {
+            return resp.status(201).json(adminCriado);
+        } else {
+            return resp.status(409).json({ error: "Admin com o mesmo e-mail ou login já existente"});
+        }
+    } catch (error) {
+        return resp.status(500).json({ message: "Erro ao criar admin", error: error});
+    }
+});
 
 
 export default adminRouter;
