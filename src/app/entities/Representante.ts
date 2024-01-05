@@ -4,7 +4,7 @@ import RetiradaEncomenda from "./RetiradaEncomenda";
 
 @Entity('Representante')
 export default class Representante {
-    @PrimaryGeneratedColumn({ name: 'Id_Represent' })
+    @PrimaryGeneratedColumn({ name: 'Id_Represent', type: 'int' })
     idRepresent: number;
 
     @Column({ name: 'Nome_Represent', length: 100, nullable: false  })
@@ -13,7 +13,7 @@ export default class Representante {
     @Column({ name: 'Email_Represent', length: 100, nullable: false  })
     emailRepresent: string;
     
-    @Column({ name: 'Status_Represent', nullable: false  })
+    @Column({ name: 'Status_Represent', nullable: false, type: 'int'  })
     statusRepresent: number;
 
     @Column({ name: 'Telefone_Represent', length: 11, nullable: false  })
@@ -28,38 +28,26 @@ export default class Representante {
     @ManyToOne(() => PessoaJuridica, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     @JoinColumn({ name: 'Id_PJuridica', referencedColumnName: 'idPJuridica' })
     pessoaJuridica: PessoaJuridica;
-
-    @ManyToOne(() => RetiradaEncomenda, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
-    @JoinColumn({ name: 'RetiradaEncomenda_Id_Retir_Encomenda', referencedColumnName: 'idRetirEncomenda' })
-    retiradaEncomenda: RetiradaEncomenda;
 }
 
 /**
- * CREATE TABLE IF NOT EXISTS `Representante` (
-  `Id_Represent` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `Representante` (
+  `Id_Represent` INT AUTO_INCREMENT,
   `Nome_Represent` VARCHAR(100) NOT NULL,
   `Email_Represent` VARCHAR(100) NOT NULL,
-  `Status_Represent` TINYINT NOT NULL,
+  `Status_Represent` INT NOT NULL,
   `Telefone_Represent` VARCHAR(11) NOT NULL,
   `Updated_at_Represent` DATETIME NOT NULL,
   `Created_at_Represent` DATETIME NOT NULL,
   `Id_PJuridica` INT NOT NULL,
-  `RetiradaEncomenda_Id_Retir_Encomenda` INT NOT NULL,
-  PRIMARY KEY (`Id_Represent`),
-  INDEX `fk_Representante_RetiradaEncomenda_idx` (`RetiradaEncomenda_Id_Retir_Encomenda`)
-  -- FOREIGN KEY removed
+  PRIMARY KEY (`Id_Represent`)
+  -- FOREIGN KEY removed;
 );
 
 ALTER TABLE `Representante` ADD CONSTRAINT `fk_Representante_PessoaJuridica`
   FOREIGN KEY (`Id_PJuridica`)
   REFERENCES `PessoaJuridica` (`Id_PJuridica`)
-    ON DELETE RESTRICT
-  ON UPDATE RESTRICT;
-    
-ALTER TABLE `Representante` ADD CONSTRAINT `fk_Representante_RetiradaEncomenda`
-  FOREIGN KEY (`RetiradaEncomenda_Id_Retir_Encomenda`)
-  REFERENCES `RetiradaEncomenda` (`Id_Retir_Encomenda`)
-    ON DELETE RESTRICT
-  ON UPDATE RESTRICT;
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
   
   */

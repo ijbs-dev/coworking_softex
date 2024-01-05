@@ -21,26 +21,26 @@ export default class Usuario {
     @Column({ name: 'Senha_Usuario', type: 'varchar', length: 50, nullable: false })
     senhaUsuario: string;
 
-    @Column({ name: 'Status_Usuario', type: 'tinyint', nullable: false })
+    @Column({ name: 'Status_Usuario', type: 'int', nullable: false })
     statusUsuario: number;
 
     @Column({ name: 'Created_at_Usuario', type: 'datetime', nullable: false })
-    createdatUsuario: Date;
+    createdAtUsuario: Date;
 
     @Column({ name: 'Updated_at_Usuario', type: 'datetime', nullable: false })
-    updatedatUsuario: Date;
+    updatedAtUsuario: Date;
 }
 
 
 /**
- * CREATE TABLE IF NOT EXISTS `Usuario` (
-  `Id_Usuario` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `Usuario` (
+  `Id_Usuario` INT AUTO_INCREMENT,
   `Nome_Usuario` VARCHAR(100) NOT NULL,
   `Funcao_Usuario` VARCHAR(50) NOT NULL,
   `Email_Usuario` VARCHAR(100) NOT NULL,
   `Login_Usuario` VARCHAR(50) NOT NULL,
   `Senha_Usuario` VARCHAR(50) NOT NULL,
-  `Status_Usuario` TINYINT NOT NULL,
+  `Status_Usuario` INT NOT NULL,
   `Created_at_Usuario` DATETIME NOT NULL,
   `Updated_at_Usuario` DATETIME NOT NULL,
   PRIMARY KEY (`Id_Usuario`)

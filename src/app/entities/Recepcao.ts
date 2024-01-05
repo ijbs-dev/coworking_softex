@@ -4,36 +4,30 @@ import RecebimentoEncomenda from "./RecebimentoEncomenda";
 
 @Entity('Recepcao')
 export default class Recepcao {
-    @PrimaryGeneratedColumn({ name: 'Id_recepcao' })
+
+    @PrimaryGeneratedColumn({ name: 'Id_Recepcao' })
     idRecepcao: number;
 
     @OneToOne(() => Usuario, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     @JoinColumn({ name: 'Id_Usuario', referencedColumnName: 'idUsuario' })
     usuario: Usuario;
 
-    @OneToOne(() => RecebimentoEncomenda, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
-    @JoinColumn({ name: 'Id_Receb_Encomenda', referencedColumnName: 'idRecebEncomenda' })
-    recebimentoEncomenda: RecebimentoEncomenda;
+    @Column({ name: 'Id_Receb_Encomenda', nullable: false  })
+    idRecebEncomenda: number;
+
 }
 
 /**
- * CREATE TABLE IF NOT EXISTS `Recepcao` (
-  `Id_recepcao` INT NOT NULL,
+
+CREATE TABLE IF NOT EXISTS `Recepcao` (
+  `Id_Recepcao` INT AUTO_INCREMENT,
   `Id_Usuario` INT NOT NULL,
-  `Id_Receb_Encomenda` INT NOT NULL,
-  PRIMARY KEY (`Id_recepcao`),
-  INDEX `fk_Recepcao_RecebimentoEncomenda_idx` (`Id_Receb_Encomenda`)
-  -- FOREIGN KEY removed
+  PRIMARY KEY (`Id_Recepcao`)
 );
 
-ALTER TABLE `Recepcao` ADD CONSTRAINT `FK_Recepcao`
+  ALTER TABLE `Recepcao` ADD CONSTRAINT `FK_Recepcao`
   FOREIGN KEY (`Id_Usuario`)
   REFERENCES `Usuario` (`Id_Usuario`)
-  ON DELETE CASCADE;
-
-ALTER TABLE `Recepcao` ADD CONSTRAINT `fk_Recepcao_RecebimentoEncomenda`
-  FOREIGN KEY (`Id_Receb_Encomenda`)
-  REFERENCES `RecebimentoEncomenda` (`Id_Receb_Encomenda`)
-  ON DELETE RESTRICT
-  ON UPDATE RESTRICT;
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
  */

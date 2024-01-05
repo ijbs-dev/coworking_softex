@@ -1,12 +1,11 @@
-import { Entity, PrimaryColumn, Column } from "typeorm";
+import { Entity, PrimaryColumn, Column, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity('Endereco')
 export default class Endereco {
-    @PrimaryColumn({ name: 'Id_Endereco' })
+    @PrimaryGeneratedColumn({ name: 'Id_Endereco', type: 'int' })
     idEndereco: number;
-
-    // Adicionando NOT NULL e tamanho máximo de 100 caracteres
+   
     @Column({ name: 'Logradouro', length: 100, nullable: false })
     logradouro: string;
 
@@ -22,8 +21,8 @@ export default class Endereco {
 
 
 /**
- * CREATE TABLE IF NOT EXISTS `Endereco` (
-  `Id_Endereco` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `Endereco` (
+  `Id_Endereco` INT AUTO_INCREMENT,
   `Logradouro` VARCHAR(100) NOT NULL,
   `Numero` INT NOT NULL,
   `Bairro` VARCHAR(100) NOT NULL,
