@@ -24,10 +24,10 @@ export default class Usuario {
     @Column({ name: 'Status_Usuario', type: 'int', nullable: false })
     statusUsuario: number;
 
-    @Column({ name: 'Created_at_Usuario', type: 'datetime', nullable: false })
+    @Column({ name: 'Created_at_Usuario', type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
     createdAtUsuario: Date;
 
-    @Column({ name: 'Updated_at_Usuario', type: 'datetime', nullable: false })
+    @Column({ name: 'Updated_at_Usuario', type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
     updatedAtUsuario: Date;
 }
 

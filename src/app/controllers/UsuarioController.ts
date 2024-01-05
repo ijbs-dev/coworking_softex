@@ -114,19 +114,19 @@ usuarioRouter.delete("/:id", async(req: Request, resp: Response): Promise<Respon
     }
 });
 
-usuarioRouter.delete("email/:emailUsuario", async (req: Request, resp: Response): Promise<Response> => {
+usuarioRouter.delete("/email/:emailUsuario", async (req: Request, resp: Response): Promise<Response> => {
     try {
         const usuarioRepository = new UsuarioRepository();
         const emailUsuario = req.params.emailUsuario;
         const resultado = await usuarioRepository.deleteUsuarioEmail(emailUsuario);
 
-        if(resultado) {
+        if (resultado) {
             return resp.status(204).send();
         } else {
             return resp.status(404).json({ error: "Usuário não encontrado"});
-            }
-        } catch(error) {
-            return resp.status(500).json({ message: "Erro ao excluir usuário.", error: error})
+        }
+    } catch (error) {
+        return resp.status(500).json({ message: "Erro ao excluir usuário.", error: error })
     }
 });
 

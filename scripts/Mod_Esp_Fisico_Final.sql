@@ -21,8 +21,8 @@ CREATE TABLE IF NOT EXISTS `Usuario` (
   `Login_Usuario` VARCHAR(50) NOT NULL,
   `Senha_Usuario` VARCHAR(50) NOT NULL,
   `Status_Usuario` INT NOT NULL,
-  `Created_at_Usuario` DATETIME NOT NULL,
-  `Updated_at_Usuario` DATETIME NOT NULL,
+  `Created_at_Usuario` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `Updated_at_Usuario` DATETIME DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`Id_Usuario`)
 );
 

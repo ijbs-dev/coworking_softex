@@ -63,7 +63,6 @@ class UsuarioRepository{
     
     deleteUsuarioEmail = async (emailUsuario: string): Promise<boolean> => {
         const usuarioExistente = await this.usuarioRepository.findOne({ where: [{ emailUsuario: emailUsuario }] });
-        // ({where: [{ emailUsuario: emailUsuario }] });
 
         if(usuarioExistente) {
             await this.usuarioRepository.remove(usuarioExistente);
