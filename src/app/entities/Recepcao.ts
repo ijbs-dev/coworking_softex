@@ -13,5 +13,4 @@ export default class Recepcao {
     @OneToOne(() => Usuario, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     @JoinColumn({ name: 'Id_Usuario', referencedColumnName: 'idUsuario' })
     usuario: Usuario;
-
 }

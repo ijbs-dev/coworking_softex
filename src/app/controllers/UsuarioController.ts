@@ -1,133 +1,83 @@
-import { Request, Response, Router } from "express";
 import Usuario from "../entities/Usuario";
-import IUsuario from "../interfaces/IUsuario";
-import UsuarioRepository from "../repositories/UsuarioRepository";
+import { UsuarioRepository}  from "../repositories/UsuarioRepository";
+import IUsuarioCreate from "../interfaces/IUsuarioCreate";
+import IUsuarioUpdate from "../interfaces/IUsuarioUpdate";
 
-const usuarioRouter = Router();
+class UsuarioController {
 
-usuarioRouter.get("/", async (_req: Request, resp: Response): Promise<Response> => {
-    const usuarioRepository = new UsuarioRepository();
-    const usuario = await usuarioRepository.getUsuario();
-    return resp.status(200).json(usuario);
-});
+    constructor(private usuarioRepository: UsuarioRepository) {}
 
-//corrigir para o get email devolver vários usuarios por email (se for aplicável)
-usuarioRouter.get("/email/:email", async(req: Request, resp: Response): Promise<Response> => {
-    try {
-        const usuarioRepository = new UsuarioRepository();
-        const email = req.params.email;
-        const usuarioEncontrado = await usuarioRepository.findByEmail(email);
+    async create(dadosUsuario: IUsuarioCreate): Promise<void> {
 
-        if(usuarioEncontrado) {
-            return resp.status(200).json(usuarioEncontrado);
-        } else {
-            return resp.status(404).json({ error: "Usuário não encontrado."});
+        const usuario = await this.usuarioRepository.findByEmail(dadosUsuario.emailUsuario);
+
+        if (usuario) {
+            throw new Error("Usuário já existente!");
         }
-    } catch(error) {
-        return resp.status(500).json({ error: "Erro ao buscar usuário por email", details: error})
+
+        await this.usuarioRepository.create(dadosUsuario);
     }
-});
 
-usuarioRouter.get("/:id", async(req: Request, resp: Response): Promise<Response> => {
-    try{
-        const usuarioRepository = new UsuarioRepository();
-        const idUsuario = parseInt(req.params.id, 10);
+    async list(): Promise<Usuario[]> {
 
-        if(isNaN(idUsuario)) {
-            return resp.status(400).json({ error: "ID do usuário inválido!"});   
+        return await this.usuarioRepository.list();
+    }
+
+    async findByEmail(email: string): Promise<Usuario> {
+
+        const usuario = await this.usuarioRepository.findByEmail(email);
+
+        if(!usuario) {
+            throw new Error("Usuário não existente!");
         }
+
+        return usuario;
+    }
+
+    async findById(id: number): Promise<Usuario> {
+
+        const usuario = await this.usuarioRepository.findById(id);
+
+        if(!usuario) {
+            throw new Error("Usuário não existente!");
+        }
+
+        return usuario;
+    }
+
+    async update(id: number, dadosUsuario: IUsuarioUpdate): Promise<void> {
+
+        const usuario = await this.usuarioRepository.findById(id);
+
+        if (!usuario) {
+            throw new Error("Usuário não existente!");
+        }
+         
+        await this.usuarioRepository.update(id, dadosUsuario);
+    }
+
+    async deleteByid(id: number): Promise<void> {
         
-        const usuarioEncontrado = await usuarioRepository.findById(idUsuario);
+        const usuario = await this.usuarioRepository.findById(id);
 
-        if(usuarioEncontrado) {
-            return resp.status(200).json(usuarioEncontrado);
-        } else {
-            return resp.status(404).json({ error: "Usuário não encontrado. "});
+        if (!usuario) {
+            throw new Error("Usuário não existente!");
         }
-    } catch(error) {
-        return resp.status(500).json({ error: "Erro ao buscar usuário por ID.", details: error });
+
+        await this.usuarioRepository.delete(id);
     }
-})
 
-
-usuarioRouter.post("/", async(req: Request, resp: Response): Promise<Response> => {
-    try {
-        const usuarioRepository = new UsuarioRepository();
-        const novoUsuario = req.body as Usuario;
-        const usuarioCriado = await usuarioRepository.createUsuario(novoUsuario);
+    // async deleteByEmail(email: string): Promise<void> {
         
-        if(usuarioCriado !== null) {
-            return resp.status(201).json(usuarioCriado);
-        } else {
-            return resp.status(409).json({ error: "Usuário com o mesmo e-mail ou login já existente"});
-        }
-    } catch (error) {
-        return resp.status(500).json({ message: "Erro ao criar usuário", error: error});
-    }
-});
+    //     const usuario = await this.usuarioRepository.findByEmail(email);
 
-usuarioRouter.patch("/:id", async(req: Request, resp: Response): Promise<Response> => {
-    try {
-        const usuarioRepository = new UsuarioRepository();
-        const idUsuario = parseInt(req.params.id, 10);
+    //     if (!usuario) {
+    //         throw new Error("Usuário não existente!");
+    //     }
 
-        if(isNaN(idUsuario)) {
-            return resp.status(400).json({ error: "ID inválida."});
-        } 
+    //     await this.usuarioRepository.delete(usuario.idUsuario);
+    // }
 
-        const usuarioExistente = await usuarioRepository.findById(idUsuario);
-        if(!usuarioExistente) {
-            return resp.status(404).json({ error: "Usuário não encontrado. "});   
-        }
+}
 
-        const updateUsuario = await usuarioRepository.updateUsuario(idUsuario, req.body);
-
-        return resp.status(200).json(updateUsuario);
-    } catch (error) {
-        return resp.status(500).json({ error: "Erro ao atualizar usuário.", details: error });
-    }
-
-})
-
-// o erro ao excluir deve-se ao fato de que a foregein key esta ímpedindo a exclusão do dado, pois ele está associado a várias tabelas
-//para evitar os erros é preciso alterar as opções de deleção no banco de dados, flexibilizando a restrição da chave estrangeira ou 
-// configurando a exclusão em casacada (mais perigoso)
-
-usuarioRouter.delete("/:id", async(req: Request, resp: Response): Promise<Response> => {
-    try {
-        const usuarioRepository = new UsuarioRepository();
-        const usuarioId = parseInt(req.params.id, 10);
-        
-        if (isNaN(usuarioId)) {
-            return resp.status(400).json({ error: "ID do usuário inválido" });
-        }
-        
-        const resultado = await usuarioRepository.deleteUsuario(usuarioId);
-        
-        if(resultado) {
-            return resp.status(204).send();
-        } else {
-            return resp.status(404).json({ error: "Usuário não encontrado"});
-        }
-    } catch(error) {
-        return resp.status(500).json({ message: "Erro ao excluir usuário.", error: error})
-    }
-});
-
-usuarioRouter.delete("/email/:emailUsuario", async (req: Request, resp: Response): Promise<Response> => {
-    try {
-        const usuarioRepository = new UsuarioRepository();
-        const emailUsuario = req.params.emailUsuario;
-        const resultado = await usuarioRepository.deleteUsuarioEmail(emailUsuario);
-
-        if (resultado) {
-            return resp.status(204).send();
-        } else {
-            return resp.status(404).json({ error: "Usuário não encontrado"});
-        }
-    } catch (error) {
-        return resp.status(500).json({ message: "Erro ao excluir usuário.", error: error })
-    }
-});
-
-export default usuarioRouter;
+export { UsuarioController };
