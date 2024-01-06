@@ -1,6 +1,5 @@
 import { Entity, PrimaryColumn, Column, PrimaryGeneratedColumn } from "typeorm";
 
-
 @Entity('Endereco')
 export default class Endereco {
     @PrimaryGeneratedColumn({ name: 'Id_Endereco', type: 'int' })
@@ -18,15 +17,3 @@ export default class Endereco {
     @Column({ name: 'UF', length: 2, nullable: false  })
     uf: string;
 }
-
-
-/**
-CREATE TABLE IF NOT EXISTS `Endereco` (
-  `Id_Endereco` INT AUTO_INCREMENT,
-  `Logradouro` VARCHAR(100) NOT NULL,
-  `Numero` INT NOT NULL,
-  `Bairro` VARCHAR(100) NOT NULL,
-  `UF` VARCHAR(2) NOT NULL,
-  PRIMARY KEY (`Id_Endereco`)
-);
- */

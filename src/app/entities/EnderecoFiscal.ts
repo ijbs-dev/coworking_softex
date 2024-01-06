@@ -9,19 +9,9 @@ export default class EnderecoFiscal {
     @Column({ name: 'Status_End_Fiscal', type: 'int', nullable: false })
     statusEndFiscal: number;
 
-    @CreateDateColumn({ name: 'Created_at_End_Fiscal', type: 'datetime', nullable: false })
+    @CreateDateColumn({ name: 'Created_at_End_Fiscal', type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
     createdAtEndFiscal: Date;
 
-    @UpdateDateColumn({ name: 'Updated_at_End_Fiscal', type: 'datetime', nullable: false })
+    @UpdateDateColumn({ name: 'Updated_at_End_Fiscal', type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
     updatedAtEndFiscal: Date;
 }
-
-/**
-CREATE TABLE IF NOT EXISTS `EnderecoFiscal` (
-  `Num_End_Fiscal` INT NOT NULL,
-  `Status_End_Fiscal` INT NOT NULL,
-  `Updated_at_End_Fiscal` DATETIME NOT NULL,
-  `Created_at_End_Fiscal` DATETIME NOT NULL,
-  PRIMARY KEY (`Num_End_Fiscal`)
-);
- */

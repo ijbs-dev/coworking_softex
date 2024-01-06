@@ -13,6 +13,12 @@ export default class RetiradaEncomenda {
     @Column({ name: 'Obs_Retir_encomenda', length: 200, nullable: false })
     obsRetirEncomenda: string;
 
+    @Column({ name: 'Encomenda_Id_Encomenda', type: 'int', nullable: false })
+    idEncomenda: number;
+
+    @Column({ name: 'Representante_Id_Represent', type: 'int', nullable: false })
+    idRepresent: number;
+
     @ManyToOne(() => Encomenda, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     @JoinColumn({ name: 'Encomenda_Id_Encomenda', referencedColumnName: 'idEncomenda' })
     encomenda: Encomenda;
@@ -22,29 +28,3 @@ export default class RetiradaEncomenda {
     representante: Representante;
 
 }
-
-/**
-CREATE TABLE IF NOT EXISTS `RetiradaEncomenda` (
-  `Id_Retir_Encomenda` INT AUTO_INCREMENT,
-  `DataHora_Retir_encomenda` DATETIME NOT NULL,
-  `Obs_Retir_encomenda` VARCHAR(200) NOT NULL,
-  `Encomenda_Id_Encomenda` INT NOT NULL,
-  `Representante_Id_Represent` INT NOT NULL,
-  PRIMARY KEY (`Id_Retir_Encomenda`),
-  INDEX `fk_RetiradaEncomenda_Encomenda_idx` (`Encomenda_Id_Encomenda`),
-  INDEX `fk_RetiradaEncomenda_Representante_idx` (`Representante_Id_Represent`)
-  -- FOREIGN KEY removed
-);
-
-ALTER TABLE `RetiradaEncomenda` ADD CONSTRAINT `fk_RetiradaEncomenda_Encomenda`
-  FOREIGN KEY (`Encomenda_Id_Encomenda`)
-  REFERENCES `Encomenda` (`Id_Encomenda`)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE;
-  
-ALTER TABLE `RetiradaEncomenda` ADD CONSTRAINT `fk_RetiradaEncomenda_Representante`
-  FOREIGN KEY (`Representante_Id_Represent`)
-  REFERENCES `Representante` (`Id_Represent`)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE;
- */

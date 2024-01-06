@@ -58,8 +58,8 @@ CREATE TABLE IF NOT EXISTS `Admin` (
 CREATE TABLE IF NOT EXISTS `EnderecoFiscal` (
   `Num_End_Fiscal` INT NOT NULL,
   `Status_End_Fiscal` INT NOT NULL,
-  `Updated_at_End_Fiscal` DATETIME NOT NULL,
-  `Created_at_End_Fiscal` DATETIME NOT NULL,
+  `Updated_at_End_Fiscal` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `Created_at_End_Fiscal` DATETIME DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`Num_End_Fiscal`)
 );
 
@@ -131,6 +131,7 @@ BEGIN
 END;
 //
 DELIMITER ;
+
 -- -----------------------------------------------------
 -- Table `Encomenda`
 -- -----------------------------------------------------
@@ -152,6 +153,7 @@ BEGIN
 END;
 //
 DELIMITER ;
+
  -- -----------------------------------------------------
 -- Table `RecebimentoEncomenda`
 -- -----------------------------------------------------
@@ -182,13 +184,11 @@ DELIMITER ;
 -- -----------------------------------------------------
 -- Table `Recepcao`
 -- -----------------------------------------------------
-
 CREATE TABLE IF NOT EXISTS `Recepcao` (
   `Id_Recepcao` INT AUTO_INCREMENT,
   `Id_Usuario` INT NOT NULL,
   PRIMARY KEY (`Id_Recepcao`)
 );
-
 
 -- -----------------------------------------------------
 -- Table `RetiradaEncomenda`
@@ -224,8 +224,8 @@ CREATE TABLE IF NOT EXISTS `Representante` (
   `Email_Represent` VARCHAR(100) NOT NULL,
   `Status_Represent` INT NOT NULL,
   `Telefone_Represent` VARCHAR(11) NOT NULL,
-  `Updated_at_Represent` DATETIME NOT NULL,
-  `Created_at_Represent` DATETIME NOT NULL,
+  `Updated_at_Represent` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `Created_at_Represent` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `Id_PJuridica` INT NOT NULL,
   PRIMARY KEY (`Id_Represent`)
   -- FOREIGN KEY removed;

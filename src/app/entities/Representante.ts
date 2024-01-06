@@ -1,6 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
 import PessoaJuridica from "./PessoaJuridica";
-import RetiradaEncomenda from "./RetiradaEncomenda";
 
 @Entity('Representante')
 export default class Representante {
@@ -25,29 +24,10 @@ export default class Representante {
     @Column({ name: 'Created_at_Represent', nullable: false })
     createdAtRepresent: Date;
 
+    @Column({ name: 'Id_PJuridica', type: 'int', nullable: false })
+    idPJuridica: number;
+
     @ManyToOne(() => PessoaJuridica, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     @JoinColumn({ name: 'Id_PJuridica', referencedColumnName: 'idPJuridica' })
     pessoaJuridica: PessoaJuridica;
 }
-
-/**
-CREATE TABLE IF NOT EXISTS `Representante` (
-  `Id_Represent` INT AUTO_INCREMENT,
-  `Nome_Represent` VARCHAR(100) NOT NULL,
-  `Email_Represent` VARCHAR(100) NOT NULL,
-  `Status_Represent` INT NOT NULL,
-  `Telefone_Represent` VARCHAR(11) NOT NULL,
-  `Updated_at_Represent` DATETIME NOT NULL,
-  `Created_at_Represent` DATETIME NOT NULL,
-  `Id_PJuridica` INT NOT NULL,
-  PRIMARY KEY (`Id_Represent`)
-  -- FOREIGN KEY removed;
-);
-
-ALTER TABLE `Representante` ADD CONSTRAINT `fk_Representante_PessoaJuridica`
-  FOREIGN KEY (`Id_PJuridica`)
-  REFERENCES `PessoaJuridica` (`Id_PJuridica`)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE;
-  
-  */
