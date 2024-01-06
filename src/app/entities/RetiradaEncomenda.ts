@@ -23,8 +23,6 @@ export default class RetiradaEncomenda {
 
 }
 
-
-
 /**
 CREATE TABLE IF NOT EXISTS `RetiradaEncomenda` (
   `Id_Retir_Encomenda` INT AUTO_INCREMENT,

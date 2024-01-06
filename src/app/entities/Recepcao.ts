@@ -12,9 +12,6 @@ export default class Recepcao {
     @JoinColumn({ name: 'Id_Usuario', referencedColumnName: 'idUsuario' })
     usuario: Usuario;
 
-    @Column({ name: 'Id_Receb_Encomenda', nullable: false  })
-    idRecebEncomenda: number;
-
 }
 
 /**

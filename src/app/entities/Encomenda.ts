@@ -11,14 +11,6 @@ export default class Encomenda {
     @Column({ name: 'Obs_Encomenda', type: 'varchar', length: 100, nullable: false })
     obsEncomenda: string;
 
-    @OneToOne(() => Cliente, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
-    @JoinColumn({ name: 'Cliente_Id_Cliente', referencedColumnName: 'idCliente' })
-    cliente: Cliente;
-
-    @OneToOne(() => Endereco, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
-    @JoinColumn({ name: 'Cliente_Endereco_Id_Endereco', referencedColumnName: 'idEndereco' })
-    endereco: Endereco;
-
     @OneToOne(() => EnderecoFiscal, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     @JoinColumn({ name: 'Cliente_EnderecoFiscal_Num_End_Fiscal', referencedColumnName: 'numEndFiscal' })
     enderecoFiscal: EnderecoFiscal;  

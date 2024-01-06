@@ -32,17 +32,15 @@ export default class Usuario {
 }
 
 
-/**
-CREATE TABLE IF NOT EXISTS `Usuario` (
-  `Id_Usuario` INT AUTO_INCREMENT,
-  `Nome_Usuario` VARCHAR(100) NOT NULL,
-  `Funcao_Usuario` VARCHAR(50) NOT NULL,
-  `Email_Usuario` VARCHAR(100) NOT NULL,
-  `Login_Usuario` VARCHAR(50) NOT NULL,
-  `Senha_Usuario` VARCHAR(50) NOT NULL,
-  `Status_Usuario` INT NOT NULL,
-  `Created_at_Usuario` DATETIME NOT NULL,
-  `Updated_at_Usuario` DATETIME NOT NULL,
-  PRIMARY KEY (`Id_Usuario`)
-);
- */
+// CREATE TABLE IF NOT EXISTS `Usuario` (
+//   `Id_Usuario` INT AUTO_INCREMENT,
+//   `Nome_Usuario` VARCHAR(100) NOT NULL,
+//   `Funcao_Usuario` VARCHAR(50) NOT NULL,
+//   `Email_Usuario` VARCHAR(100) NOT NULL,
+//   `Login_Usuario` VARCHAR(50) NOT NULL,
+//   `Senha_Usuario` VARCHAR(50) NOT NULL,
+//   `Status_Usuario` INT NOT NULL,
+//   `Created_at_Usuario` DATETIME DEFAULT CURRENT_TIMESTAMP,
+//   `Updated_at_Usuario` DATETIME DEFAULT CURRENT_TIMESTAMP,
+//   PRIMARY KEY (`Id_Usuario`)
+// );
