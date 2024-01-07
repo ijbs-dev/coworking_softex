@@ -1,8 +1,9 @@
-import Usuario from "../entities/Usuario";
-import IUsuario from "../interfaces/IUsuarioCreate";
 import { AppDataSource } from "../../database/data-source";
 import { Repository } from "typeorm";
+import Usuario from "../entities/Usuario";
+//import IUsuario from "../interfaces/IUsuarioCreate";
 import IUsuarioUpdate from "../interfaces/IUsuarioUpdate";
+import IUsuarioCreate from "../interfaces/IUsuarioCreate";
 
 class UsuarioRepository {
 
@@ -12,7 +13,7 @@ class UsuarioRepository {
         this.usuarioRepository = AppDataSource.getRepository(Usuario);
     }
 
-    async create({ nomeUsuario, funcaoUsuario, emailUsuario, loginUsuario, senhaUsuario}: IUsuario): Promise<Usuario> {
+    async create({ nomeUsuario, funcaoUsuario, emailUsuario, loginUsuario, senhaUsuario}: IUsuarioCreate): Promise<Usuario> {
         const usuario = await this.usuarioRepository.create({
             nomeUsuario,
             funcaoUsuario,
