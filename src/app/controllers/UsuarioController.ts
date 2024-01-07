@@ -39,7 +39,7 @@ class UsuarioController {
         const usuario = await this.usuarioRepository.findById(id);
 
         if(!usuario) {
-            throw new Error("Usuário não existente!");
+            throw new Error("Usuário inexistente!");
         }
 
         return usuario;
@@ -50,7 +50,7 @@ class UsuarioController {
         const usuario = await this.usuarioRepository.findById(id);
 
         if (!usuario) {
-            throw new Error("Usuário não existente!");
+            throw new Error("Usuário inexistente!");
         }
          
         await this.usuarioRepository.update(id, dadosUsuario);

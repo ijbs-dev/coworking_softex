@@ -1,7 +1,8 @@
-import { Entity, PrimaryColumn, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('Endereco')
 export default class Endereco {
+
     @PrimaryGeneratedColumn({ name: 'Id_Endereco', type: 'int' })
     idEndereco: number;
    

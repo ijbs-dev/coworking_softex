@@ -43,7 +43,6 @@ class UsuarioRepository {
         if (usuario) {
             await this.usuarioRepository.update({ idUsuario: idUsuario}, { nomeUsuario: updatedData.nomeUsuario, senhaUsuario: updatedData.senhaUsuario });
         }
-        
     }
 
     async delete(idUsuario: number): Promise<void | null> {
