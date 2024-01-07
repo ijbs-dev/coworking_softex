@@ -1,7 +1,6 @@
 interface IRecepcao {
     idRecepcao: number;
-    idUsuario: number;
-    idRecebEncomenda: number;
+    idUsuario: number
 }
 
 export default IRecepcao;
