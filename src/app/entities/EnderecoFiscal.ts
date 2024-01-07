@@ -14,4 +14,8 @@ export default class EnderecoFiscal {
 
     @UpdateDateColumn({ name: 'Updated_at_End_Fiscal', type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
     updatedAtEndFiscal: Date;
+
+    constructor() {
+        this.statusEndFiscal = 1
+    }
 }

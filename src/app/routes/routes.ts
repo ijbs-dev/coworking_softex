@@ -3,6 +3,7 @@ import { usuarioRoutes } from "./usuario.routes";
 import { enderecoRoutes } from "./endereco.routes";
 import { adminRoutes } from "./admin.routes";
 import { recepcaoRoutes } from "./recepcao.routes";
+import { enderecoFiscalRoutes } from "./enderecofiscal.routes";
 
 // import clienteRouter from "../controllers/ClienteController";
 // import adminRouter from "../controllers/AdminController";
@@ -37,7 +38,6 @@ routes.use("/usuario", usuarioRoutes);
 routes.use("/endereco", enderecoRoutes);
 routes.use("/admin", adminRoutes);
 routes.use("/recepcao", recepcaoRoutes);
-
-
+routes.use("/enderecofiscal", enderecoFiscalRoutes);
 
 export {routes};

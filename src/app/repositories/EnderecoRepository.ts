@@ -1,8 +1,8 @@
 import { AppDataSource } from "../../database/data-source";
 import { Repository } from "typeorm";
 import Endereco from "../entities/Endereco";
-import IEndereco from "../interfaces/IEndereco";
 import IEnderecoUpdate from "../interfaces/IEnderecoUpdate";
+import IEnderecoCreate from "../interfaces/IEnderecoCreate";
 
 
 class EnderecoRepository{
@@ -13,7 +13,7 @@ class EnderecoRepository{
         this.enderecoRepository = AppDataSource.getRepository(Endereco);
     }
 
-    async create({ logradouro, numero, bairro, uf}: IEndereco): Promise<Endereco> {
+    async create({ logradouro, numero, bairro, uf}: IEnderecoCreate): Promise<Endereco> {
         const endereco = await this.enderecoRepository.create({
             logradouro,
             numero,
@@ -61,29 +61,3 @@ class EnderecoRepository{
 }
 
 export { EnderecoRepository };
-
-
-
-// getEndereco = (): Promise<Endereco[]> => {
-//     return this.enderecoRepository.find();
-// }    
-
-// getEnderecoById = (id: number): Promise<Endereco[]> => {
-//     return this.enderecoRepository.find({ where: { idEndereco: id } });
-// }
-
-// createEndereco = (endereco: Endereco): Promise<Endereco> => {
-//     return this.enderecoRepository.save(endereco);
-// }
-
-// updateEndereco = (endereco: Endereco): Promise<Endereco> => {
-//     return this.enderecoRepository.save(endereco);
-// }
-
-// deleteEnderecoById = async (id: number): Promise<Endereco | null> => {
-//     const endereco = await this.enderecoRepository.findOne({ where: { idEndereco: id } });
-//     if (endereco) {
-//         return this.enderecoRepository.remove(endereco);
-//     }
-//     return null;
-// }
