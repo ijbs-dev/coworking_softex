@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { usuarioRoutes } from "./usuario.routes";
 import { enderecoRoutes } from "./endereco.routes";
+import { adminRoutes } from "./admin.routes";
 // import clienteRouter from "../controllers/ClienteController";
 // import adminRouter from "../controllers/AdminController";
 // import representanteRouter from "../controllers/RepresentanteController";
@@ -32,5 +33,7 @@ const routes  = Router();
 
 routes.use("/usuario", usuarioRoutes);
 routes.use("/endereco", enderecoRoutes);
+routes.use("/admin", adminRoutes);
+
 
 export {routes};
