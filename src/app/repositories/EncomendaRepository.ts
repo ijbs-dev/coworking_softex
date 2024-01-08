@@ -34,18 +34,18 @@ class EncomendaRepository {
 
     async update(idEncomenda: number, updatedData: IEncomendaUpdate): Promise<void> {   
         
-        const usuario = await this.encomendaRepository.findOneOrFail({ where: [{ idEncomenda }] });
+        const encomenda = await this.encomendaRepository.findOneOrFail({ where: [{ idEncomenda }] });
         
-        if (usuario) {
+        if (encomenda) {
             await this.encomendaRepository.update({ idEncomenda: idEncomenda}, { obsEncomenda: updatedData.obsEncomenda });
         }
     }
 
     async delete(idEncomenda: number): Promise<void | null> {
-        const usuario = await this.encomendaRepository.findOne({where: [{ idEncomenda }] });
+        const encomenda = await this.encomendaRepository.findOne({where: [{ idEncomenda }] });
 
-        if (usuario) {
-            await this.encomendaRepository.remove(usuario)
+        if (encomenda) {
+            await this.encomendaRepository.remove(encomenda)
         }
     }
 
@@ -53,30 +53,3 @@ class EncomendaRepository {
 }
 
 export { EncomendaRepository };
-   
-   
-   
-    
-    // getEncomenda = (): Promise<Encomenda[]> => {
-    //     return this.encomendaRepository.find();
-    // }    
-
-    // getEncomendaById = (id: number): Promise<Encomenda[]> => {
-    //     return this.encomendaRepository.find({ where: { idEncomenda: id } });
-    // }
-
-
-
-    /**
-     * deleteClientById = async (id: number): Promise<Cliente | null> => {
-        const cliente = await this.clienteRepository.findOne({ where: { idCliente: id } });
-        if (cliente) {
-            return this.clienteRepository.remove(cliente);
-        }
-        return null;
-    }
-
-     */
-
-    
-

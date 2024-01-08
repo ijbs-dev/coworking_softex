@@ -1,35 +1,51 @@
-import RecebimentoEncomenda from "../entities/RecebimentoEncomenda";
-import IRecebimentoEncomenda from "../interfaces/IRecebimentoEncomenda";
 import { AppDataSource } from "../../database/data-source";
+import { Repository } from "typeorm";
+import RecebimentoEncomenda from "../entities/RecebimentoEncomenda";
+import IRecebimentoEncomendaCreate from "../interfaces/IRecebimentoEncomendaCreate";
+import IRecebimentoEncomendaUpdate from "../interfaces/IRecebimentoEncomendaUpdate";
 
-class RecebimentoEncomendaRepository{
-    
-    recebimentoEncomendaRepository = AppDataSource.getRepository(RecebimentoEncomenda);
 
-    getRecebimentoEncomenda = (): Promise<RecebimentoEncomenda[]> => {
-        return this.recebimentoEncomendaRepository.find();
-    }    
+class RecebimentoEncomendaRepository {
 
-    getRecebimentoEncomendaById = (id: number): Promise<RecebimentoEncomenda[]> => {
-        return this.recebimentoEncomendaRepository.find({ where: { idRecebEncomenda: id } });
+    private recebimentoEncomendaRepository: Repository<RecebimentoEncomenda>;
+
+    constructor() {
+        this.recebimentoEncomendaRepository = AppDataSource.getRepository(RecebimentoEncomenda);
     }
 
-    createRecebimentoEncomenda = (recebimentoEncomenda: RecebimentoEncomenda): Promise<RecebimentoEncomenda> => {
-        return this.recebimentoEncomendaRepository.save(recebimentoEncomenda);
+    async create({ obsRecebEncomenda, encomendaIdEncomenda, enderecoFiscalNumEndFiscal }: IRecebimentoEncomendaCreate): Promise<RecebimentoEncomenda> {
+        const recebimentoEncomenda = await this.recebimentoEncomendaRepository.create({
+            obsRecebEncomenda,
+            encomendaIdEncomenda,
+            enderecoFiscalNumEndFiscal
+        });
+        return await this.recebimentoEncomendaRepository.save(recebimentoEncomenda);
     }
 
-    updateRecebimentoEncomenda = (recebimentoEncomenda: RecebimentoEncomenda): Promise<RecebimentoEncomenda> => {
-        return this.recebimentoEncomendaRepository.save(recebimentoEncomenda);
+    async list(): Promise<RecebimentoEncomenda[]> {
+        return await this.recebimentoEncomendaRepository.find();
     }
 
-    deleteRecebimentoEncomendaById = async (id: number): Promise<RecebimentoEncomenda | null> => {
-        const recebimentoEncomenda = await this.recebimentoEncomendaRepository.findOne({ where: { idRecebEncomenda: id } });
-        if (recebimentoEncomenda) {
-            return this.recebimentoEncomendaRepository.remove(recebimentoEncomenda);
+    async findById(idRecebEncomenda: number): Promise<RecebimentoEncomenda | null> {
+        return await this.recebimentoEncomendaRepository.findOneOrFail({ where: [{ idRecebEncomenda }] });
+    }
+
+    async update(idRecebEncomenda: number, updatedData: IRecebimentoEncomendaUpdate): Promise<void> {
+        const recebimentoEncomenda = await this.recebimentoEncomendaRepository.findOneOrFail({ where: [{ idRecebEncomenda }]});
+         
+        if(recebimentoEncomenda) {
+            await this.recebimentoEncomendaRepository.update({ idRecebEncomenda}, { obsRecebEncomenda: updatedData.obsRecebEncomenda, encomendaIdEncomenda: updatedData.encomendaIdEncomenda, enderecoFiscalNumEndFiscal: updatedData.enderecoFiscalNumEndFiscal });
         }
-        return null;
     }
-    
+
+    async delete(idRecebEncomenda: number): Promise<void | null> {
+        const recebimentoEncomenda = await this.recebimentoEncomendaRepository.findOne({ where: [{idRecebEncomenda}] });
+
+        if(!recebimentoEncomenda) {
+            throw new Error("Encomenda inexistente!");
+        }
+        await this.recebimentoEncomendaRepository.remove(recebimentoEncomenda);
+    }
 }
 
-export default RecebimentoEncomendaRepository;
+export { RecebimentoEncomendaRepository };

@@ -8,6 +8,7 @@ import { encomendaRoutes } from "./encomenda.routes";
 import clienteRoutes from "./cliente.routes";
 import { pessoaFisicaRoutes } from "./pessoaFisica.routes";
 import { pessoaJuridicaRoutes } from "./pessoaJuridica.routes";
+import { recebimentoEncomendaRoutes } from "./recebimentoEncomenda.routes";
 
 const routes  = Router();
 
@@ -17,6 +18,7 @@ routes.use("/admin", adminRoutes);
 routes.use("/recepcao", recepcaoRoutes);
 routes.use("/enderecofiscal", enderecoFiscalRoutes);
 routes.use("/encomenda", encomendaRoutes);
+routes.use("/recebimentoencomenda", recebimentoEncomendaRoutes);
 routes.use("/cliente", clienteRoutes);
 routes.use("/pessoafisica", pessoaFisicaRoutes);
 routes.use("/pessoaJuridica", pessoaJuridicaRoutes);
