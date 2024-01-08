@@ -103,11 +103,10 @@ CREATE TABLE IF NOT EXISTS `Cliente` (
   `Endereco_Id_Endereco` INT NOT NULL,
   `Admin_Id_Admin` INT NOT NULL,
   `EnderecoFiscal_Num_End_Fiscal` INT NOT NULL,
-  PRIMARY KEY (`Id_Cliente`, `Endereco_Id_Endereco`, `EnderecoFiscal_Num_End_Fiscal`),
+  PRIMARY KEY (`Id_Cliente`),
   INDEX `fk_Cliente_Endereco_idx` (`Endereco_Id_Endereco`),
   INDEX `fk_Cliente_Admin_idx` (`Admin_Id_Admin`),
   INDEX `fk_Cliente_EnderecoFiscal_idx` (`EnderecoFiscal_Num_End_Fiscal`)
-  -- FOREIGN KEY removed
 );
 
 -- Triggers para a tabela Cliente
@@ -277,18 +276,32 @@ VALUES
 ('Avenida J', 707, 'Centro', 'SP');
 
 -- Inserir dados na tabela Cliente
-INSERT INTO Cliente (Nome_Cliente, Telefone_Cliente, Email_Cliente, Qtd_pontos_Cliente, Prazo_Cliente, Valor_mensal_Cliente, Status_Cliente, Created_at_Cliente, Updated_at_Cliente, Endereco_Id_Endereco, Admin_Id_Admin, EnderecoFiscal_Num_End_Fiscal)
-VALUES
-('João Silva', '1111-2222', 'joao.silva@email.com', 2, '2023-12-31', 400.00, 0, NOW(), NOW(), 81, 1, 32),
-('Maria Oliveira', '3333-4444', 'maria.oliveira@email.com', 3, '2023-12-31', 600.00, 1, NOW(), NOW(), 82, 2, 31),
-('Carlos Santos', '5555-6666', 'carlos.santos@email.com', 4, '2023-12-31', 800.00, 0, NOW(), NOW(), 83, 1, 34),
-('Ana Souza', '9999-0000', 'ana.souza@email.com', 7, '2023-12-31', 1400.00, 1, NOW(), NOW(), 84, 2, 33),
-('Rafael Lima', '7777-8888', 'rafael.lima@email.com', 5, '2023-12-31', 1000.00, 0, NOW(), NOW(), 85, 1, 36),
-('Aline Oliveira', '3333-9999', 'aline.oliveira@email.com', 2, '2023-12-31', 400.00, 1, NOW(), NOW(), 86, 1, 35),
-('Fernando Costa', '5555-1111', 'fernando.costa@email.com', 4, '2023-12-31', 800.00, 0, NOW(), NOW(), 87, 2, 38),
-('Juliana Pereira', '2222-3333', 'juliana.pereira@email.com', 3, '2023-12-31', 600.00, 1, NOW(), NOW(), 88, 2, 37),
-('Roberto Santos', '4444-5555', 'roberto.santos@email.com', 5, '2023-12-31', 1000.00, 0, NOW(), NOW(), 89, 1, 40),
-('Camila Rocha', '6666-7777', 'camila.rocha@email.com', 5, '2023-12-31', 1000.00, 1, NOW(), NOW(), 90, 2, 39);
+-- Inserir dados na tabela Cliente
+INSERT INTO `Cliente` (
+  `Nome_Cliente`,
+  `Telefone_Cliente`,
+  `Email_Cliente`,
+  `Qtd_pontos_Cliente`,
+  `Prazo_Cliente`,
+  `Valor_mensal_Cliente`,
+  `Status_Cliente`,
+  `Created_at_Cliente`,
+  `Updated_at_Cliente`,
+  `Endereco_Id_Endereco`,
+  `Admin_Id_Admin`,
+  `EnderecoFiscal_Num_End_Fiscal`
+) VALUES
+  ('João Silva', '1111-2222', 'joao.silva@email.com', 2, '2023-12-31', 400.00, 0, NOW(), NOW(), (SELECT MAX(Id_Endereco) FROM Endereco), (SELECT MAX(Id_Admin) FROM Admin), (SELECT MAX(Num_End_Fiscal) FROM EnderecoFiscal)),
+  ('Maria Oliveira', '3333-4444', 'maria.oliveira@email.com', 3, '2023-12-31', 600.00, 1, NOW(), NOW(), (SELECT MAX(Id_Endereco) FROM Endereco), (SELECT MAX(Id_Admin) FROM Admin), (SELECT MAX(Num_End_Fiscal) FROM EnderecoFiscal)),
+  ('Carlos Santos', '5555-6666', 'carlos.santos@email.com', 4, '2023-12-31', 800.00, 0, NOW(), NOW(), (SELECT MAX(Id_Endereco) FROM Endereco), (SELECT MAX(Id_Admin) FROM Admin), (SELECT MAX(Num_End_Fiscal) FROM EnderecoFiscal)),
+  ('Ana Souza', '9999-0000', 'ana.souza@email.com', 7, '2023-12-31', 1400.00, 1, NOW(), NOW(), (SELECT MAX(Id_Endereco) FROM Endereco), (SELECT MAX(Id_Admin) FROM Admin), (SELECT MAX(Num_End_Fiscal) FROM EnderecoFiscal)),
+  ('Rafael Lima', '7777-8888', 'rafael.lima@email.com', 5, '2023-12-31', 1000.00, 0, NOW(), NOW(), (SELECT MAX(Id_Endereco) FROM Endereco), (SELECT MAX(Id_Admin) FROM Admin), (SELECT MAX(Num_End_Fiscal) FROM EnderecoFiscal)),
+  ('Aline Oliveira', '3333-9999', 'aline.oliveira@email.com', 2, '2023-12-31', 400.00, 1, NOW(), NOW(), (SELECT MAX(Id_Endereco) FROM Endereco), (SELECT MAX(Id_Admin) FROM Admin), (SELECT MAX(Num_End_Fiscal) FROM EnderecoFiscal)),
+  ('Fernando Costa', '5555-1111', 'fernando.costa@email.com', 4, '2023-12-31', 800.00, 0, NOW(), NOW(), (SELECT MAX(Id_Endereco) FROM Endereco), (SELECT MAX(Id_Admin) FROM Admin), (SELECT MAX(Num_End_Fiscal) FROM EnderecoFiscal)),
+  ('Juliana Pereira', '2222-3333', 'juliana.pereira@email.com', 3, '2023-12-31', 600.00, 1, NOW(), NOW(), (SELECT MAX(Id_Endereco) FROM Endereco), (SELECT MAX(Id_Admin) FROM Admin), (SELECT MAX(Num_End_Fiscal) FROM EnderecoFiscal)),
+  ('Roberto Santos', '4444-5555', 'roberto.santos@email.com', 5, '2023-12-31', 1000.00, 0, NOW(), NOW(), (SELECT MAX(Id_Endereco) FROM Endereco), (SELECT MAX(Id_Admin) FROM Admin), (SELECT MAX(Num_End_Fiscal) FROM EnderecoFiscal)),
+  ('Camila Rocha', '6666-7777', 'camila.rocha@email.com', 5, '2023-12-31', 1000.00, 1, NOW(), NOW(), (SELECT MAX(Id_Endereco) FROM Endereco), (SELECT MAX(Id_Admin) FROM Admin), (SELECT MAX(Num_End_Fiscal) FROM EnderecoFiscal));
+
 
 -- Inserir dados na tabela PessoaFisica
 INSERT INTO PessoaFisica (Cpf, Id_Cliente)
@@ -395,23 +408,14 @@ ALTER TABLE `PessoaJuridica` ADD CONSTRAINT `fk_PessoaJuridica_Cliente`
   ON DELETE CASCADE
   ON UPDATE CASCADE;
   
-ALTER TABLE `Cliente` ADD CONSTRAINT `fk_Cliente_Endereco`
-  FOREIGN KEY (`Endereco_Id_Endereco`)
-  REFERENCES `Endereco` (`Id_Endereco`)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE;
+ALTER TABLE `Cliente`
+  ADD FOREIGN KEY (`Endereco_Id_Endereco`) REFERENCES `Endereco` (`Id_Endereco`) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE `Cliente` ADD CONSTRAINT `fk_Cliente_Admin`
-  FOREIGN KEY (`Admin_Id_Admin`)
-  REFERENCES `Admin` (`Id_Admin`)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE;
+ALTER TABLE `Cliente`
+  ADD FOREIGN KEY (`Admin_Id_Admin`) REFERENCES `Admin` (`Id_Admin`) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE `Cliente` ADD CONSTRAINT `fk_Cliente_EnderecoFiscal`
-  FOREIGN KEY (`EnderecoFiscal_Num_End_Fiscal`)
-  REFERENCES `EnderecoFiscal` (`Num_End_Fiscal`)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE;
+ALTER TABLE `Cliente`
+  ADD FOREIGN KEY (`EnderecoFiscal_Num_End_Fiscal`) REFERENCES `EnderecoFiscal` (`Num_End_Fiscal`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `Encomenda` ADD CONSTRAINT `fk_Encomenda_Cliente`
   FOREIGN KEY (`Cliente_EnderecoFiscal_Num_End_Fiscal`)
