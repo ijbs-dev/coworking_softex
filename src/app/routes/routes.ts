@@ -6,6 +6,7 @@ import { recepcaoRoutes } from "./recepcao.routes";
 import { enderecoFiscalRoutes } from "./enderecofiscal.routes";
 import { encomendaRoutes } from "./encomenda.routes";
 import clienteRoutes from "./cliente.routes";
+import { pessoaFisicaRoutes } from "./pessoaFisica.routes";
 
 // import clienteRouter from "../controllers/ClienteController";
 // import adminRouter from "../controllers/AdminController";
@@ -43,6 +44,7 @@ routes.use("/recepcao", recepcaoRoutes);
 routes.use("/enderecofiscal", enderecoFiscalRoutes);
 routes.use("/encomenda", encomendaRoutes);
 routes.use("/cliente", clienteRoutes);
+routes.use("/pessoafisica", pessoaFisicaRoutes);
 
 
 export {routes};
