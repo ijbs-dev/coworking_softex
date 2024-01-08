@@ -67,17 +67,6 @@ class UsuarioController {
         await this.usuarioRepository.delete(id);
     }
 
-    // async deleteByEmail(email: string): Promise<void> {
-        
-    //     const usuario = await this.usuarioRepository.findByEmail(email);
-
-    //     if (!usuario) {
-    //         throw new Error("Usuário não existente!");
-    //     }
-
-    //     await this.usuarioRepository.delete(usuario.idUsuario);
-    // }
-
 }
 
 export { UsuarioController };

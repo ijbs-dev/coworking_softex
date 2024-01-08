@@ -1,38 +1,67 @@
 import Cliente from "../entities/Cliente";
-import ICliente from "../interfaces/ICliente";
 import { AppDataSource } from "../../database/data-source";
+import { Repository } from "typeorm";
+import IClienteCreate from "../interfaces/IClienteCreate";
+import IClienteUpdate from "../interfaces/IClienteUpdate";
 
 class ClienteRepository {
    
-    clienteRepository = AppDataSource.getRepository(Cliente);
+    private clienteRepository: Repository<Cliente>
 
-    getClients = (): Promise<Cliente[]> => {
-        return this.clienteRepository.find();
+    constructor() {
+        this.clienteRepository = AppDataSource.getRepository(Cliente);
     }
 
-    getClientById = (id: number): Promise<Cliente[]> => {
-        return this.clienteRepository.find({ where: { idCliente: id } });
+    async create({ nomeCliente, telefoneCliente, emailCliente, qtdPontosCliente, prazoCliente, valorMensalCliente,enderecoIdEndereco, adminIdAdmin, enderecoFiscalNumEndFiscal}: IClienteCreate): Promise<Cliente> {
+
+        const cliente = await this.clienteRepository.create({
+            nomeCliente, 
+            telefoneCliente, 
+            emailCliente, 
+            qtdPontosCliente,
+            prazoCliente,
+            valorMensalCliente,
+            enderecoIdEndereco,
+            adminIdAdmin,
+            enderecoFiscalNumEndFiscal
+        });
+
+        return await this.clienteRepository.save(cliente);
     }
 
-    createClient = (cliente: ICliente): Promise<Cliente> => {
-        return this.clienteRepository.save(cliente);
+    async list(): Promise<Cliente[]> {
+
+        return await this.clienteRepository.find();
     }
 
-    updateClient = (cliente: ICliente): Promise<Cliente> => {
-        return this.clienteRepository.save(cliente);
+    async findById(idCliente: number): Promise<Cliente | null> {
+
+        return await this.clienteRepository.findOne({ where: { idCliente } });
     }
 
-    deleteClientById = async (id: number): Promise<Cliente | null> => {
-        const cliente = await this.clienteRepository.findOne({ where: { idCliente: id } });
+    async findByEmail(emailCliente: string): Promise<Cliente | null> {
+
+        return await this.clienteRepository.findOne({ where: { emailCliente } });
+    }
+
+
+    async update(idCliente: number, updatedData: IClienteUpdate): Promise<void> {   
+        
+        const cliente = await this.clienteRepository.findOneOrFail({ where: { idCliente } });
+        
         if (cliente) {
-            return this.clienteRepository.remove(cliente);
+            await this.clienteRepository.update({ idCliente: idCliente}, { telefoneCliente: updatedData.telefoneCliente, emailCliente: updatedData.emailCliente, qtdPontosCliente: updatedData.qtdPontosCliente, prazoCliente: updatedData.prazoCliente, valorMensalCliente: updatedData.valorMensalCliente,  updatedAtCliente: new Date() });
         }
-        return null;
+    }
+
+    async delete(idCliente: number): Promise<void | null> {
+        const cliente = await this.clienteRepository.findOne({where: { idCliente } });
+
+        if (cliente) {
+            await this.clienteRepository.remove(cliente);
+        }
     }
 
 }
-    export default ClienteRepository
 
-
-
-
+export default ClienteRepository

@@ -5,6 +5,7 @@ import { adminRoutes } from "./admin.routes";
 import { recepcaoRoutes } from "./recepcao.routes";
 import { enderecoFiscalRoutes } from "./enderecofiscal.routes";
 import { encomendaRoutes } from "./encomenda.routes";
+import clienteRoutes from "./cliente.routes";
 
 // import clienteRouter from "../controllers/ClienteController";
 // import adminRouter from "../controllers/AdminController";
@@ -41,6 +42,7 @@ routes.use("/admin", adminRoutes);
 routes.use("/recepcao", recepcaoRoutes);
 routes.use("/enderecofiscal", enderecoFiscalRoutes);
 routes.use("/encomenda", encomendaRoutes);
+routes.use("/cliente", clienteRoutes);
 
 
 export {routes};
