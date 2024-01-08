@@ -1,42 +1,85 @@
-import { Request, Response, Router } from "express";
 import Encomenda from "../entities/Encomenda";
-import IEncomenda from "../interfaces/IEncomenda";
-import EncomendaRepository from "../repositories/EncomendaRepository";
+import IEncomendaCreate from "../interfaces/IEncomendaCreate";
+import IEncomendaUpdate from "../interfaces/IEncomendaUpdate";
+import { EncomendaRepository } from "../repositories/EncomendaRepository";
 
-const encomendaRouter = Router();
+class EncomendaController {
 
-encomendaRouter.get("/", async (_req: Request, resp: Response): Promise<Response> => {
-    const encomendaRepository = new EncomendaRepository();
-    const encomenda = await encomendaRepository.getEncomenda();
-    return resp.status(200).json(encomenda);
-});
+    constructor(private encomendaRepository: EncomendaRepository) {}
 
-encomendaRouter.get("/:id", async (req: Request, resp: Response): Promise<Response> => {
-    try {
-        const encomendaRepository = new EncomendaRepository();
-        const idEncomenda = parseInt(req.params.id, 10);
+    // async create(obsEncomenda: string, numEndFiscal: number): Promise<Encomenda> {
+    //     const encomenda = await this.encomendaRepository.create({ obsEncomenda, numEndFiscal })
+    //     return await this.encomendaRepository.create(encomenda);
+    // }
 
-        console.log("ID da Encomenda:", idEncomenda);
+    async create(dadosEncomenda: Encomenda): Promise<void> {
+        //falta a validação
 
-        if (isNaN(idEncomenda)) {
-            console.log("ID da Encomenda inválido!");
-            return resp.status(400).json({ error: "ID da encomenda inválido!" });   
-        }
-        
-        const encomendaEncontrado = await encomendaRepository.getEncomendaById(idEncomenda);
-
-        console.log("Encomenda Encontrado:", encomendaEncontrado);
-
-        if (encomendaEncontrado && encomendaEncontrado.length > 0) {
-            return resp.status(200).json(encomendaEncontrado);
-        } else {
-            console.log("Encomenda não encontrado.");
-            return resp.status(404).json({ error: "Encomenda não encontrado." });
-        }        
-    } catch(error) {
-        console.log("Erro ao buscar encomenda por ID:", error);
-        return resp.status(500).json({ error: "Erro ao buscar encomenda por ID.", details: error });
+        await this.encomendaRepository.create(dadosEncomenda);
     }
-});
 
-export default encomendaRouter;
+    async list(): Promise<Encomenda[]> {
+        return await this.encomendaRepository.list();
+    }
+
+    async findById(id: number): Promise<Encomenda> {
+        
+        const encomenda = await this.encomendaRepository.findById(id);
+
+        if(!encomenda) {
+            throw new Error("Encomenda inexistente!");
+        }
+        return encomenda;
+    }
+
+    async update(id: number, dadosEncomenda: IEncomendaUpdate): Promise<void> {
+        const encomenda = await this.encomendaRepository.findById(id);
+
+        if(!encomenda) {
+            throw new Error("Encomenda inexistente!");
+        }
+
+        await this.encomendaRepository.update(id, dadosEncomenda);
+    }
+
+    async delete(id: number): Promise<void> {
+        const encomenda = await this.encomendaRepository.findById(id);
+
+        if(!encomenda) {
+            throw new Error("Encomenda inexistente!");
+        }
+        await this.encomendaRepository.delete(id);
+    }
+}
+
+export { EncomendaController };
+
+// encomendaRouter.get("/:id", async (req: Request, resp: Response): Promise<Response> => {
+//     try {
+//         const encomendaRepository = new EncomendaRepository();
+//         const idEncomenda = parseInt(req.params.id, 10);
+
+//         console.log("ID da Encomenda:", idEncomenda);
+
+//         if (isNaN(idEncomenda)) {
+//             console.log("ID da Encomenda inválido!");
+//             return resp.status(400).json({ error: "ID da encomenda inválido!" });   
+//         }
+        
+//         const encomendaEncontrado = await encomendaRepository.getEncomendaById(idEncomenda);
+
+//         console.log("Encomenda Encontrado:", encomendaEncontrado);
+
+//         if (encomendaEncontrado && encomendaEncontrado.length > 0) {
+//             return resp.status(200).json(encomendaEncontrado);
+//         } else {
+//             console.log("Encomenda não encontrado.");
+//             return resp.status(404).json({ error: "Encomenda não encontrado." });
+//         }        
+//     } catch(error) {
+//         console.log("Erro ao buscar encomenda por ID:", error);
+//         return resp.status(500).json({ error: "Erro ao buscar encomenda por ID.", details: error });
+//     }
+// });
+
+// export default encomendaRouter;

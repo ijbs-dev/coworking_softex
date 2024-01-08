@@ -1,34 +1,55 @@
-import Encomenda from "../entities/Encomenda";
-import IEncomenda from "../interfaces/IEncomenda";
 import { AppDataSource } from "../../database/data-source";
+import { Repository } from "typeorm";
+import Encomenda from "../entities/Encomenda";
+import IEncomendaCreate from "../interfaces/IEncomendaCreate";
+import IEncomendaUpdate from "../interfaces/IEncomendaUpdate";
 
-class EncomendaRepository{
+
+class EncomendaRepository {
     
-    encomendaRepository = AppDataSource.getRepository(Encomenda);
+  
+    private encomendaRepository: Repository<Encomenda>;
 
-    getEncomenda = (): Promise<Encomenda[]> => {
-        return this.encomendaRepository.find();
-    }    
-
-    getEncomendaById = (id: number): Promise<Encomenda[]> => {
-        return this.encomendaRepository.find({ where: { idEncomenda: id } });
+    constructor() {
+        this.encomendaRepository = AppDataSource.getRepository(Encomenda);
     }
 
 
+    async create({ obsEncomenda, numEndFiscal}: IEncomendaCreate): Promise<Encomenda> {
+        const encomenda = await this.encomendaRepository.create({
+            obsEncomenda,
+            numEndFiscal
+        });
 
-    /**
-     * deleteClientById = async (id: number): Promise<Cliente | null> => {
-        const cliente = await this.clienteRepository.findOne({ where: { idCliente: id } });
-        if (cliente) {
-            return this.clienteRepository.remove(cliente);
+        return await this.encomendaRepository.save(encomenda);
+    }
+
+    async list(): Promise<Encomenda[]> {
+        return await this.encomendaRepository.find();
+    }
+
+    async findById(idEncomenda: number): Promise<Encomenda | null> {
+        return await this.encomendaRepository.findOneOrFail({ where: [{ idEncomenda }] });
+    }
+
+    async update(idEncomenda: number, updatedData: IEncomendaUpdate): Promise<void> {   
+        
+        const encomenda = await this.encomendaRepository.findOneOrFail({ where: [{ idEncomenda }] });
+        
+        if (encomenda) {
+            await this.encomendaRepository.update({ idEncomenda: idEncomenda}, { obsEncomenda: updatedData.obsEncomenda });
         }
-        return null;
     }
 
-     */
+    async delete(idEncomenda: number): Promise<void | null> {
+        const encomenda = await this.encomendaRepository.findOne({where: [{ idEncomenda }] });
 
-    
+        if (encomenda) {
+            await this.encomendaRepository.remove(encomenda)
+        }
+    }
 
+   
 }
 
-export default EncomendaRepository;
+export { EncomendaRepository };

@@ -8,17 +8,17 @@ export default class RecebimentoEncomenda {
     @PrimaryGeneratedColumn({ name: 'Id_Receb_Encomenda' })
     idRecebEncomenda: number;
 
-    @Column({ name: 'DataHora_Receb_Encomenda', nullable: false  })
-    dataHoraRecebEncomenda: Date;
+    @Column({ name: 'DataHora_Receb_Encomenda', type: 'datetime', default: () => 'CURRENT_TIMESTAMP'})
+    dataHoraRecebEncomenda?: Date | undefined;
 
     @Column({ name: 'Obs_Receb_encomenda', length: 200, nullable: false  })
     obsRecebEncomenda: string;
 
     @Column({ name: 'Encomenda_Id_Encomenda', type: 'int', nullable: false })
-    idEncomenda: number;
+    encomendaIdEncomenda: number;
 
     @Column({ name: 'EnderecoFiscal_Num_End_Fiscal', type: 'int', nullable: false })
-    numEndFiscal: number;
+    enderecoFiscalNumEndFiscal: number;
 
     @Column({ name: 'Recepcao_Id_Recepcao', type: 'int', nullable: false })
     idRecepcao: number;

@@ -1,33 +1,57 @@
 import PessoaFisica from "../entities/PessoaFisica";
-import IPessoaFisica from "../interfaces/IPessoaFisica";
+import IPessoaFisica from "../interfaces/IPessoaFisicaCreate";
 import { AppDataSource } from "../../database/data-source";
+import { Repository } from "typeorm";
+import IPessoaFisicaCreate from "../interfaces/IPessoaFisicaCreate";
 
 class PessoaFisicaRepository{
     
-    pessoaFisicaRepository = AppDataSource.getRepository(PessoaFisica);
+    private pessoaFisicaRepository: Repository<PessoaFisica>;
 
-    getPessoaFisica = (): Promise<PessoaFisica[]> => {
-        return this.pessoaFisicaRepository.find();
+    constructor() {
+        this.pessoaFisicaRepository = AppDataSource.getRepository(PessoaFisica);
+    }
+
+    async list(): Promise<PessoaFisica[]> {
+
+        return await this.pessoaFisicaRepository.find();
     }    
 
-    getPessoaFisicaById = (id: number): Promise<PessoaFisica[]> => {
-        return this.pessoaFisicaRepository.find({ where: { idPfisica: id } });
+    async findById(idPfisica: number): Promise<PessoaFisica | null> {
+
+        return await this.pessoaFisicaRepository.findOne({ where: { idPfisica } });
     }
 
-    createPessoaFisica = (pessoaFisica: PessoaFisica): Promise<PessoaFisica> => {
-        return this.pessoaFisicaRepository.save(pessoaFisica);
+    async findByCpf(cpf: string): Promise<PessoaFisica | null> {
+
+        return await this.pessoaFisicaRepository.findOne({ where: { cpf } });
     }
 
-    updatePessoaFisica = (pessoaFisica: PessoaFisica): Promise<PessoaFisica> => {
-        return this.pessoaFisicaRepository.save(pessoaFisica);
+    async create({ cpf, idCliente }: IPessoaFisicaCreate): Promise<void> {
+        
+        const pessoafisica = await this.pessoaFisicaRepository.create({
+            cpf,
+            idCliente
+        });
+
+        await this.pessoaFisicaRepository.save(pessoafisica);
     }
 
-    deletePessoaFisicaById = async (id: number): Promise<PessoaFisica | null> => {
-        const pessoaFisica = await this.pessoaFisicaRepository.findOne({ where: { idPfisica: id } });
-        if (pessoaFisica) {
-            return this.pessoaFisicaRepository.remove(pessoaFisica);
+    async update(idPfisica: number, cpfPessoaFisica: string): Promise<void> {
+        const pessoaFisica = await this.pessoaFisicaRepository.findOne({ where: { idPfisica } });
+
+        if(pessoaFisica) {
+            await this.pessoaFisicaRepository.update({ idPfisica: idPfisica}, { cpf: cpfPessoaFisica })
         }
-        return null;
+    }
+
+    async delete(idPfisica: number): Promise<void> {
+        
+        const pessoaFisica = await this.pessoaFisicaRepository.findOne({ where: { idPfisica } });
+
+        if (pessoaFisica) {
+            await this.pessoaFisicaRepository.remove(pessoaFisica);
+        }
     }
 }
 

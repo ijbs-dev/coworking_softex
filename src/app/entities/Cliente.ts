@@ -31,7 +31,7 @@ export default class Cliente {
   valorMensalCliente: number;
 
   @Column({ name: 'Status_Cliente', type: 'int', nullable: false })
-  statusCliente: boolean;
+  statusCliente: number;
 
   @Column({ name: 'Created_at_Cliente', type: 'datetime', nullable: false })
   createdAtCliente: Date;
@@ -59,4 +59,10 @@ export default class Cliente {
   @ManyToOne(() => EnderecoFiscal, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
   @JoinColumn({ name: 'EnderecoFiscal_Num_End_Fiscal' })
   enderecoFiscal: EnderecoFiscal;
+
+  constructor() {
+    this.statusCliente = 1;
+    this.createdAtCliente = new Date();
+    this.updatedAtCliente = new Date();
+  }
 }

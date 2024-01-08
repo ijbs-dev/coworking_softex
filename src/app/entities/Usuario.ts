@@ -25,8 +25,12 @@ export default class Usuario {
     statusUsuario: number;
 
     @Column({ name: 'Created_at_Usuario', type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
-    createdAtUsuario: Date;
+    createdAtUsuario?: Date;
 
     @Column({ name: 'Updated_at_Usuario', type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
-    updatedAtUsuario: Date;
+    updatedAtUsuario?: Date;
+
+    constructor() {
+        this.statusUsuario = 1;
+    }
 }

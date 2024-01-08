@@ -1,34 +1,70 @@
 import EnderecoFiscal from "../entities/EnderecoFiscal";
-import IEndereco from "../interfaces/IEndereco";
 import { AppDataSource } from "../../database/data-source";
+import { Repository } from "typeorm";
+import IEnderecoFiscalCreate from "../interfaces/IEnderecoFiscalCreate";
+import IEnderecoFiscalUpdate from "../interfaces/IEnderecoFiscalUpdate";
 
-class EnderecoFiscalRepository{
+class EnderecoFiscalRepository {
     
-    enderecoFiscalRepository = AppDataSource.getRepository(EnderecoFiscal);
+    private enderecoFiscalRepository: Repository<EnderecoFiscal>;
 
-    getEnderecoFiscal = (): Promise<EnderecoFiscal[]> => {
-        return this.enderecoFiscalRepository.find();
-    }    
-
-    getEnderecoFiscalById = (id: number): Promise<EnderecoFiscal[]> => {
-        return this.enderecoFiscalRepository.find({ where: { numEndFiscal: id } });
+    constructor() {
+        this.enderecoFiscalRepository = AppDataSource.getRepository(EnderecoFiscal);
     }
 
-    createEnderecoFiscal = (enderecoFiscal: EnderecoFiscal): Promise<EnderecoFiscal> => {
-        return this.enderecoFiscalRepository.save(enderecoFiscal);
+    async create(numEndFiscal: number): Promise<EnderecoFiscal> {
+        const enderecoFiscal = await this.enderecoFiscalRepository.create({numEndFiscal});
+
+        return await this.enderecoFiscalRepository.save(enderecoFiscal);
     }
 
-    updateEnderecoFiscal = (enderecoFiscal: EnderecoFiscal): Promise<EnderecoFiscal> => {
-        return this.enderecoFiscalRepository.save(enderecoFiscal);
+    async list(): Promise<EnderecoFiscal[]> {
+        return await this.enderecoFiscalRepository.find();
     }
 
-    deleteEnderecoFiscalById = async (id: number): Promise<EnderecoFiscal | null> => {
-        const enderecoFiscal = await this.enderecoFiscalRepository.findOne({ where: { numEndFiscal: id } });
-        if (enderecoFiscal) {
-            return this.enderecoFiscalRepository.remove(enderecoFiscal);
+    async findByNumEndFiscal(numEndFiscal: number): Promise<EnderecoFiscal | null> {
+        return await this.enderecoFiscalRepository.findOne({where: { numEndFiscal } });
+    }
+
+    async update(numEndFiscal: number, updatedData: IEnderecoFiscalUpdate): Promise<void> {
+        const enderecoFiscal = await this.enderecoFiscalRepository.findOne({ where: { numEndFiscal } });
+
+        if(enderecoFiscal) {
+            await this.enderecoFiscalRepository.update({ numEndFiscal: numEndFiscal}, { numEndFiscal: updatedData.numEndFiscal, updatedAtEndFiscal: new Date() })
         }
-        return null;
     }
+
+    async delete(numEndFiscal: number): Promise<void | null> {
+        const enderecoFiscal = await this.enderecoFiscalRepository.findOne({ where: { numEndFiscal } })
+
+        if(enderecoFiscal) {
+            await this.enderecoFiscalRepository.remove(enderecoFiscal);
+        }
+    }
+
+    // getEnderecoFiscal = (): Promise<EnderecoFiscal[]> => {
+    //     return this.enderecoFiscalRepository.find();
+    // }    
+
+    // getEnderecoFiscalById = (id: number): Promise<EnderecoFiscal[]> => {
+    //     return this.enderecoFiscalRepository.find({ where: { numEndFiscal: id } });
+    // }
+
+    // createEnderecoFiscal = (enderecoFiscal: EnderecoFiscal): Promise<EnderecoFiscal> => {
+    //     return this.enderecoFiscalRepository.save(enderecoFiscal);
+    // }
+
+    // updateEnderecoFiscal = (enderecoFiscal: EnderecoFiscal): Promise<EnderecoFiscal> => {
+    //     return this.enderecoFiscalRepository.save(enderecoFiscal);
+    // }
+
+    // deleteEnderecoFiscalById = async (id: number): Promise<EnderecoFiscal | null> => {
+    //     const enderecoFiscal = await this.enderecoFiscalRepository.findOne({ where: { numEndFiscal: id } });
+    //     if (enderecoFiscal) {
+    //         return this.enderecoFiscalRepository.remove(enderecoFiscal);
+    //     }
+    //     return null;
+    // }
 
 }
 

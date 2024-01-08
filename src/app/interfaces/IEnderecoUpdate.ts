@@ -1,12 +1,11 @@
-interface IEndereco {
-    idEndereco: number;
-    logradouro: string;
-    numero: number;
-    bairro: string;
-    uf: string;
+interface IEnderecoUpdate {
+    logradouro?: string;
+    numero?: number;
+    bairro?: string;
+    uf?: string;
 }
 
-export default IEndereco;
+export default IEnderecoUpdate;
 
 /**
  * CREATE TABLE IF NOT EXISTS `Endereco` (

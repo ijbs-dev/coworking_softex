@@ -1,76 +1,58 @@
-import Usuario from "../entities/Usuario";
-import IUsuario from "../interfaces/IUsuario";
 import { AppDataSource } from "../../database/data-source";
 import { Repository } from "typeorm";
+import Usuario from "../entities/Usuario";
+//import IUsuario from "../interfaces/IUsuarioCreate";
+import IUsuarioUpdate from "../interfaces/IUsuarioUpdate";
+import IUsuarioCreate from "../interfaces/IUsuarioCreate";
 
-class UsuarioRepository{
+class UsuarioRepository {
 
-    
     private usuarioRepository: Repository<Usuario>;
 
     constructor() {
         this.usuarioRepository = AppDataSource.getRepository(Usuario);
     }
 
-    createUsuario = async (usuario: Usuario): Promise<Usuario | null> => {
-        const usuarioExistente = await this.usuarioRepository.findOne({
-            where: [{ emailUsuario: usuario.emailUsuario }, { loginUsuario: usuario.loginUsuario }],
+    async create({ nomeUsuario, funcaoUsuario, emailUsuario, loginUsuario, senhaUsuario}: IUsuarioCreate): Promise<Usuario> {
+        const usuario = await this.usuarioRepository.create({
+            nomeUsuario,
+            funcaoUsuario,
+            emailUsuario,
+            loginUsuario,
+            senhaUsuario,
         });
 
-        if (usuarioExistente) {
-            throw new Error("Usuário já existe!")
-            return null;
-        }
-
-        return await this.usuarioRepository.save(usuario) ?? null;
+        return await this.usuarioRepository.save(usuario);
     }
 
-    getUsuario = (): Promise<Usuario[]> => {
-        return this.usuarioRepository.find();
+    async list(): Promise<Usuario[]> {
+        return await this.usuarioRepository.find();
     }
 
-    findByEmail = async(emailUsuario: string): Promise<Usuario | null> => {
-        return await this.usuarioRepository.findOne({ where: [{ emailUsuario: emailUsuario }] });
+    async findByEmail(emailUsuario: string): Promise<Usuario | null> {
+        return await this.usuarioRepository.findOne({ where: [{ emailUsuario }] });
     }
 
-    findById = async (idUsuario: number): Promise<Usuario | null> => {
-        return await this.usuarioRepository.findOneOrFail({ where: [{ idUsuario: idUsuario }] });
-    
+    async findById(idUsuario: number): Promise<Usuario | null> {
+        return await this.usuarioRepository.findOneOrFail({ where: [{ idUsuario }] });
     }
 
-    updateUsuario = async (idUsuario: number, updatedData: Partial<Usuario>): Promise<Usuario | null> => {
-        try {
-            await this.usuarioRepository.update(idUsuario, updatedData);
-            
-            const usuarioAtualizado = await this.usuarioRepository.findOneOrFail({ where: {idUsuario: idUsuario }});
-
-            return usuarioAtualizado;
-        } catch (error) {
-            return null;
+    async update(idUsuario: number, updatedData: IUsuarioUpdate): Promise<void> {   
+        
+        const usuario = await this.usuarioRepository.findOneOrFail({ where: [{ idUsuario }] });
+        
+        if (usuario) {
+            await this.usuarioRepository.update({ idUsuario: idUsuario}, { nomeUsuario: updatedData.nomeUsuario, senhaUsuario: updatedData.senhaUsuario });
         }
     }
 
-    deleteUsuario = async (idUsuario: number): Promise<boolean> => {
-        const usuarioExistente = await this.usuarioRepository.findOne({where: [{ idUsuario: idUsuario }] });
+    async delete(idUsuario: number): Promise<void | null> {
+        const usuario = await this.usuarioRepository.findOne({where: [{ idUsuario }] });
 
-        if(usuarioExistente) {
-            await this.usuarioRepository.remove(usuarioExistente);
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
-    deleteUsuarioEmail = async (emailUsuario: string): Promise<boolean> => {
-        const usuarioExistente = await this.usuarioRepository.findOne({ where: [{ emailUsuario: emailUsuario }] });
-
-        if(usuarioExistente) {
-            await this.usuarioRepository.remove(usuarioExistente);
-            return true;
-        } else {
-            return false;
+        if (usuario) {
+            await this.usuarioRepository.remove(usuario)
         }
     }
 }
 
-export default UsuarioRepository;
+export { UsuarioRepository };

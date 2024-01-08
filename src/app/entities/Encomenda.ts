@@ -2,7 +2,8 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "ty
 import EnderecoFiscal from "./EnderecoFiscal";
 
 @Entity('Encomenda')
-export default class Encomenda {    
+export default class Encomenda {
+    
     @PrimaryGeneratedColumn({ name: 'Id_Encomenda', type: 'int' })
     idEncomenda: number;
 
