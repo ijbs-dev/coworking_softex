@@ -7,35 +7,9 @@ import { enderecoFiscalRoutes } from "./enderecofiscal.routes";
 import { encomendaRoutes } from "./encomenda.routes";
 import clienteRoutes from "./cliente.routes";
 import { pessoaFisicaRoutes } from "./pessoaFisica.routes";
-
-// import clienteRouter from "../controllers/ClienteController";
-// import adminRouter from "../controllers/AdminController";
-// import representanteRouter from "../controllers/RepresentanteController";
-// import enderecoFiscalRouter from "../controllers/EnderecoFiscalController";
-// import recebimentoEncomendaRouter from "../controllers/RecebimentoEncomendaController";
-// import pessoaJuridicaRouter from "../controllers/PessoaJuridicaController";
-// import encomendaRouter from "../controllers/EncomendaController";
-// import enderecoRouter from "../controllers/EnderecoController";
-// import pessoaFisicaRouter from "../controllers/PessoaFisicaController";
-// import recepcaoRouter from "../controllers/RecepcaoController";
-// import retiradaEncomendaRouter from "../controllers/RetiradaEncomendaController";
-// import usuarioRouter from "../controllers/UsuarioController";
+import { pessoaJuridicaRoutes } from "./pessoaJuridica.routes";
 
 const routes  = Router();
-
-// Configuração das rotas
-// routes.use('/cliente', clienteRouter);
-// routes.use('/admin', adminRouter);
-// routes.use('/representante', representanteRouter);
-// routes.use('/enderecoFiscal', enderecoFiscalRouter);
-// routes.use('/recebimentoEncomenda', recebimentoEncomendaRouter);
-// routes.use('/pessoaJuridica', pessoaJuridicaRouter);
-// routes.use('/encomenda', encomendaRouter);
-// routes.use('/endereco', enderecoRouter);
-// routes.use('/pessoaFisica', pessoaFisicaRouter);
-// routes.use('/recepcao', recepcaoRouter);
-// routes.use('/retiradaEncomenda', retiradaEncomendaRouter);
-// routes.use('/usuario', usuarioRouter);
 
 routes.use("/usuario", usuarioRoutes);
 routes.use("/endereco", enderecoRoutes);
@@ -45,6 +19,6 @@ routes.use("/enderecofiscal", enderecoFiscalRoutes);
 routes.use("/encomenda", encomendaRoutes);
 routes.use("/cliente", clienteRoutes);
 routes.use("/pessoafisica", pessoaFisicaRoutes);
-
+routes.use("/pessoaJuridica", pessoaJuridicaRoutes);
 
 export {routes};

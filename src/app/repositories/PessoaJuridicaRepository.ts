@@ -1,33 +1,49 @@
 import PessoaJuridica from "../entities/PessoaJuridica";
-import IPessoaJuridica from "../interfaces/IPessoaJuridica";
+import IPessoaJuridicaCreate from "../interfaces/IPessoaJuridicaCreate";
 import { AppDataSource } from "../../database/data-source";
+import { Repository } from "typeorm";
 
 class PessoaJuridicaRepository{
     
-    pessoaJuridicaRepository = AppDataSource.getRepository(PessoaJuridica);
+    private pessoaJuridicaRepository: Repository<PessoaJuridica>;
 
-    getPessoaJuridica = (): Promise<PessoaJuridica[]> => {
-        return this.pessoaJuridicaRepository.find();
-    }    
-
-    getPessoaJuridicaById = (id: number): Promise<PessoaJuridica[]> => {
-        return this.pessoaJuridicaRepository.find({ where: { idPJuridica: id } });
+    constructor() {
+        this.pessoaJuridicaRepository = AppDataSource.getRepository(PessoaJuridica);
     }
 
-    createPessoaJuridica = (pessoaJuridica: PessoaJuridica): Promise<PessoaJuridica> => {
-        return this.pessoaJuridicaRepository.save(pessoaJuridica);
+    async list(): Promise<PessoaJuridica[]> {
+
+        return await this.pessoaJuridicaRepository.find();
     }
 
-    updatePessoaJuridica = (pessoaJuridica: PessoaJuridica): Promise<PessoaJuridica> => {
-        return this.pessoaJuridicaRepository.save(pessoaJuridica);
+    async findById(idPJuridica: number): Promise<PessoaJuridica | null> {
+
+        return await this.pessoaJuridicaRepository.findOne({ where: { idPJuridica } });
     }
 
-    deletePessoaJuridicaById = async (id: number): Promise<PessoaJuridica | null> => {
-        const pessoaJuridica = await this.pessoaJuridicaRepository.findOne({ where: { idPJuridica: id } });
+    async findByCnpj(cnpj: string): Promise<PessoaJuridica | null> {
+
+        return await this.pessoaJuridicaRepository.findOne({ where: { cnpj } });
+    }
+
+    async create({ cnpj, razaoSocial, idCliente }: IPessoaJuridicaCreate): Promise<void> {
+        
+        const pessoaJuridica = await this.pessoaJuridicaRepository.create({
+            cnpj,
+            razaoSocial,
+            idCliente
+        });
+
+        await this.pessoaJuridicaRepository.save(pessoaJuridica);
+    }
+
+    async delete(idPJuridica: number): Promise<void> {
+        
+        const pessoaJuridica = await this.pessoaJuridicaRepository.findOne({ where: { idPJuridica } });
+
         if (pessoaJuridica) {
-            return this.pessoaJuridicaRepository.remove(pessoaJuridica);
+            await this.pessoaJuridicaRepository.remove(pessoaJuridica);
         }
-        return null;
     }
 }
 
