@@ -1,11 +1,17 @@
 import { AppDataSource } from "../../database/data-source";
 import { Repository } from "typeorm";
 import Endereco from "../entities/Endereco";
-import IEnderecoUpdate from "../interfaces/IEnderecoUpdate";
-import IEnderecoCreate from "../interfaces/IEnderecoCreate";
+import IEnderecoUpdate from "../interfaces/update/IEnderecoUpdate";
+import IEnderecoCreate from "../interfaces/create/IEnderecoCreate";
 
 
 class EnderecoRepository{
+    static save(endereco: void) {
+        throw new Error("Method not implemented.");
+    }
+    static create(enderecoData: IEnderecoCreate) {
+        throw new Error("Method not implemented.");
+    }
     
     private enderecoRepository: Repository<Endereco>;
 

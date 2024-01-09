@@ -2,18 +2,13 @@ import { Request, Response, Router } from "express";
 import Admin from "../entities/Admin";
 import IAdmin from "../interfaces/IAdmin";
 import { AdminRepository } from "../repositories/AdminRepository";
-import IAdminUpdate from "../interfaces/IAdminUpdate";
+import IAdminUpdate from "../interfaces/update/IAdminUpdate";
 
 class AdminController {
 
     constructor(private adminRepository: AdminRepository) {}
     
     async create(dadosAdmin: IAdmin): Promise<void> {
-        // const admin = await this.adminRepository.findById(dadosAdmin.idAdmin);
-        
-        //  if(admin) {
-        //      throw new Error("Administrador já existente!");
-        //  }
         await this.adminRepository.create(dadosAdmin);
     }
 

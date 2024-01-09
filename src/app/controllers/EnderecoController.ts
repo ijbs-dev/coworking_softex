@@ -1,7 +1,7 @@
 import { EnderecoRepository } from "../repositories/EnderecoRepository";
 import Endereco from "../entities/Endereco";
-import IEnderecoUpdate from "../interfaces/IEnderecoUpdate";
-import IEnderecoCreate from "../interfaces/IEnderecoCreate";
+import IEnderecoUpdate from "../interfaces/update/IEnderecoUpdate";
+import IEnderecoCreate from "../interfaces/create/IEnderecoCreate";
 
 class EnderecoController {
     

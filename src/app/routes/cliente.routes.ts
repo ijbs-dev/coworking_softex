@@ -64,7 +64,7 @@ clienteRoutes.put('/:id', async (request, response) => {
         await clienteController.update(idCliente, ClienteData);
         response.status(200).json({ message: "Cliente atualizado!" })
     } catch (error) {
-        response.status(400).json({ messahe: "Cliente não foi atualizado!" });
+        response.status(400).json({ message: "Cliente não foi atualizado!" });
         console.log(error);
     }
 
@@ -83,4 +83,4 @@ clienteRoutes.delete('/:id', async (request, response) => {
     }
 });
 
-export default clienteRoutes;
+export { clienteRoutes};

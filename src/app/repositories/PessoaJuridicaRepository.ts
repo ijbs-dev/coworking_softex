@@ -1,5 +1,5 @@
 import PessoaJuridica from "../entities/PessoaJuridica";
-import IPessoaJuridicaCreate from "../interfaces/IPessoaJuridicaCreate";
+import IPessoaJuridicaCreate from "../interfaces/create/IPessoaJuridicaCreate";
 import { AppDataSource } from "../../database/data-source";
 import { Repository } from "typeorm";
 

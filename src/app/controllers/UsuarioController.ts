@@ -1,19 +1,24 @@
 import Usuario from "../entities/Usuario";
 import { UsuarioRepository}  from "../repositories/UsuarioRepository";
-import IUsuarioCreate from "../interfaces/IUsuarioCreate";
-import IUsuarioUpdate from "../interfaces/IUsuarioUpdate";
+import IUsuarioCreate from "../interfaces/create/IUsuarioCreate";
+import IUsuarioUpdate from "../interfaces/update/IUsuarioUpdate";
 
 class UsuarioController {
 
     constructor(private usuarioRepository: UsuarioRepository) {}
+/**
+ * 
+ * interface IUsuarioCreate {
+    nomeUsuario: string;
+    funcaoUsuario: string;
+    emailUsuario: string;
+    loginUsuario: string;
+    senhaUsuario: string;
+}
 
+export default IUsuarioCreate;
+ */
     async create(dadosUsuario: IUsuarioCreate): Promise<void> {
-
-        const usuario = await this.usuarioRepository.findByEmail(dadosUsuario.emailUsuario);
-
-        if (usuario) {
-            throw new Error("Usuário já existente!");
-        }
 
         await this.usuarioRepository.create(dadosUsuario);
     }

@@ -1,8 +1,8 @@
 import EnderecoFiscal from "../entities/EnderecoFiscal";
 import { AppDataSource } from "../../database/data-source";
 import { Repository } from "typeorm";
-import IEnderecoFiscalCreate from "../interfaces/IEnderecoFiscalCreate";
-import IEnderecoFiscalUpdate from "../interfaces/IEnderecoFiscalUpdate";
+import IEnderecoFiscalCreate from "../interfaces/create/IEnderecoFiscalCreate";
+import IEnderecoFiscalUpdate from "../interfaces/update/IEnderecoFiscalUpdate";
 
 class EnderecoFiscalRepository {
     

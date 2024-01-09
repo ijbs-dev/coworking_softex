@@ -1,6 +1,6 @@
 import Encomenda from "../entities/Encomenda";
-import IEncomendaCreate from "../interfaces/IEncomendaCreate";
-import IEncomendaUpdate from "../interfaces/IEncomendaUpdate";
+import IEncomendaCreate from "../interfaces/create/IEncomendaCreate";
+import IEncomendaUpdate from "../interfaces/update/IEncomendaUpdate";
 import { EncomendaRepository } from "../repositories/EncomendaRepository";
 
 class EncomendaController {

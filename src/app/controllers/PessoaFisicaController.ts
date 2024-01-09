@@ -1,5 +1,5 @@
 import PessoaFisica from "../entities/PessoaFisica";
-import IPessoaFisicaCreate from "../interfaces/IPessoaFisicaCreate";
+import IPessoaFisicaCreate from "../interfaces/create/IPessoaFisicaCreate";
 import PessoaFisicaRepository from "../repositories/PessoaFisicaRepository";
 
 class PessoaFisicaController {

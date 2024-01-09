@@ -1,6 +1,6 @@
 import EnderecoFiscal from "../entities/EnderecoFiscal";
-import IEnderecoFiscalCreate from "../interfaces/IEnderecoFiscalCreate";
-import IEnderecoFiscalUpdate from "../interfaces/IEnderecoFiscalUpdate";
+import IEnderecoFiscalCreate from "../interfaces/create/IEnderecoFiscalCreate";
+import IEnderecoFiscalUpdate from "../interfaces/update/IEnderecoFiscalUpdate";
 import EnderecoFiscalRepository from "../repositories/EnderecoFiscalRepository";
 
 

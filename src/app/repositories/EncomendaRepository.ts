@@ -1,8 +1,8 @@
 import { AppDataSource } from "../../database/data-source";
 import { Repository } from "typeorm";
 import Encomenda from "../entities/Encomenda";
-import IEncomendaCreate from "../interfaces/IEncomendaCreate";
-import IEncomendaUpdate from "../interfaces/IEncomendaUpdate";
+import IEncomendaCreate from "../interfaces/create/IEncomendaCreate";
+import IEncomendaUpdate from "../interfaces/update/IEncomendaUpdate";
 
 
 class EncomendaRepository {

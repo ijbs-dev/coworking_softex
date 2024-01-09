@@ -1,8 +1,8 @@
 import Cliente from "../entities/Cliente";
 import { AppDataSource } from "../../database/data-source";
 import { Repository } from "typeorm";
-import IClienteCreate from "../interfaces/IClienteCreate";
-import IClienteUpdate from "../interfaces/IClienteUpdate";
+import IClienteCreate from "../interfaces/create/IClienteCreate";
+import IClienteUpdate from "../interfaces/update/IClienteUpdate";
 
 class ClienteRepository {
    
@@ -12,23 +12,15 @@ class ClienteRepository {
         this.clienteRepository = AppDataSource.getRepository(Cliente);
     }
 
-    async create({ nomeCliente, telefoneCliente, emailCliente, qtdPontosCliente, prazoCliente, valorMensalCliente,enderecoIdEndereco, adminIdAdmin, enderecoFiscalNumEndFiscal}: IClienteCreate): Promise<Cliente> {
-
-        const cliente = await this.clienteRepository.create({
-            nomeCliente, 
-            telefoneCliente, 
-            emailCliente, 
-            qtdPontosCliente,
-            prazoCliente,
-            valorMensalCliente,
-            enderecoIdEndereco,
-            adminIdAdmin,
-            enderecoFiscalNumEndFiscal
-        });
+  // Inserindo create Cliente junto com create Endereço
+    async create({ nomeCliente, telefoneCliente, emailCliente, qtdPontosCliente, prazoCliente, valorMensalCliente }: IClienteCreate): Promise<Cliente> {
+        const cliente = await this.clienteRepository.create({ nomeCliente, telefoneCliente, emailCliente, qtdPontosCliente, prazoCliente, valorMensalCliente });
 
         return await this.clienteRepository.save(cliente);
     }
 
+
+    
     async list(): Promise<Cliente[]> {
 
         return await this.clienteRepository.find();

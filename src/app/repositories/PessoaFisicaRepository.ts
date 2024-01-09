@@ -1,8 +1,8 @@
 import PessoaFisica from "../entities/PessoaFisica";
-import IPessoaFisica from "../interfaces/IPessoaFisicaCreate";
+import IPessoaFisica from "../interfaces/create/IPessoaFisicaCreate";
 import { AppDataSource } from "../../database/data-source";
 import { Repository } from "typeorm";
-import IPessoaFisicaCreate from "../interfaces/IPessoaFisicaCreate";
+import IPessoaFisicaCreate from "../interfaces/create/IPessoaFisicaCreate";
 
 class PessoaFisicaRepository{
     

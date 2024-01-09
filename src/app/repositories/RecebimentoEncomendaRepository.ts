@@ -1,8 +1,8 @@
 import { AppDataSource } from "../../database/data-source";
 import { Repository } from "typeorm";
 import RecebimentoEncomenda from "../entities/RecebimentoEncomenda";
-import IRecebimentoEncomendaCreate from "../interfaces/IRecebimentoEncomendaCreate";
-import IRecebimentoEncomendaUpdate from "../interfaces/IRecebimentoEncomendaUpdate";
+import IRecebimentoEncomendaCreate from "../interfaces/create/IRecebimentoEncomendaCreate";
+import IRecebimentoEncomendaUpdate from "../interfaces/update/IRecebimentoEncomendaUpdate";
 
 
 class RecebimentoEncomendaRepository {

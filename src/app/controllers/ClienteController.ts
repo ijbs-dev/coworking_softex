@@ -1,8 +1,8 @@
 
 import Cliente from '../entities/Cliente';
 import ClienteRepository from '../repositories/ClienteRepository';
-import IClienteCreate from '../interfaces/IClienteCreate';
-import IClienteUpdate from '../interfaces/IClienteUpdate';
+import IClienteCreate from '../interfaces/create/IClienteCreate';
+import IClienteUpdate from '../interfaces/update/IClienteUpdate';
 
 class ClienteController {
 

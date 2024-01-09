@@ -1,6 +1,6 @@
 import RecebimentoEncomenda from "../entities/RecebimentoEncomenda";
-import IRecebimentoEncomendaCreate from "../interfaces/IRecebimentoEncomendaCreate";
-import IRecebimentoEncomendaUpdate from "../interfaces/IRecebimentoEncomendaUpdate";
+import IRecebimentoEncomendaCreate from "../interfaces/create/IRecebimentoEncomendaCreate";
+import IRecebimentoEncomendaUpdate from "../interfaces/update/IRecebimentoEncomendaUpdate";
 import { RecebimentoEncomendaRepository } from "../repositories/RecebimentoEncomendaRepository";
 
 class RecebimentoEncomendaController {

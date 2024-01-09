@@ -5,10 +5,13 @@ import { adminRoutes } from "./admin.routes";
 import { recepcaoRoutes } from "./recepcao.routes";
 import { enderecoFiscalRoutes } from "./enderecofiscal.routes";
 import { encomendaRoutes } from "./encomenda.routes";
-import clienteRoutes from "./cliente.routes";
+//import { clienteRoutes } from "./cliente.routes";
 import { pessoaFisicaRoutes } from "./pessoaFisica.routes";
 import { pessoaJuridicaRoutes } from "./pessoaJuridica.routes";
 import { recebimentoEncomendaRoutes } from "./recebimentoEncomenda.routes";
+import { representanteRoutes } from "./representante.routes";
+import { clienteRoutes } from "./cliente.routes";
+
 
 const routes  = Router();
 
@@ -22,5 +25,7 @@ routes.use("/recebimentoencomenda", recebimentoEncomendaRoutes);
 routes.use("/cliente", clienteRoutes);
 routes.use("/pessoafisica", pessoaFisicaRoutes);
 routes.use("/pessoaJuridica", pessoaJuridicaRoutes);
+routes.use("/representante", representanteRoutes);
+routes.use("/retiradaencomenda", recebimentoEncomendaRoutes);
 
 export {routes};
