@@ -1,34 +1,44 @@
-import RetiradaEncomenda from "../entities/RetiradaEncomenda";
-import IRetiradaEncomenda from "../interfaces/IRetiradaEncomenda";
 import { AppDataSource } from "../../database/data-source";
+import { Repository } from "typeorm";
+import RetiradaEncomenda from "../entities/RetiradaEncomenda";
+import IRetiradaEncomendaCreate from "../interfaces/create/IRetiradaEncomendaCreate";
+import IRetiradaEncomendaUpdate from "../interfaces/update/IRetiradaEncomendaUpdate";
 
-class RetiradaEncomendaRepository{
-    
-    retiradaEncomendaRepository = AppDataSource.getRepository(RetiradaEncomenda);
+class RetiradaEncomendaRepository {
+    private retiradaEncomendaRepository: Repository<RetiradaEncomenda>;
 
-    getRetiradaEncomenda = (): Promise<RetiradaEncomenda[]> => {
-        return this.retiradaEncomendaRepository.find();
-    }    
-
-    getRetiradaEncomendaById = (id: number): Promise<RetiradaEncomenda[]> => {
-        return this.retiradaEncomendaRepository.find({ where: { idRetirEncomenda: id } });
+    constructor() {
+        this.retiradaEncomendaRepository = AppDataSource.getRepository(RetiradaEncomenda);
     }
 
-    createRetiradaEncomenda = (retiradaEncomenda: RetiradaEncomenda): Promise<RetiradaEncomenda> => {
-        return this.retiradaEncomendaRepository.save(retiradaEncomenda);
+    async list(): Promise<RetiradaEncomenda[]> {
+        return await this.retiradaEncomendaRepository.find();
     }
 
-    updateRetiradaEncomenda = (retiradaEncomenda: RetiradaEncomenda): Promise<RetiradaEncomenda> => {
-        return this.retiradaEncomendaRepository.save(retiradaEncomenda);
+    async findById(idRetirEncomenda: number): Promise<RetiradaEncomenda | null> {
+        return await this.retiradaEncomendaRepository.findOne({ where: { idRetirEncomenda } });
     }
 
-    deleteRetiradaEncomendaById = async (id: number): Promise<RetiradaEncomenda | null> => {
-        const retiradaEncomenda = await this.retiradaEncomendaRepository.findOne({ where: { idRetirEncomenda: id } });
+    async create(data: IRetiradaEncomendaCreate): Promise<RetiradaEncomenda> {
+        const retiradaEncomenda = await this.retiradaEncomendaRepository.create(data);
+        return await this.retiradaEncomendaRepository.save(retiradaEncomenda);
+    }
+
+    async update(idRetirEncomenda: number, updatedData: IRetiradaEncomendaUpdate): Promise<void> {
+        const retiradaEncomenda = await this.retiradaEncomendaRepository.findOneOrFail({ where: { idRetirEncomenda } });
+
         if (retiradaEncomenda) {
-            return this.retiradaEncomendaRepository.remove(retiradaEncomenda);
+            await this.retiradaEncomendaRepository.update({ idRetirEncomenda: idRetirEncomenda }, updatedData);
         }
-        return null;
+    }
+
+    async delete(idRetirEncomenda: number): Promise<void | null> {
+        const retiradaEncomenda = await this.retiradaEncomendaRepository.findOne({ where: { idRetirEncomenda } });
+
+        if (retiradaEncomenda) {
+            await this.retiradaEncomendaRepository.remove(retiradaEncomenda);
+        }
     }
 }
 
-export default RetiradaEncomendaRepository;
+export { RetiradaEncomendaRepository };

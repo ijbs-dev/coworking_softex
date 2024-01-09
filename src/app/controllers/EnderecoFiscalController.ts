@@ -3,53 +3,53 @@ import IEnderecoFiscalCreate from "../interfaces/create/IEnderecoFiscalCreate";
 import IEnderecoFiscalUpdate from "../interfaces/update/IEnderecoFiscalUpdate";
 import EnderecoFiscalRepository from "../repositories/EnderecoFiscalRepository";
 
-
 class EnderecoFiscalController {
+    findByNumEndFiscal(numEndFiscal: number) {
+        throw new Error("Method not implemented.");
+    }
 
     constructor(private enderecoFiscalRepository: EnderecoFiscalRepository) {}
 
-    async create(numEndFiscal: number): Promise<void> {
+    /**
+     *     async create(dadosUsuario: IUsuarioCreate): Promise<void> {
 
-        const enderecoFiscal = await this.enderecoFiscalRepository.findByNumEndFiscal(numEndFiscal);
-
-        if (enderecoFiscal) {
-            throw new Error("Número de Endereço Fiscal existente!");
-        }
-
-        await this.enderecoFiscalRepository.create(numEndFiscal);
+        await this.usuarioRepository.create(dadosUsuario);
     }
+     */
+
+    async create(dadosEnderecoFiscal: IEnderecoFiscalCreate): Promise<void> {
+        await this.enderecoFiscalRepository.create(dadosEnderecoFiscal);
+    }
+
 
     async list(): Promise<EnderecoFiscal[]> {
         return await this.enderecoFiscalRepository.list();
     }
 
-    async findByNumEndFiscal(numEndFiscal: number): Promise<EnderecoFiscal> {
-        
-        const enderecoFiscal = await this.enderecoFiscalRepository.findByNumEndFiscal(numEndFiscal);
+    async findById(numEndFiscal: number): Promise<EnderecoFiscal> {
+        const enderecoFiscal = await this.enderecoFiscalRepository.findById(numEndFiscal);
 
-        if(!enderecoFiscal) {
+        if (!enderecoFiscal) {
             throw new Error("Endereço Fiscal inexistente!");
         }
 
         return enderecoFiscal;
     }
 
-    async update(numEndFiscal: number, dadosEndereco: IEnderecoFiscalUpdate): Promise<void> {
-        
-        const enderecoFiscal = await this.enderecoFiscalRepository.findByNumEndFiscal(numEndFiscal);
-        
-        if(!enderecoFiscal) {
+    async update(numEndFiscal: number, dadosEnderecoFiscal: IEnderecoFiscalUpdate): Promise<void> {
+        const enderecoFiscal = await this.enderecoFiscalRepository.findById(numEndFiscal);
+
+        if (!enderecoFiscal) {
             throw new Error("Endereço Fiscal inexistente!");
         }
 
-        await this.enderecoFiscalRepository.update(numEndFiscal, dadosEndereco);
-        
+        await this.enderecoFiscalRepository.update(numEndFiscal, dadosEnderecoFiscal);
     }
 
-    async deleteByNumEndFiscal(numEndFiscal: number): Promise<void> {
-        const enderecoFiscal = await this.enderecoFiscalRepository.findByNumEndFiscal(numEndFiscal);
+    async deleteById(numEndFiscal: number): Promise<void> {
+        const enderecoFiscal = await this.enderecoFiscalRepository.findById(numEndFiscal);
 
-        if(!enderecoFiscal) {
+        if (!enderecoFiscal) {
             throw new Error("Endereço Fiscal inexistente!");
         }
 
@@ -58,38 +58,3 @@ class EnderecoFiscalController {
 }
 
 export { EnderecoFiscalController };
-
-
-// enderecoFiscalRouter.get("/", async (_req: Request, resp: Response): Promise<Response> => {
-//     const enderecoFiscalRepository = new EnderecoFiscalRepository();
-//     const enderecoFiscal = await enderecoFiscalRepository.getEnderecoFiscal();
-//     return resp.status(200).json(enderecoFiscal);
-// });
-
-// enderecoFiscalRouter.get("/:id", async (req: Request, resp: Response): Promise<Response> => {
-//     try {
-//         const enderecoFiscalRepository = new EnderecoFiscalRepository();
-//         const idEnderecoFiscal = parseInt(req.params.id, 10);
-
-//         console.log("ID do EnderecoFiscal:", idEnderecoFiscal);
-
-//         if (isNaN(idEnderecoFiscal)) {
-//             console.log("ID do EnderecoFiscal inválido!");
-//             return resp.status(400).json({ error: "ID do enderecoFiscal inválido!" });   
-//         }
-        
-//         const enderecoFiscalEncontrado = await enderecoFiscalRepository.getEnderecoFiscalById(idEnderecoFiscal);
-
-//         console.log("EnderecoFiscal Encontrado:", enderecoFiscalEncontrado);
-
-//         if (enderecoFiscalEncontrado && enderecoFiscalEncontrado.length > 0) {
-//             return resp.status(200).json(enderecoFiscalEncontrado);
-//         } else {
-//             console.log("EnderecoFiscal não encontrado.");
-//             return resp.status(404).json({ error: "EnderecoFiscal não encontrado." });
-//         }        
-//     } catch(error) {
-//         console.log("Erro ao buscar enderecoFiscal por ID:", error);
-//         return resp.status(500).json({ error: "Erro ao buscar enderecoFiscal por ID.", details: error });
-//     }
-// });

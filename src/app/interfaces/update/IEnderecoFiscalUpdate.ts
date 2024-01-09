@@ -1,5 +1,5 @@
 interface IEnderecoFiscalUpdate {
-    numEndFiscal: number;
+    statusEnderecoFiscal: number;
 }
 
 export default IEnderecoFiscalUpdate;

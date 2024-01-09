@@ -1,5 +1,4 @@
 import Representante from "../entities/Representante";
-import IRepresentante from "../interfaces/IRepresentante";
 import { AppDataSource } from "../../database/data-source";
 
 class RepresentanteRepository{

@@ -1,43 +1,54 @@
-import { Request, Response, Router } from "express";
+import { RetiradaEncomendaRepository } from "../repositories/RetiradaEncomendaRepository";
+import IRetiradaEncomendaCreate from "../interfaces/create/IRetiradaEncomendaCreate";
+import IRetiradaEncomendaUpdate from "../interfaces/update/IRetiradaEncomendaUpdate";
 import RetiradaEncomenda from "../entities/RetiradaEncomenda";
-import IRetiradaEncomenda from "../interfaces/IRetiradaEncomenda";
-import RetiradaEncomendaRepository from "../repositories/RetiradaEncomendaRepository";
 
-const retiradaEncomendaRouter = Router();
+class RetiradaEncomendaController {
+    
+    constructor(private retiradaEncomendaRepository: RetiradaEncomendaRepository) {}
 
-retiradaEncomendaRouter.get("/", async (_req: Request, resp: Response): Promise<Response> => {
-    const retiradaEncomendaRepository = new RetiradaEncomendaRepository();
-    const retiradaEncomenda = await retiradaEncomendaRepository.getRetiradaEncomenda();
-    return resp.status(200).json(retiradaEncomenda);
-});
+    async create(dadosRetiradaEncomenda: IRetiradaEncomendaCreate): Promise<void> {
 
-retiradaEncomendaRouter.get("/:id", async (req: Request, resp: Response): Promise<Response> => {
-    try {
-        const retiradaEncomendaRepository = new RetiradaEncomendaRepository();
-        const idretirada = parseInt(req.params.id, 10);
+        await this.retiradaEncomendaRepository.create(dadosRetiradaEncomenda);
+    }
 
-        console.log("ID da Retirada:", idretirada);
+    async list(): Promise<RetiradaEncomenda[]> {
 
-        if (isNaN(idretirada)) {
-            console.log("ID da Retirada inválido!");
-            return resp.status(400).json({ error: "ID da Retirada inválido!" });   
+        return await this.retiradaEncomendaRepository.list();
+    }
+
+    async findById(id: number): Promise<RetiradaEncomenda> {
+
+        const retiradaEncomenda = await this.retiradaEncomendaRepository.findById(id);
+
+        if (!retiradaEncomenda) {
+            throw new Error("Retirada de encomenda inexistente!");
         }
 
-        const retiradaEncontrada = await retiradaEncomendaRepository.getRetiradaEncomendaById(idretirada);
-
-        console.log("Retirada Encontrada:", retiradaEncontrada);
-
-        if (retiradaEncontrada && retiradaEncontrada.length > 0) {
-            return resp.status(200).json(retiradaEncontrada);
-        } else {
-            console.log("Retirada não encontrada.");
-            return resp.status(404).json({ error: "Retirada não encontrada." });
-        }        
-    } catch(error) {
-        console.log("Erro ao buscar Retirada por ID:", error);
-        return resp.status(500).json({ error: "Erro ao buscar Retirada por ID.", details: error });
+        return retiradaEncomenda;
     }
-});
 
-export default retiradaEncomendaRouter;
+    async update(id: number, dadosRetiradaEncomenda: IRetiradaEncomendaUpdate): Promise<void> {
 
+        const retiradaEncomenda = await this.retiradaEncomendaRepository.findById(id);
+
+        if (!retiradaEncomenda) {
+            throw new Error("Retirada de encomenda inexistente!");
+        }
+
+        await this.retiradaEncomendaRepository.update(id, dadosRetiradaEncomenda);
+    }
+
+    async deleteByid (id: number): Promise<void> {
+            
+            const retiradaEncomenda = await this.retiradaEncomendaRepository.findById(id);
+    
+            if (!retiradaEncomenda) {
+                throw new Error("Retirada de encomenda inexistente!");
+            }
+    
+            await this.retiradaEncomendaRepository.delete(id);
+        }
+}
+
+export { RetiradaEncomendaController };

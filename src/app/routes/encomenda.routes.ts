@@ -24,20 +24,20 @@ encomendaRoutes.get("/id/:id", async (request, response) => {
     }
 })
 
-encomendaRoutes.delete("/:id", async (request, response) => {
-    
+encomendaRoutes.put('/:id', async (request, response) => {
     const idEncomenda = Number(request.params.id);
+    const { obsEncomenda} = request.body;
 
     try {
-        encomendaController.delete(idEncomenda);
-        response.status(200).json({ message: "Encomenda excluído!"});
+        await encomendaController.update(idEncomenda, { obsEncomenda });
+        response.status(200).json({ message: "Encomenda atualizada!" });
     } catch (error) {
-        response.status(400).json({ message: "Erro ao excluir Encomenda!" })
+        response.status(400).json({ message: error });
     }
 })
 
-
 encomendaRoutes.post("/", async (request, response) => {
+    
     const { idEncomenda, obsEncomenda, numEndFiscal, enderecoFiscal } = request.body;
 
     try {
@@ -50,6 +50,18 @@ encomendaRoutes.post("/", async (request, response) => {
         response.status(201).json({ message: "Encomenda cadastrada!" });
     } catch (error) {
         response.status(400).json({ message: error});
+    }
+})
+
+encomendaRoutes.delete("/:id", async (request, response) => {
+    
+    const idEncomenda = Number(request.params.id);
+
+    try {
+        encomendaController.delete(idEncomenda);
+        response.status(200).json({ message: "Encomenda excluído!"});
+    } catch (error) {
+        response.status(400).json({ message: "Erro ao excluir Encomenda!" })
     }
 })
 

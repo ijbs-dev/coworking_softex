@@ -19,7 +19,6 @@ class ClienteRepository {
         return await this.clienteRepository.save(cliente);
     }
 
-
     
     async list(): Promise<Cliente[]> {
 
