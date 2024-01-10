@@ -1,11 +1,11 @@
-interface IRetiradaEncomenda {
+interface IRetiradaEncomendaCreate {
     idRetirEncomenda: number;
     dataHoraRetirEncomenda: Date;
     obsRetirEncomenda: string;
     encomendaIdEncomenda: number;
 }
 
-export default IRetiradaEncomenda;
+export default IRetiradaEncomendaCreate;
 
 /**
  * CREATE TABLE IF NOT EXISTS `RetiradaEncomenda` (

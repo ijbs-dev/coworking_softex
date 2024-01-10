@@ -25,11 +25,7 @@ class RetiradaEncomendaRepository {
     }
 
     async update(idRetirEncomenda: number, updatedData: IRetiradaEncomendaUpdate): Promise<void> {
-        const retiradaEncomenda = await this.retiradaEncomendaRepository.findOneOrFail({ where: { idRetirEncomenda } });
-
-        if (retiradaEncomenda) {
-            await this.retiradaEncomendaRepository.update({ idRetirEncomenda: idRetirEncomenda }, updatedData);
-        }
+        await this.retiradaEncomendaRepository.update(idRetirEncomenda, updatedData);        
     }
 
     async delete(idRetirEncomenda: number): Promise<void | null> {

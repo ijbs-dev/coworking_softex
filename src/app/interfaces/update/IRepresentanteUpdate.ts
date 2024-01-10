@@ -1,16 +1,13 @@
-interface IRepresentante {
-    idRepresent: number;
-    nomeRepresent: string;
-    emailRepresent: string;
-    statusRepresent: boolean;
-    telefoneRepresent: string;
-    updated_atRepresent: Date;
-    created_atRepresent: Date;
-    idPJuridica: number;
-    retiradaEncomendaIdRetirEncomenda: number;
+interface IRepresentanteUpdate {
+    nomeRepresent?: string;
+    emailRepresent?: string;
+    statusRepresent?: number;
+    telefoneRepresent?: string;
+    updated_atRepresent?: Date;
+    created_atRepresent?: Date;
 }
 
-export default IRepresentante;
+export default IRepresentanteUpdate;
 
 /**
  * CREATE TABLE IF NOT EXISTS `Representante` (

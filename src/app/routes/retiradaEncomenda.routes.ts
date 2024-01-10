@@ -8,8 +8,8 @@ const retiradaEncomendaController = new RetiradaEncomendaController(retiradaEnco
 
 retiradaEncomendaRoutes.get("/", async (request, response) => {
     try {
-        const retiradasEncomenda = await retiradaEncomendaController.list();
-        return response.status(200).json(retiradasEncomenda);
+        const retiradasEncomendas = await retiradaEncomendaController.list();
+        return response.status(200).json(retiradasEncomendas);
     } catch (error) {
         return response.status(500).json({ message: "Erro interno do servidor.", details: error });
     }

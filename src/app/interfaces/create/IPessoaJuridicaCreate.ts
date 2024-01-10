@@ -1,7 +1,7 @@
-interface IPessoaJuridica {
+interface IPessoaJuridicaCreate {
     cnpj: string;
     razaoSocial: string;
     idCliente: number;
 }
 
-export default IPessoaJuridica;
+export default IPessoaJuridicaCreate;
