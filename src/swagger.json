@@ -75,7 +75,7 @@
                 }
             },
             "put": {
-                "tags": ["Customer"],
+                "tags": ["Usuario"],
                 "summary": "Atualiza dados do Usuário",
                 "description": "Atualiza os dados de um Usuário",
                 "requestBody": {
@@ -104,7 +104,7 @@
                         "description": "OK"
                     },
                     "400": {
-                        "description": "Customer does not exist"
+                        "description": "Usuário Inexistente"
                     }
                 }
             }
@@ -130,7 +130,7 @@
                         "description": "OK"
                     },
                     "400": {
-                        "description": "Customer does not exist"
+                        "description": "Usuário Inexistente"
                     }
                 }
             }
