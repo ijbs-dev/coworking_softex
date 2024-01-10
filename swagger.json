@@ -1,0 +1,145 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Coowrking SofTex",
+        "description": "Essa é uma API onde será possível gerenciar a retirada e recebimento de encomendas na SofTex Recife.",
+        "version": "1.0.0",
+        "termsOfServive": "http://localhost:8000/terms",
+        "contact": {
+            "email": "claudiomrcas@gmail.com"
+        }
+    },
+    "paths": {
+        "/orders": {
+            "post": {
+                "tags": ["Oder"],
+                "summary": "Retirada de encomendas",
+                "description": "Retirada de encomendas na recepção",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Oder"
+                            },
+                            "example": {
+                                "name": "Carlos Daniel da Silva",
+                                "cpf": "11122233344",
+                                "email": "carlosd.silva@gmail.com",
+                                "phoneNumber": "81911112233",
+                                "address": "Rua 21, 001"
+                                
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Customer Already exists!"
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Customer"],
+                "summary": "Lista os clientes",
+                "description": "Lista todos os clientes na base de dados",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Customer"],
+                "summary": "Atualiza dados do cliente",
+                "description": "Atualiza os dados de um cliente",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "cpf": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "phoneNumber": {
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "cpf": "99922233344",
+                                    "email": "marcosilva.silva@gmail.com",
+                                    "phoneNumber": "8197452222",
+                                    "address": "Rua 34, 300"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Customer does not exist"
+                    }
+                }
+            }
+        },
+        "/customers/{cpf}": {
+            "delete": {
+                "tags": ["Customer"],
+                "summary": "Deleta um cliente",
+                "description": "Deleta um cliente da base de dados",
+                "parameters": [
+                    {
+                        "name": "cpf",
+                        "in": "path",
+                        "description": "CPF do Cliente para Deletação"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Customer does not exist"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Oder": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "cpf": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "phoneNumber": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "string"
+                    
+                    }
+                }
+            }
+        }
+    }
+}
