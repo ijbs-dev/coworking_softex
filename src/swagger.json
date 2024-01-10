@@ -20,133 +20,44 @@
             "post": {
                 "summary": "Cadastrar novo Usuário",
                 "description": "Essa rota será responsável por cadastrar um novo usuário.",
-<<<<<<< HEAD
-                "tags": [
-                    "Usuario"
-                ],
-=======
                 "tags": ["Usuario"],
->>>>>>> 6c93ba85d5272da7e0f806279282a6255a101c34
                 "requestBody": {
                     "content": {
                         "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Usuario"
-                            },
                             "example": {
                                 "nomeUsuario": "Conceição Evaristo",
-                                "funcaoUsuario": "UX Writer",
-                                "emailUsuario": "conceicao_evaristo@email.com",
-                                "loginUsuario": "conceicao_evaristo",
-                                "senhaUsuario": "password123"
+                                "senhaUsuario": "password456"
                             }
                         }
                     }
                 },
                 "responses": {
-                    "201": {
-                        "description": "OK, Usuário Criado!"
-                    },
-                    "400": {
-                        "description": "Erro ao criar usuário!"
+                    "200": {
+                        "description": "OK"
                     }
                 }
             },
             "get": {
                 "summary": "Listar Usuários",
                 "description": "Essa rota será responsável por listar todos os usuários cadastrados.",
-<<<<<<< HEAD
-                "tags": [
-                    "Usuario"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "example": {
-                                    "usuarios": [
-                                        {
-                                            "nomeUsuario": "Conceição Evaristo",
-                                            "funcaoUsuario": "UX Writer",
-                                            "emailUsuario": "conceicao_evaristo@email.com",
-                                            "loginUsuario": "conceicao_evaristo"
-                                        }
-                                    ]
-                                }
-                            }
-                        }
-=======
                 "tags": ["Usuario"],
                 "responses": {
                     "200": {
                         "description": "OK"
->>>>>>> 6c93ba85d5272da7e0f806279282a6255a101c34
-                    }
-                }
-            },
-            "put": {
-                "tags": ["Usuario"],
-                "summary": "Atualiza dados do Usuário",
-                "description": "Atualiza os dados de um Usuário",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "nomeUsuario": {
-                                        "type": "string"
-                                    },
-                                    "senhaUsuario": {
-                                        "type": "string"
-                                    }
-                                },
-                                "example": {
-<<<<<<< HEAD
-                                    "nomeUsuario": "99922233344",
-                                    "senhaUsuario": "joao@email.com"
-=======
-                                    "nomeUsuario": "Conceição Evaristo",
-                                    "senhaUsuario": "password456"
->>>>>>> 6c93ba85d5272da7e0f806279282a6255a101c34
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    },
-                    "400": {
-                        "description": "Usuário Inexistente"
                     }
                 }
             }
         },
-<<<<<<< HEAD
-        "/usuario/{email}": {
-            "delete": {
-                "tags": ["Usuario"],
-                "summary": "Deletar um usuário",
-                "description": "Deletar um usuário da base de dados",
-=======
         "/usuario/email/{email}": {
             "get": {
                 "summary": "Obter Usuário por Email",
                 "description": "Essa rota será responsável por obter um usuário com base no email fornecido.",
                 "tags": ["Usuario"],
->>>>>>> 6c93ba85d5272da7e0f806279282a6255a101c34
                 "parameters": [
                     {
                         "name": "email",
                         "in": "path",
-<<<<<<< HEAD
-                        "description": "Email do cliente para Deleção.",
-=======
                         "description": "Email do Usuário para busca",
->>>>>>> 6c93ba85d5272da7e0f806279282a6255a101c34
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -155,12 +66,6 @@
                 ],
                 "responses": {
                     "200": {
-<<<<<<< HEAD
-                        "description": "OK"
-                    },
-                    "400": {
-                        "description": "Usuário Inexistente"
-=======
                         "description": "OK",
                         "content": {
                             "application/json": {
@@ -203,7 +108,6 @@
                     },
                     "400": {
                         "description": "Usuário não encontrado"
->>>>>>> 6c93ba85d5272da7e0f806279282a6255a101c34
                     }
                 }
             }
@@ -217,15 +121,6 @@
                     "nomeUsuario": {
                         "type": "string"
                     },
-                    "funcaoUsuario": {
-                        "type": "string"
-                    },
-                    "emailUsuario": {
-                        "type": "string"
-                    },
-                    "loginUsuario": {
-                        "type": "string"
-                    },
                     "senhaUsuario": {
                         "type": "string"
                     }
@@ -233,8 +128,4 @@
             }
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 6c93ba85d5272da7e0f806279282a6255a101c34
