@@ -18,6 +18,10 @@
       "express-async-errors": "^3.1.1",
       "mysql2": "^3.6.5",
       "reflect-metadata": "^0.1.13",
+<<<<<<< HEAD
+=======
+      "swagger-jsdoc": "^6.2.8",
+>>>>>>> 6c93ba85d5272da7e0f806279282a6255a101c34
       "swagger-ui-express": "^5.0.0",
       "typeorm": "0.3.17"
    },
