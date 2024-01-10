@@ -1,0 +1,163 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de Mangue Coworking - Endereço Fiscal Softex",
+        "description": "Essa é uma API onde será possível gerenciar a retirada e recebimento de encomendas na SofTex Recife.",
+        "termsOfService": "http://softex.com.br",
+        "contact": {
+            "email": "claudiomrcas@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "API de teste"
+        }
+    ],
+    "paths": {
+        "/usuario": {
+            "post": {
+                "summary": "Cadastrar novo Usuário",
+                "description": "Essa rota será responsável por cadastrar um novo usuário.",
+                "tags": [
+                    "Usuario"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Usuario"
+                            },
+                            "example": {
+                                "nomeUsuario": "Conceição Evaristo",
+                                "funcaoUsuario": "UX Writer",
+                                "emailUsuario": "conceicao_evaristo@email.com",
+                                "loginUsuario": "conceicao_evaristo",
+                                "senhaUsuario": "password123"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "OK, Usuário Criado!"
+                    },
+                    "400": {
+                        "description": "Erro ao criar usuário!"
+                    }
+                }
+            },
+            "get": {
+                "summary": "Listar Usuários",
+                "description": "Essa rota será responsável por listar todos os usuários cadastrados.",
+                "tags": [
+                    "Usuario"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "usuarios": [
+                                        {
+                                            "nomeUsuario": "Conceição Evaristo",
+                                            "funcaoUsuario": "UX Writer",
+                                            "emailUsuario": "conceicao_evaristo@email.com",
+                                            "loginUsuario": "conceicao_evaristo"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Customer"],
+                "summary": "Atualiza dados do Usuário",
+                "description": "Atualiza os dados de um Usuário",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nomeUsuario": {
+                                        "type": "string"
+                                    },
+                                    "senhaUsuario": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "nomeUsuario": "99922233344",
+                                    "senhaUsuario": "joao@email.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Customer does not exist"
+                    }
+                }
+            }
+        },
+        "/usuario/{email}": {
+            "delete": {
+                "tags": ["Usuario"],
+                "summary": "Deletar um usuário",
+                "description": "Deletar um usuário da base de dados",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "Email do cliente para Deleção.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Customer does not exist"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Usuario": {
+                "type": "object",
+                "properties": {
+                    "nomeUsuario": {
+                        "type": "string"
+                    },
+                    "funcaoUsuario": {
+                        "type": "string"
+                    },
+                    "emailUsuario": {
+                        "type": "string"
+                    },
+                    "loginUsuario": {
+                        "type": "string"
+                    },
+                    "senhaUsuario": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
