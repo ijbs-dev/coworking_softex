@@ -20,9 +20,7 @@
             "post": {
                 "summary": "Cadastrar novo Usuário",
                 "description": "Essa rota será responsável por cadastrar um novo usuário.",
-                "tags": [
-                    "Usuario"
-                ],
+                "tags": ["Usuario"],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -51,26 +49,10 @@
             "get": {
                 "summary": "Listar Usuários",
                 "description": "Essa rota será responsável por listar todos os usuários cadastrados.",
-                "tags": [
-                    "Usuario"
-                ],
+                "tags": ["Usuario"],
                 "responses": {
                     "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "example": {
-                                    "usuarios": [
-                                        {
-                                            "nomeUsuario": "Conceição Evaristo",
-                                            "funcaoUsuario": "UX Writer",
-                                            "emailUsuario": "conceicao_evaristo@email.com",
-                                            "loginUsuario": "conceicao_evaristo"
-                                        }
-                                    ]
-                                }
-                            }
-                        }
+                        "description": "OK"
                     }
                 }
             },
@@ -92,8 +74,8 @@
                                     }
                                 },
                                 "example": {
-                                    "nomeUsuario": "99922233344",
-                                    "senhaUsuario": "joao@email.com"
+                                    "nomeUsuario": "Conceição Evaristo",
+                                    "senhaUsuario": "password456"
                                 }
                             }
                         }
@@ -109,16 +91,16 @@
                 }
             }
         },
-        "/usuario/{email}": {
-            "delete": {
+        "/usuario/email/{email}": {
+            "get": {
+                "summary": "Obter Usuário por Email",
+                "description": "Essa rota será responsável por obter um usuário com base no email fornecido.",
                 "tags": ["Usuario"],
-                "summary": "Deletar um usuário",
-                "description": "Deletar um usuário da base de dados",
                 "parameters": [
                     {
                         "name": "email",
                         "in": "path",
-                        "description": "Email do cliente para Deleção.",
+                        "description": "Email do Usuário para busca",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -127,10 +109,48 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Usuario"
+                                }
+                            }
+                        }
                     },
                     "400": {
-                        "description": "Usuário Inexistente"
+                        "description": "Usuário não encontrado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Usuario"],
+                "summary": "Deletar Usuário por Email",
+                "description": "Esta rota é responsável por deletar um usuário com base no email fornecido.",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "Email do Usuário para deleção",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Usuario"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Usuário não encontrado"
                     }
                 }
             }
