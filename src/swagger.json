@@ -25,8 +25,11 @@
                     "content": {
                         "application/json": {
                             "example": {
-                                "nomeUsuario": "Conceição Evaristo",
-                                "senhaUsuario": "password456"
+                                "nomeUsuario": "Johny NEWWWW",
+                                "funcaoUsuario": "DEV",
+                                "emailUsuario": "john.doe@email.com",
+                                "loginUsuario": "john",
+                                "senhaUsuario": "pass"
                             }
                         }
                     }
@@ -79,19 +82,21 @@
                         "description": "Usuário não encontrado"
                     }
                 }
-            },
+            }
+        },
+        "/usuario/{id}": { 
             "delete": {
                 "tags": ["Usuario"],
-                "summary": "Deletar Usuário por Email",
-                "description": "Esta rota é responsável por deletar um usuário com base no email fornecido.",
+                "summary": "Deletar Usuário por ID",
+                "description": "Esta rota é responsável por deletar um usuário com base no ID fornecido.",
                 "parameters": [
                     {
-                        "name": "email",
+                        "name": "id",
                         "in": "path",
-                        "description": "Email do Usuário para deleção",
+                        "description": "ID do Usuário para Apagar",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "integer"
                         }
                     }
                 ],
@@ -110,20 +115,42 @@
                         "description": "Usuário não encontrado"
                     }
                 }
-            }
+            }        
         }
     },
     "components": {
         "schemas": {
             "Usuario": {
                 "type": "object",
-                "properties": {
+                "properties": {                    
+                    "idUsuario": {
+                        "type": "integer"
+                    },
+                    "statusUsuario": {
+                        "type": "string"
+                    },
                     "nomeUsuario": {
+                        "type": "string"
+                    },
+                    "funcaoUsuario": {
+                        "type": "string"
+                    },
+                    "emailUsuario": {
+                        "type": "string"
+                    },
+                    "loginUsuario": {
                         "type": "string"
                     },
                     "senhaUsuario": {
                         "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "string"
+                    },
+                    "updatedAt": {
+                        "type": "string"
                     }
+
                 }
             }
         }

@@ -6,18 +6,7 @@ import IUsuarioUpdate from "../interfaces/update/IUsuarioUpdate";
 class UsuarioController {
 
     constructor(private usuarioRepository: UsuarioRepository) {}
-/**
- * 
- * interface IUsuarioCreate {
-    nomeUsuario: string;
-    funcaoUsuario: string;
-    emailUsuario: string;
-    loginUsuario: string;
-    senhaUsuario: string;
-}
 
-export default IUsuarioCreate;
- */
     async create(dadosUsuario: IUsuarioCreate): Promise<void> {
 
         await this.usuarioRepository.create(dadosUsuario);

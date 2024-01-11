@@ -53,6 +53,7 @@ class UsuarioRepository {
             await this.usuarioRepository.remove(usuario)
         }
     }
+
 }
 
 export { UsuarioRepository };
