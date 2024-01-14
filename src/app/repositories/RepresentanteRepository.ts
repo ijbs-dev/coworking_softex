@@ -2,7 +2,7 @@ import Representante from "../entities/Representante";
 import { AppDataSource } from "../../database/data-source";
 import { Repository } from "typeorm";
 import IRepresentanteCreate from "../interfaces/create/IRepresentanteCreate";
-import IRepresentanteUpdate from "../interfaces/update/IRepresentanteUpdate";
+import { IRepresentanteUpdate } from "../interfaces/update/IRepresentanteUpdate";
 
 class RepresentanteRepository {
 
@@ -29,6 +29,14 @@ class RepresentanteRepository {
         return await this.representanteRepository.find();
     }
 
+    async listInativos(): Promise<Representante[]> {
+        return await this.representanteRepository.find({ where: { statusRepresent: 0 } });
+    }
+
+    async listAtivos(): Promise<Representante[]> {
+        return await this.representanteRepository.find({ where: { statusRepresent: 1 } });
+    }
+
     async findById(idRepresent: number): Promise<Representante | null> {
         return await this.representanteRepository.findOne({ where: { idRepresent } });
     }
@@ -41,8 +49,12 @@ class RepresentanteRepository {
         return await this.representanteRepository.findOne({ where: { emailRepresent: email } });
     }
 
-    async update(idRepresent: number, updatedData: IRepresentanteUpdate): Promise<void> {
-        await this.representanteRepository.update(idRepresent, updatedData);
+    async update(idRepresent: number, {emailRepresent, telefoneRepresent}: IRepresentanteUpdate): Promise<void> {
+        const representante = await this.representanteRepository.findOne({ where: { idRepresent } });
+        
+        if (representante) {
+            await this.representanteRepository.update({ idRepresent: idRepresent }, { emailRepresent: emailRepresent, telefoneRepresent: telefoneRepresent });
+        }
     }
 
     async inativarTodos(idPessoaJuridica: number): Promise<void> {
@@ -67,7 +79,25 @@ class RepresentanteRepository {
         }
     }
 
-    async delete(idRepresent: number): Promise<void | null> {
+    async inativar(idRepresent: number): Promise<void> {
+        
+        const representante = await this.representanteRepository.findOne({ where: { idRepresent } });
+
+        if (representante) {
+            await this.representanteRepository.update({ idRepresent: idRepresent }, { statusRepresent: 0 });   
+        }
+    }
+
+    async ativar(idRepresent: number): Promise<void> {
+        
+        const representante = await this.representanteRepository.findOne({ where: { idRepresent } });
+
+        if (representante) {
+            await this.representanteRepository.update({ idRepresent: idRepresent }, { statusRepresent: 1 });
+        }
+    }
+
+    async delete(idRepresent: number): Promise<void> {
         const representante = await this.representanteRepository.findOne({ where: { idRepresent } });
 
         if (representante) {

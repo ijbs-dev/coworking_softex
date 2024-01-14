@@ -1,83 +1,121 @@
 import { Router } from "express";
-import {RepresentanteRepository} from "../repositories/RepresentanteRepository";
-import {RepresentanteController} from "../controllers/RepresentanteController";
+import { RepresentanteRepository } from "../repositories/RepresentanteRepository";
+import { RepresentanteController } from "../controllers/RepresentanteController";
 
 const representanteRoutes = Router();
 const representanteRepository = new RepresentanteRepository();
 const representanteController = new RepresentanteController(representanteRepository);
 
 representanteRoutes.get("/", async (request, response) => {
+    const representantes = await representanteController.list();
+
+    return response.status(200).json(representantes);
+})
+
+representanteRoutes.get("/ativos", async (request, response) => {
+    const representantes = await representanteController.listAtivos();
+
+    return response.status(200).json(representantes);
+})
+
+representanteRoutes.get("/inativos", async (request, response) => {
+    const representantes = await representanteController.listInativos();
+
+    return response.status(200).json(representantes);
+})
+
+representanteRoutes.get("/email/:email", async (request, response) => {
+
+    const email = request.params.email;
+
     try {
-        const representantes = await representanteController.list();
-        return response.status(200).json(representantes);
+        const representante = await representanteController.findByEmail(email);
+        response.status(200).json(representante);
     } catch (error) {
-        return response.status(500).json({ message: "Erro interno do servidor.", details: error });
+        response.status(400).json(error);
     }
-});
+})
 
 representanteRoutes.get("/id/:id", async (request, response) => {
+
+    const id = Number(request.params.id);
+
     try {
-        const idRepresent = parseInt(request.params.id, 10);
-
-        if (isNaN(idRepresent)) {
-            return response.status(400).json({ error: "ID do representante inválido!" });
-        }
-
-        const representante = await representanteController.findById(idRepresent);
-
-        if (representante) {
-            return response.status(200).json(representante);
-        } else {
-            return response.status(404).json({ error: "Representante não encontrado." });
-        }
+        const representante = await representanteController.findById(id);
+        response.status(200).json(representante);
     } catch (error) {
-        return response.status(500).json({ message: "Erro interno do servidor.", details: error });
+        response.status(400).json(error)
     }
-});
+})
 
 representanteRoutes.post("/", async (request, response) => {
+
+    const { nomeRepresent, emailRepresent, telefoneRepresent, idPJuridica} = request.body;
+
     try {
-        const dadosRepresentante = request.body;
-        await representanteController.create(dadosRepresentante);
-        return response.status(201).json({ message: "Representante cadastrado!" });
+        await representanteController.create({
+            nomeRepresent,
+            emailRepresent,
+            telefoneRepresent,
+            idPJuridica
+        })
+
+        response.status(201).json({ message: "Representante Criado!" });
     } catch (error) {
-        return response.status(400).json({ message: `Erro ao cadastrar o representante: ${error}` });
+        response.status(400).json(error);
     }
-});
+
+})
 
 representanteRoutes.put("/:id", async (request, response) => {
+
+    const idRepresentante = parseInt(request.params.id);
+    const {emailRepresent, telefoneRepresent} = request.body;
+
     try {
-        const idRepresent = parseInt(request.params.id, 10);
-
-        if (isNaN(idRepresent)) {
-            return response.status(400).json({ error: "ID do representante inválido!" });
-        }
-
-        const dadosRepresentante = request.body;
-        await representanteController.update(idRepresent, dadosRepresentante);
-        return response.status(200).json({ message: "Representante atualizado!" });
+            
+        await representanteController.update(idRepresentante, { emailRepresent, telefoneRepresent });
+            
+        response.status(200).json({ message: "Representante atualizado!" });
     } catch (error) {
-        return response.status(400).json({ message: `Erro ao atualizar o representante: ${error}` });
+        return response.status(400).json(error);
     }
-});
+})
 
 representanteRoutes.delete("/:id", async (request, response) => {
+    
+    const idRepresentante = Number(request.params.id);
 
     try {
-        const idRepresent = parseInt(request.params.id, 10);
-
-        if (isNaN(idRepresent)) {
-            return response.status(400).json({ error: "ID do representante inválido!" });
-        }
-
-        await representanteController.delete(idRepresent);
-        return response.status(200).json({ message: "Representante deletado!" });
+        await representanteController.delete(idRepresentante);
+        response.status(200).json({ message: "Representante excluido!" })
     } catch (error) {
-        return response.status(400).json({ message: `Erro ao deletar o representante: ${error}` });
+        response.status(400).json(error)
     }
+})
 
-});
+representanteRoutes.patch("/inativar/:id", async (request, response) => {
+
+    const idRepresentante = Number(request.params.id);
+
+    try {
+        await representanteController.inativar(idRepresentante);
+        response.status(200).json({ message: "Representante inativado!" })
+    } catch (error) {
+        response.status(400).json(error)
+    }
+})
+
+representanteRoutes.patch("/ativar/:id", async (request, response) => {
+
+    const idRepresentante = Number(request.params.id);
+
+    try {
+        await representanteController.ativar(idRepresentante);
+        response.status(200).json({ message: "Representante inativado!" })
+    } catch (error) {
+        response.status(400).json(error)
+    }
+})
 
 export { representanteRoutes };
-
-
