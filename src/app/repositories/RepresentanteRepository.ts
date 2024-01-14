@@ -12,9 +12,17 @@ class RepresentanteRepository {
         this.representanteRepository = AppDataSource.getRepository(Representante);
     }
 
-    async create(data: IRepresentanteCreate): Promise<Representante> {
-        const representante = this.representanteRepository.create(data);
-        return await this.representanteRepository.save(representante);
+    async create({ nomeRepresent, emailRepresent, telefoneRepresent, idPJuridica }: IRepresentanteCreate): Promise<Representante> {
+        const representante = await this.representanteRepository.create({
+            nomeRepresent,
+            emailRepresent,
+            telefoneRepresent,
+            idPJuridica
+        });
+        
+        await this.representanteRepository.save(representante);
+        
+        return representante;
     }
 
     async list(): Promise<Representante[]> {
@@ -25,8 +33,38 @@ class RepresentanteRepository {
         return await this.representanteRepository.findOne({ where: { idRepresent } });
     }
 
+    async findByPj(id: number): Promise<Representante | null> {
+        return await this.representanteRepository.findOne({ where: { idPJuridica: id } });
+    }
+
+    async findByEmail(email: string): Promise<Representante | null> {
+        return await this.representanteRepository.findOne({ where: { emailRepresent: email } });
+    }
+
     async update(idRepresent: number, updatedData: IRepresentanteUpdate): Promise<void> {
         await this.representanteRepository.update(idRepresent, updatedData);
+    }
+
+    async inativarTodos(idPessoaJuridica: number): Promise<void> {
+        
+        const representantes = await this.representanteRepository.find({ where: { idPJuridica: idPessoaJuridica } });
+        
+        for (let i = 0; i < representantes.length; i++) {
+            if(representantes[i]) {
+                await this.representanteRepository.update({ idRepresent: representantes[i].idRepresent }, { statusRepresent: 0 });
+            }
+        }
+    }
+
+    async ativarTodos(idPessoaJuridica: number): Promise<void> {
+        
+        const representantes = await this.representanteRepository.find({ where: { idPJuridica: idPessoaJuridica } });
+        
+        for (let i = 0; i < representantes.length; i++) {
+            if(representantes[i]) {
+                await this.representanteRepository.update({ idRepresent: representantes[i].idRepresent }, { statusRepresent: 1 });
+            }
+        }
     }
 
     async delete(idRepresent: number): Promise<void | null> {

@@ -30,4 +30,8 @@ export default class Representante {
     @ManyToOne(() => PessoaJuridica, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     @JoinColumn({ name: 'Id_PJuridica', referencedColumnName: 'idPJuridica' })
     pessoaJuridica: PessoaJuridica;
+
+    constructor() {
+        this.statusRepresent = 1;
+    }
 }

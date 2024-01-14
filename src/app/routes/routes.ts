@@ -11,6 +11,7 @@ import { recebimentoEncomendaRoutes } from "./recebimentoEncomenda.routes";
 import { representanteRoutes } from "./representante.routes";
 import { clienteRoutes } from "./cliente.routes";
 import { retiradaEncomendaRoutes } from "./retiradaEncomenda.routes";
+import { cadastroDeClienteRoutes } from "./cadastroCliente.routes";
 
 
 const routes  = Router();
@@ -27,5 +28,6 @@ routes.use("/pessoafisica", pessoaFisicaRoutes);
 routes.use("/pessoaJuridica", pessoaJuridicaRoutes);
 routes.use("/representante", representanteRoutes);
 routes.use("/retiradaencomenda", retiradaEncomendaRoutes);
+routes.use("/cadastroCliente", cadastroDeClienteRoutes);
 
 export {routes};

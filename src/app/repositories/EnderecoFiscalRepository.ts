@@ -11,19 +11,14 @@ class EnderecoFiscalRepository {
     constructor() {
         this.enderecoFiscalRepository = AppDataSource.getRepository(EnderecoFiscal);
     }
-
-
-/*     async create({ statusEndFiscal }: IEnderecoFiscalCreate): Promise<EnderecoFiscal> {
-        const enderecoFiscal = new EnderecoFiscal();
-        enderecoFiscal.statusEndFiscal = statusEndFiscal;
     
-        return await this.enderecoFiscalRepository.save(enderecoFiscal);
-    } */
-    
-    async create({ statusEndFiscal }: IEnderecoFiscalCreate): Promise<EnderecoFiscal> {
-        const enderecoFiscal = this.enderecoFiscalRepository.create({ statusEndFiscal });
-        return await this.enderecoFiscalRepository.save(enderecoFiscal);
-    }    
+    async create({ numEndFiscal }: IEnderecoFiscalCreate): Promise<EnderecoFiscal> {
+        const enderecoFiscal = await this.enderecoFiscalRepository.create({numEndFiscal});
+
+        await this.enderecoFiscalRepository.save(enderecoFiscal)
+
+        return enderecoFiscal;
+    }
 
     async list(): Promise<EnderecoFiscal[]> {
         return await this.enderecoFiscalRepository.find();
@@ -33,11 +28,31 @@ class EnderecoFiscalRepository {
         return await this.enderecoFiscalRepository.findOneOrFail({ where: [{ numEndFiscal }] });
     }
 
+    async findByNumEndFiscal(numEndFiscal: number): Promise<EnderecoFiscal | null> {
+        return await this.enderecoFiscalRepository.findOne({ where: { numEndFiscal } });
+    }
+
     async update(numEndFiscal: number, updatedData: IEnderecoFiscalUpdate): Promise<void> {
         const enderecoFiscal = await this.enderecoFiscalRepository.findOneOrFail({ where: [{ numEndFiscal }] });
 
         if (enderecoFiscal) {
-            await this.enderecoFiscalRepository.update({ numEndFiscal: numEndFiscal }, { statusEndFiscal: updatedData.statusEnderecoFiscal });
+            await this.enderecoFiscalRepository.update({ numEndFiscal: numEndFiscal }, { statusEndFiscal: updatedData.numEndFiscal });
+        }
+    }
+
+    async inativar(numEndFiscal: number): Promise<void> {
+        const enderecoFiscal = await this.enderecoFiscalRepository.findOneOrFail({ where: { numEndFiscal } });
+        
+        if (enderecoFiscal) {
+            await this.enderecoFiscalRepository.update({ numEndFiscal: numEndFiscal}, { statusEndFiscal: 0 });
+        }
+    }
+
+    async ativar(numEndFiscal: number): Promise<void> {
+        const enderecoFiscal = await this.enderecoFiscalRepository.findOneOrFail({ where: { numEndFiscal } });
+        
+        if (enderecoFiscal) {
+            await this.enderecoFiscalRepository.update({ numEndFiscal: numEndFiscal}, { statusEndFiscal: 1 });
         }
     }
 

@@ -1,7 +1,6 @@
 import Admin from "../entities/Admin";
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../database/data-source";
-import ICliente from "../interfaces/create/IClienteCreate";
 import IAdmin from "../interfaces/IAdmin";
 import IAdminUpdate from "../interfaces/update/IAdminUpdate";
 
@@ -28,6 +27,10 @@ class AdminRepository{
 
     async findById(idAdmin: number): Promise<Admin | null> {
         return await this.adminRepository.findOneOrFail({ where: [{ idAdmin }] });
+    }
+
+    async findByIdUsuario(idUsuario: number): Promise<Admin | null> {
+        return await this.adminRepository.findOne({ where: { idUsuario } });
     }
 
     async update(idAdmin: number, updatedData: IAdminUpdate): Promise<void> {

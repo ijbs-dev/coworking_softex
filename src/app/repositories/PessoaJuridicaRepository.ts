@@ -26,7 +26,12 @@ class PessoaJuridicaRepository{
         return await this.pessoaJuridicaRepository.findOne({ where: { cnpj } });
     }
 
-    async create({ cnpj, razaoSocial, idCliente }: IPessoaJuridicaCreate): Promise<void> {
+    async findByCliente(idCliente: number): Promise<PessoaJuridica | null> {
+
+        return await this.pessoaJuridicaRepository.findOne({ where: { idCliente } });
+    }
+
+    async create({ cnpj, razaoSocial, idCliente }: IPessoaJuridicaCreate): Promise<PessoaJuridica> {
         
         const pessoaJuridica = await this.pessoaJuridicaRepository.create({
             cnpj,
@@ -35,6 +40,8 @@ class PessoaJuridicaRepository{
         });
 
         await this.pessoaJuridicaRepository.save(pessoaJuridica);
+
+        return pessoaJuridica;
     }
 
     async delete(idPJuridica: number): Promise<void> {

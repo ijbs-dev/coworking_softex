@@ -1,11 +1,7 @@
 interface IRepresentanteCreate {
-    idRepresent: number;
     nomeRepresent: string;
     emailRepresent: string;
-    statusRepresent: number;
     telefoneRepresent: string;
-    updated_atRepresent: Date;
-    created_atRepresent: Date;
     idPJuridica: number;
 }
 

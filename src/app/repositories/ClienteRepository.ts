@@ -12,13 +12,23 @@ class ClienteRepository {
         this.clienteRepository = AppDataSource.getRepository(Cliente);
     }
 
-  // Inserindo create Cliente junto com create Endereço
-    async create({ nomeCliente, telefoneCliente, emailCliente, qtdPontosCliente, prazoCliente, valorMensalCliente }: IClienteCreate): Promise<Cliente> {
-        const cliente = await this.clienteRepository.create({ nomeCliente, telefoneCliente, emailCliente, qtdPontosCliente, prazoCliente, valorMensalCliente });
+    async create({ nomeCliente, telefoneCliente, emailCliente, qtdPontosCliente, prazoCliente, valorMensalCliente,enderecoIdEndereco , adminIdAdmin, enderecoFiscalNumEndFiscal}: IClienteCreate): Promise<Cliente> {
 
-        return await this.clienteRepository.save(cliente);
+        const cliente = await this.clienteRepository.create({
+            nomeCliente, 
+            telefoneCliente, 
+            emailCliente, 
+            qtdPontosCliente,
+            prazoCliente,
+            valorMensalCliente,
+            enderecoIdEndereco,
+            adminIdAdmin,
+            enderecoFiscalNumEndFiscal
+        });
+
+        await this.clienteRepository.save(cliente)
+        return cliente;
     }
-
     
     async list(): Promise<Cliente[]> {
 
@@ -35,13 +45,28 @@ class ClienteRepository {
         return await this.clienteRepository.findOne({ where: { emailCliente } });
     }
 
-
     async update(idCliente: number, updatedData: IClienteUpdate): Promise<void> {   
         
         const cliente = await this.clienteRepository.findOneOrFail({ where: { idCliente } });
         
         if (cliente) {
             await this.clienteRepository.update({ idCliente: idCliente}, { telefoneCliente: updatedData.telefoneCliente, emailCliente: updatedData.emailCliente, qtdPontosCliente: updatedData.qtdPontosCliente, prazoCliente: updatedData.prazoCliente, valorMensalCliente: updatedData.valorMensalCliente,  updatedAtCliente: new Date() });
+        }
+    }
+
+    async inativar(idCliente: number): Promise<void> {
+        const cliente = await this.clienteRepository.findOneOrFail({ where: { idCliente } });
+        
+        if (cliente) {
+            await this.clienteRepository.update({ idCliente: idCliente}, { statusCliente: 0 });
+        }
+    }
+
+    async ativar(idCliente: number): Promise<void> {
+        const cliente = await this.clienteRepository.findOneOrFail({ where: { idCliente } });
+        
+        if (cliente) {
+            await this.clienteRepository.update({ idCliente: idCliente}, { statusCliente: 1 });
         }
     }
 

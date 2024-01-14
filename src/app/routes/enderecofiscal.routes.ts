@@ -28,8 +28,8 @@ enderecoFiscalRoutes.get("/:numEndFiscal", async (request, response) => {
 
 enderecoFiscalRoutes.post("/", async (request, response) => {
     try {
-        const { statusEndFiscal } = request.body;
-        const novoEnderecoFiscal = await enderecoFiscalController.create({ statusEndFiscal });
+        const { numEndFiscal } = request.body;
+        const novoEnderecoFiscal = await enderecoFiscalController.create({ numEndFiscal });
         response.status(201).json({ message: "Endereço Fiscal criado!", enderecoFiscal: novoEnderecoFiscal });
     } catch (error) {
         response.status(400).json({ message: `Erro ao criar o endereço fiscal: ${error}` });
