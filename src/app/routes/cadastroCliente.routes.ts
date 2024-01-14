@@ -9,6 +9,7 @@ import PessoaJuridicaRepository from "../repositories/PessoaJuridicaRepository";
 import { RepresentanteRepository } from "../repositories/RepresentanteRepository";
 import IClienteUpdate from "../interfaces/update/IClienteUpdate";
 import IEnderecoUpdate from "../interfaces/update/IEnderecoUpdate";
+import { autenticacao, autenticacaoAdmin } from "../middleware/autenticacao";
 
 const cadastroDeClienteRoutes = Router();
 
@@ -32,33 +33,39 @@ const cadastroClienteController = new CadastroClienteController(
 
 cadastroDeClienteRoutes.post("/pessoaFisica", async (request, response) => {
 
-    const { nomeCliente, cpf, telefoneCliente, emailCliente, qtdPontosCliente, prazoCliente, valorMensalCliente, logradouro, numero, bairro, uf, numEndFiscal, idUsuario } = request.body;
-
     try {
+        await autenticacaoAdmin(request, response, () => {});
 
-        await cadastroClienteController.pessoaFisica(nomeCliente, cpf, telefoneCliente, emailCliente, qtdPontosCliente, prazoCliente, valorMensalCliente, logradouro, numero, bairro, uf, numEndFiscal, idUsuario);
+        const { nomeCliente, cpf, telefoneCliente, emailCliente, qtdPontosCliente, prazoCliente, valorMensalCliente, logradouro, numero, bairro, uf, numEndFiscal, idUsuario } = request.body;
 
-        const cadastroClientePessoaFisica = {
-            nome: nomeCliente,
-            cpf: cpf,
-            telefoneCliente: telefoneCliente, 
-            emailCliente: emailCliente, 
-            qtdPontosCliente: qtdPontosCliente, 
-            prazoCliente: prazoCliente, 
-            valorMensalCliente: valorMensalCliente,
-            logradouro: logradouro, 
-            numero: numero, 
-            bairro: bairro, 
-            uf: uf,
-            numeroEnderecoFiscal: numEndFiscal
+        try {
+
+            await cadastroClienteController.pessoaFisica(nomeCliente, cpf, telefoneCliente, emailCliente, qtdPontosCliente, prazoCliente, valorMensalCliente, logradouro, numero, bairro, uf, numEndFiscal, idUsuario);
+
+            const cadastroClientePessoaFisica = {
+                nome: nomeCliente,
+                cpf: cpf,
+                telefoneCliente: telefoneCliente, 
+                emailCliente: emailCliente, 
+                qtdPontosCliente: qtdPontosCliente, 
+                prazoCliente: prazoCliente, 
+                valorMensalCliente: valorMensalCliente,
+                logradouro: logradouro, 
+                numero: numero, 
+                bairro: bairro, 
+                uf: uf,
+                numeroEnderecoFiscal: numEndFiscal
+            }
+
+            response.status(200).json({
+                    cadastroClientePessoaFisica,
+                    message: "Cliente cadastrado com sucesso!"
+            });
+        } catch (error) {
+            response.status(400).json(error);
         }
-
-        response.status(200).json({
-                cadastroClientePessoaFisica,
-                message: "Cliente cadastrado com sucesso!"
-        });
     } catch (error) {
-        response.status(400).json(error);
+        response.status(401).json(error);
     }
 });
 
@@ -67,31 +74,37 @@ cadastroDeClienteRoutes.post("/pessoaJuridica", async (request, response) => {
     const { nomeCliente, razaoSocial, cnpj, telefoneCliente, emailCliente, qtdPontosCliente, prazoCliente, valorMensalCliente, logradouro, numero, bairro, uf, numEndFiscal, idUsuario, nomeRepresent, emailRepreset, telefoneRepresent } = request.body;
 
     try {
+        await autenticacaoAdmin(request, response, () => {});
 
-        await cadastroClienteController.pessoaJuridica(nomeCliente, razaoSocial, cnpj, telefoneCliente, emailCliente, qtdPontosCliente, prazoCliente, valorMensalCliente, logradouro, numero, bairro, uf, numEndFiscal, idUsuario, nomeRepresent, emailRepreset, telefoneRepresent);
+        try {
 
-        const cadastroClientePessoaJuridica = {
-            nome: nomeCliente,
-            razaoSocial: razaoSocial,
-            cnpj: cnpj,
-            telefoneCliente: telefoneCliente, 
-            emailCliente: emailCliente, 
-            qtdPontosCliente: qtdPontosCliente, 
-            prazoCliente: prazoCliente, 
-            valorMensalCliente: valorMensalCliente,
-            logradouro: logradouro, 
-            numero: numero, 
-            bairro: bairro, 
-            uf: uf,
-            numeroEnderecoFiscal: numEndFiscal
+            await cadastroClienteController.pessoaJuridica(nomeCliente, razaoSocial, cnpj, telefoneCliente, emailCliente, qtdPontosCliente, prazoCliente, valorMensalCliente, logradouro, numero, bairro, uf, numEndFiscal, idUsuario, nomeRepresent, emailRepreset, telefoneRepresent);
+    
+            const cadastroClientePessoaJuridica = {
+                nome: nomeCliente,
+                razaoSocial: razaoSocial,
+                cnpj: cnpj,
+                telefoneCliente: telefoneCliente, 
+                emailCliente: emailCliente, 
+                qtdPontosCliente: qtdPontosCliente, 
+                prazoCliente: prazoCliente, 
+                valorMensalCliente: valorMensalCliente,
+                logradouro: logradouro, 
+                numero: numero, 
+                bairro: bairro, 
+                uf: uf,
+                numeroEnderecoFiscal: numEndFiscal
+            }
+    
+            response.status(200).json({
+                cadastroClientePessoaJuridica, 
+                message: "Cliente cadastrado com sucesso!"}
+            );
+        } catch (error) {
+            response.status(400).json(error);
         }
-
-        response.status(200).json({
-            cadastroClientePessoaJuridica, 
-            message: "Cliente cadastrado com sucesso!"}
-        );
     } catch (error) {
-        response.status(400).json(error);
+        response.status(401).json(error);
     }
 });
 
@@ -100,10 +113,16 @@ cadastroDeClienteRoutes.patch("/inativar/:idCliente", async (request, response) 
     const idCliente = Number(request.params.idCliente);
 
     try {
-        await cadastroClienteController.inativar(idCliente);
-        response.status(200).json({ message: "Cadastro de Cliente inativado!" })
+        await autenticacaoAdmin(request, response, () => {});
+
+        try {
+            await cadastroClienteController.inativar(idCliente);
+            response.status(200).json({ message: "Cadastro de Cliente inativado!" })
+        } catch (error) {
+            response.status(400).json(error);
+        }
     } catch (error) {
-        response.status(400).json(error);
+        response.status(401).json(error);
     }
 })
 
@@ -112,10 +131,16 @@ cadastroDeClienteRoutes.patch("/ativar/:idCliente", async (request, response) =>
     const idCliente = Number(request.params.idCliente);
 
     try {
-        await cadastroClienteController.ativar(idCliente);
-        response.status(200).json({ message: "Cadastro de Cliente ativado!" })
+        await autenticacaoAdmin(request, response, () => {});
+
+        try {
+            await cadastroClienteController.ativar(idCliente);
+            response.status(200).json({ message: "Cadastro de Cliente ativado!" })
+        } catch (error) {
+            response.status(400).json(error);
+        }
     } catch (error) {
-        response.status(400).json(error);
+        response.status(401).json(error);
     }
 })
 
@@ -126,12 +151,16 @@ cadastroDeClienteRoutes.patch("/:idCliente", async (request, response) => {
     const dataUpdateEndeco: IEnderecoUpdate = request.body;
 
     try {
+        await autenticacaoAdmin(request, response, () => {});
 
-        await cadastroClienteController.update(idCliente, dataUpdateCliente, dataUpdateEndeco);
-        response.status(200).json({ message: "Cadastro de Cliente atualizado!" })
+        try {
+            await cadastroClienteController.update(idCliente, dataUpdateCliente, dataUpdateEndeco);
+            response.status(200).json({ message: "Cadastro de Cliente atualizado!" })
+        } catch (error) {
+            response.status(400).json(error);
+        }
     } catch (error) {
-        response.status(400).json(error);
-        console.log(error);
+        response.status(401).json(error);
     }
 })
 
@@ -140,10 +169,16 @@ cadastroDeClienteRoutes.get("/cnpj/:cnpj", async (request, response) => {
     const cnpj = request.params.cnpj;
 
     try {
-        const ClienteCnpj = await cadastroClienteController.findByCnpj(cnpj);
-        response.status(200).json(ClienteCnpj);
+        await autenticacao(request, response, () => {});
+
+        try {
+            const ClienteCnpj = await cadastroClienteController.findByCnpj(cnpj);
+            response.status(200).json(ClienteCnpj);
+        } catch (error) {
+            response.status(400).json(error);
+        }
     } catch (error) {
-        response.status(400).json(error);
+        response.status(401).json(error);
     }
 });
 
@@ -152,10 +187,16 @@ cadastroDeClienteRoutes.get("/cpf/:cpf", async (request, response) => {
     const cpf = request.params.cpf;
 
     try {
-        const ClienteCpf = await cadastroClienteController.findByCpf(cpf);
-        response.status(200).json(ClienteCpf);
+        await autenticacao(request, response, () => {});
+
+        try {
+            const ClienteCpf = await cadastroClienteController.findByCpf(cpf);
+            response.status(200).json(ClienteCpf);
+        } catch (error) {
+            response.status(400).json(error);
+        }
     } catch (error) {
-        response.status(400).json(error);
+        response.status(401).json(error);
     }
 });
 

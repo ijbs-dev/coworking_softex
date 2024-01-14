@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import ClienteController from '../controllers/ClienteController';
 import ClienteRepository from '../repositories/ClienteRepository';
-import { autenticacao, autenticacaoAdmin, autenticacaoRecepcao } from '../middleware/autenticacao';
+import { autenticacao, autenticacaoAdmin } from '../middleware/autenticacao';
 
 const clienteRoutes = Router();
 const clienteRepository = new ClienteRepository()
@@ -20,20 +20,32 @@ clienteRoutes.get('/', async (request, response) => {
 clienteRoutes.get('/ativados', async (request, response) => {
     
     try {
-        const clientesAtivados = await clienteController.listAtivados();
-        response.status(200).json(clientesAtivados);
+        await autenticacao(request, response, () => {});
+
+        try {
+            const clientesAtivados = await clienteController.listAtivados();
+            response.status(200).json(clientesAtivados);
+        } catch (error) {
+            response.status(400).json(error);
+        }
     } catch (error) {
-        response.status(400).json( { message: "Não foi possível listar os Clientes!" })
+        response.status(401).json(error);
     }
 });
 
 clienteRoutes.get('/inativados', async (request, response) => {
     
     try {
-        const clientesAtivados = await clienteController.listInativados();
-        response.status(200).json(clientesAtivados);
+        await autenticacaoAdmin(request, response, () => {});
+
+        try {
+            const clientesAtivados = await clienteController.listInativados();
+            response.status(200).json(clientesAtivados);
+        } catch (error) {
+            response.status(400).json(error)
+        }
     } catch (error) {
-        response.status(400).json(error)
+        response.status(401).json(error)
     }
 });
 
@@ -42,10 +54,16 @@ clienteRoutes.get('/id/:id', async (request, response) => {
     const idCliente = Number(request.params.id);
 
     try {
-        const cliente = await clienteController.findById(idCliente);
-        response.status(200).json(cliente);
+        await autenticacaoAdmin(request, response, () => {});
+        
+        try {
+            const cliente = await clienteController.findById(idCliente);
+            response.status(200).json(cliente);
+        } catch (error) {
+            response.status(400).json(error)
+        }
     } catch (error) {
-        response.status(400).json({ message: "Cliente não encontrado!" })
+        
     }
 });
 

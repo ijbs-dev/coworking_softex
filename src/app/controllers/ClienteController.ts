@@ -3,6 +3,7 @@ import Cliente from '../entities/Cliente';
 import ClienteRepository from '../repositories/ClienteRepository';
 import IClienteCreate from '../interfaces/create/IClienteCreate';
 import IClienteUpdate from '../interfaces/update/IClienteUpdate';
+import { AppError } from '../errors/AppError';
 
 class ClienteController {
 
@@ -37,7 +38,7 @@ class ClienteController {
       const cliente = await this.clienteRepository.findByEmail(email);
 
       if(!cliente) {
-          throw new Error("Cliente não existente!");
+          throw new AppError("Cliente não existente!");
       }
 
       return cliente;
@@ -48,7 +49,7 @@ class ClienteController {
       const cliente = await this.clienteRepository.findById(id);
 
       if(!cliente) {
-          throw new Error("Cliente inexistente!");
+          throw new AppError("Cliente não encontrado!");
       }
 
       return cliente;
@@ -59,7 +60,7 @@ class ClienteController {
       const cliente = await this.clienteRepository.findById(id);
 
       if (!cliente) {
-          throw new Error("Cliente inexistente!");
+          throw new AppError("Cliente inexistente!");
       }
       
       await this.clienteRepository.update(id, clienteData);
@@ -70,7 +71,7 @@ class ClienteController {
       const cliente = await this.clienteRepository.findById(id);
 
       if (!cliente) {
-          throw new Error("Usuário não existente!");
+          throw new AppError("Usuário não existente!");
       }
 
       await this.clienteRepository.delete(id);
