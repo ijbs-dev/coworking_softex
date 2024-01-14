@@ -1,56 +1,64 @@
 import EnderecoFiscal from "../entities/EnderecoFiscal";
-import IEnderecoFiscalCreate from "../interfaces/create/IEnderecoFiscalCreate";
+import { AppError } from "../errors/AppError";
 import IEnderecoFiscalUpdate from "../interfaces/update/IEnderecoFiscalUpdate";
 import EnderecoFiscalRepository from "../repositories/EnderecoFiscalRepository";
 
+
 class EnderecoFiscalController {
-    findByNumEndFiscal(numEndFiscal: number) {
-        throw new Error("Method not implemented.");
-    }
 
     constructor(private enderecoFiscalRepository: EnderecoFiscalRepository) {}
 
-    /**
-     *     async create(dadosUsuario: IUsuarioCreate): Promise<void> {
+    async create(numEndFiscal: number): Promise<EnderecoFiscal> {
 
-        await this.usuarioRepository.create(dadosUsuario);
+        const enderecoFiscal = await this.enderecoFiscalRepository.findByNumEndFiscal(numEndFiscal);
+
+        if (enderecoFiscal) {
+            throw new AppError("Número de Endereço Fiscal existente!");
+        }
+
+        return await this.enderecoFiscalRepository.create(numEndFiscal);
     }
-     */
-
-    async create(dadosEnderecoFiscal: IEnderecoFiscalCreate): Promise<void> {
-        await this.enderecoFiscalRepository.create(dadosEnderecoFiscal);
-    }
-
 
     async list(): Promise<EnderecoFiscal[]> {
         return await this.enderecoFiscalRepository.list();
     }
 
-    async findById(numEndFiscal: number): Promise<EnderecoFiscal> {
-        const enderecoFiscal = await this.enderecoFiscalRepository.findById(numEndFiscal);
+    async listAtivos(): Promise<EnderecoFiscal[]> {
+        return await this.enderecoFiscalRepository.listAtivos();
+    }
 
-        if (!enderecoFiscal) {
-            throw new Error("Endereço Fiscal inexistente!");
+    async listInativos(): Promise<EnderecoFiscal[]> {
+        return await this.enderecoFiscalRepository.listInativos();
+    }
+
+    async findByNumEndFiscal(numEndFiscal: number): Promise<EnderecoFiscal> {
+        
+        const enderecoFiscal = await this.enderecoFiscalRepository.findByNumEndFiscal(numEndFiscal);
+
+        if(!enderecoFiscal) {
+            throw new AppError("Endereço Fiscal inexistente!");
         }
 
         return enderecoFiscal;
     }
 
-    async update(numEndFiscal: number, dadosEnderecoFiscal: IEnderecoFiscalUpdate): Promise<void> {
-        const enderecoFiscal = await this.enderecoFiscalRepository.findById(numEndFiscal);
-
-        if (!enderecoFiscal) {
-            throw new Error("Endereço Fiscal inexistente!");
+    async update(numEndFiscal: number, dadosEndereco: IEnderecoFiscalUpdate): Promise<void> {
+        
+        const enderecoFiscal = await this.enderecoFiscalRepository.findByNumEndFiscal(numEndFiscal);
+        
+        if(!enderecoFiscal) {
+            throw new AppError("Endereço Fiscal inexistente!");
         }
 
-        await this.enderecoFiscalRepository.update(numEndFiscal, dadosEnderecoFiscal);
+        await this.enderecoFiscalRepository.update(numEndFiscal, dadosEndereco);
+        
     }
 
-    async deleteById(numEndFiscal: number): Promise<void> {
-        const enderecoFiscal = await this.enderecoFiscalRepository.findById(numEndFiscal);
+    async deleteByNumEndFiscal(numEndFiscal: number): Promise<void> {
+        const enderecoFiscal = await this.enderecoFiscalRepository.findByNumEndFiscal(numEndFiscal);
 
-        if (!enderecoFiscal) {
-            throw new Error("Endereço Fiscal inexistente!");
+        if(!enderecoFiscal) {
+            throw new AppError("Endereço Fiscal inexistente!");
         }
 
         await this.enderecoFiscalRepository.delete(numEndFiscal);
