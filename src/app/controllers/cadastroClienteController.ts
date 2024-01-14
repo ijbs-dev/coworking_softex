@@ -32,7 +32,7 @@ class CadastroClienteController {
                 throw new AppError("Número de Endereço Fiscal já existe!");
             }
 
-            await this.enderecoFiscalRepository.create({ numEndFiscal });
+            await this.enderecoFiscalRepository.create(numEndFiscal);
 
             const endereco = await this.enderecoRepository.create({ logradouro, bairro, numero, uf });
             const enderecoId = endereco.idEndereco;
@@ -65,7 +65,7 @@ class CadastroClienteController {
                 throw new AppError("Representante já cadastrado com esse E-mail!");
             }
 
-            await this.enderecoFiscalRepository.create({ numEndFiscal });
+            await this.enderecoFiscalRepository.create(numEndFiscal);
 
             const endereco = await this.enderecoRepository.create({ logradouro, bairro, numero, uf });
             const enderecoId = endereco.idEndereco;

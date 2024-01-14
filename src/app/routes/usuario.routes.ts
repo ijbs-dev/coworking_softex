@@ -3,6 +3,7 @@ import { UsuarioRepository } from "../repositories/UsuarioRepository";
 import { UsuarioController } from "../controllers/UsuarioController";
 import { AdminRepository } from "../repositories/AdminRepository";
 import { RecepcaoRepository } from "../repositories/RecepcaoRepository";
+import { AutenticacaoController } from "../controllers/AutenticacaoController";
 
 const usuarioRoutes = Router();
 const usuarioRepository = new UsuarioRepository();
@@ -13,6 +14,7 @@ const usuarioController = new UsuarioController(
     adminRepository,
     recepcaoRepository
 );
+const autenticacaoController = new AutenticacaoController(usuarioRepository);
 
 usuarioRoutes.get("/", async (request, response) => {
 
@@ -130,6 +132,18 @@ usuarioRoutes.delete("/:id", async (request, response) => {
         response.status(200).json({ message: "Usuario excluido!" })
     } catch (error) {
         response.status(400).json(error);
+    }
+})
+
+usuarioRoutes.post("/autenticacao", async (request, response) => {
+
+    const { email, senha } = request.body;
+
+    try {
+        const token = await autenticacaoController.autenticar(email, senha);
+        response.status(200).json(token);
+    } catch (error) {
+        response.status(400).json(error)
     }
 })
 

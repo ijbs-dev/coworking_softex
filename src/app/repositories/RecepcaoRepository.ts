@@ -24,6 +24,10 @@ class RecepcaoRepository {
     async findById(idRecepcao: number): Promise<Recepcao | null> {
         return await this.recepcaoRepository.findOneOrFail({ where: [{ idRecepcao }] });
     }
+
+    async findByIdUsuario(idUsuario: number): Promise<Recepcao | null> {
+        return await this.recepcaoRepository.findOne({ where: { idUsuario } });
+    }
 }
 
 

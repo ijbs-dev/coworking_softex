@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import ClienteController from '../controllers/ClienteController';
 import ClienteRepository from '../repositories/ClienteRepository';
+import { autenticacao, autenticacaoAdmin, autenticacaoRecepcao } from '../middleware/autenticacao';
 
 const clienteRoutes = Router();
 const clienteRepository = new ClienteRepository()
@@ -32,7 +33,7 @@ clienteRoutes.get('/inativados', async (request, response) => {
         const clientesAtivados = await clienteController.listInativados();
         response.status(200).json(clientesAtivados);
     } catch (error) {
-        response.status(400).json( { message: "Não foi possível listar os Clientes!" })
+        response.status(400).json(error)
     }
 });
 
