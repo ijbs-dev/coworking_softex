@@ -3,20 +3,43 @@ import { UsuarioRepository}  from "../repositories/UsuarioRepository";
 import IUsuarioCreate from "../interfaces/create/IUsuarioCreate";
 import IUsuarioUpdate from "../interfaces/update/IUsuarioUpdate";
 import { AppError } from "../errors/AppError";
+import { AdminRepository } from "../repositories/AdminRepository";
+import { RecepcaoRepository } from "../repositories/RecepcaoRepository";
 
 class UsuarioController {
 
-    constructor(private usuarioRepository: UsuarioRepository) {}
+    constructor(
+        private usuarioRepository: UsuarioRepository,
+        private adminRepository: AdminRepository,
+        private recepcaoRepository: RecepcaoRepository
+    ) {}
 
-    async create(dadosUsuario: IUsuarioCreate): Promise<void> {
+    async createAdmin(dadosUsuario: IUsuarioCreate): Promise<void> {
 
         const usuario = await this.usuarioRepository.findByEmail(dadosUsuario.emailUsuario);
 
         if (usuario) {
-            throw new AppError("Usuário já existente!");
+            throw new AppError("Usuário com E-mail já existente!");
         }
 
-        await this.usuarioRepository.create(dadosUsuario);
+        const usuarioCriado = await this.usuarioRepository.create(dadosUsuario);
+        const idUsuario = usuarioCriado.idUsuario;
+        
+        await this.adminRepository.create({ idUsuario });
+    }
+
+    async createRecepcao(dadosUsuario: IUsuarioCreate): Promise<void> {
+
+        const usuario = await this.usuarioRepository.findByEmail(dadosUsuario.emailUsuario);
+
+        if (usuario) {
+            throw new AppError("Usuário com E-mail já existente!");
+        }
+
+        const usuarioCriado = await this.usuarioRepository.create(dadosUsuario);
+        const idUsuario = usuarioCriado.idUsuario;
+
+        await this.recepcaoRepository.create({ idUsuario });
     }
 
     async list(): Promise<Usuario[]> {

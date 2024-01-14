@@ -1,10 +1,18 @@
 import { Router } from "express";
 import { UsuarioRepository } from "../repositories/UsuarioRepository";
 import { UsuarioController } from "../controllers/UsuarioController";
+import { AdminRepository } from "../repositories/AdminRepository";
+import { RecepcaoRepository } from "../repositories/RecepcaoRepository";
 
 const usuarioRoutes = Router();
 const usuarioRepository = new UsuarioRepository();
-const usuarioController = new UsuarioController(usuarioRepository);
+const adminRepository = new AdminRepository();
+const recepcaoRepository = new RecepcaoRepository()
+const usuarioController = new UsuarioController(
+    usuarioRepository,
+    adminRepository,
+    recepcaoRepository
+);
 
 usuarioRoutes.get("/", async (request, response) => {
 
@@ -37,12 +45,12 @@ usuarioRoutes.get("/id/:id", async (request, response) => {
     }
 })
 
-usuarioRoutes.post("/", async (request, response) => {
+usuarioRoutes.post("/admin", async (request, response) => {
 
     const { nomeUsuario, funcaoUsuario, emailUsuario, loginUsuario, senhaUsuario} = request.body;
 
     try {
-        await usuarioController.create({
+        await usuarioController.createAdmin({
             nomeUsuario,
             funcaoUsuario,
             emailUsuario,
@@ -50,11 +58,29 @@ usuarioRoutes.post("/", async (request, response) => {
             senhaUsuario,
         })
 
-        response.status(201).json({ message: "Usuário Criado!" });
+        response.status(201).json({ message: "Usuário Administrador Criado!" });
     } catch (error) {
         response.status(400).json(error);
     }
+})
 
+usuarioRoutes.post("/recepcao", async (request, response) => {
+
+    const { nomeUsuario, funcaoUsuario, emailUsuario, loginUsuario, senhaUsuario} = request.body;
+
+    try {
+        await usuarioController.createRecepcao({
+            nomeUsuario,
+            funcaoUsuario,
+            emailUsuario,
+            loginUsuario,
+            senhaUsuario,
+        })
+
+        response.status(201).json({ message: "Usuário Recepção Criado!" });
+    } catch (error) {
+        response.status(400).json(error);
+    }
 })
 
 usuarioRoutes.put("/:id", async (request, response) => {

@@ -12,9 +12,8 @@ class AdminRepository{
         this.adminRepository = AppDataSource.getRepository(Admin);
     }
 
-    async create({idAdmin, idUsuario }: IAdmin): Promise<Admin> {
+    async create({ idUsuario }: IAdmin): Promise<Admin> {
         const admin = await this.adminRepository.create({
-            idAdmin,
             idUsuario
         });
         

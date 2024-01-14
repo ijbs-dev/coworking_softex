@@ -22,7 +22,9 @@ class UsuarioRepository {
             senhaUsuario,
         });
 
-        return await this.usuarioRepository.save(usuario);
+        await this.usuarioRepository.save(usuario);
+
+        return usuario; 
     }
 
     async list(): Promise<Usuario[]> {

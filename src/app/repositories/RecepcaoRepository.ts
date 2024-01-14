@@ -10,9 +10,8 @@ class RecepcaoRepository {
         this.recepcaoRepository = AppDataSource.getRepository(Recepcao);
     }
 
-    async create({ idRecepcao, idUsuario }: IRecepcao): Promise<Recepcao> {
+    async create({ idUsuario }: IRecepcao): Promise<Recepcao> {
         const recepcao = await this.recepcaoRepository.create({
-            idRecepcao, 
             idUsuario
         });
         return await this.recepcaoRepository.save(recepcao);
