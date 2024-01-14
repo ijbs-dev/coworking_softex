@@ -4,6 +4,7 @@ import { UsuarioController } from "../controllers/UsuarioController";
 import { AdminRepository } from "../repositories/AdminRepository";
 import { RecepcaoRepository } from "../repositories/RecepcaoRepository";
 import { AutenticacaoController } from "../controllers/AutenticacaoController";
+import { autenticacaoAdmin } from "../middleware/autenticacao";
 
 const usuarioRoutes = Router();
 const usuarioRepository = new UsuarioRepository();
@@ -18,23 +19,37 @@ const autenticacaoController = new AutenticacaoController(usuarioRepository);
 
 usuarioRoutes.get("/", async (request, response) => {
 
-    const usuarios = await usuarioController.list();
+    try {
+        const usuarios = await usuarioController.list();
 
-    return response.status(200).json(usuarios);
+        return response.status(200).json(usuarios);
+    } catch (error) {
+        return response.status(400).json(error);
+    }
 })
 
 usuarioRoutes.get("/ativos", async (request, response) => {
 
-    const usuarios = await usuarioController.listAtivos();
+    try {
+        await autenticacaoAdmin(request, response, () => {});
+        const usuariosAtivos = await usuarioController.listAtivos();
 
-    return response.status(200).json(usuarios);
+        return response.status(200).json(usuariosAtivos);
+    } catch (error) {
+        response.status(401).json(error);
+    }  
 })
 
 usuarioRoutes.get("/inativos", async (request, response) => {
 
-    const usuarios = await usuarioController.listInativos();
+    try {
+        await autenticacaoAdmin(request, response, () => {});
+        const usuarios = await usuarioController.listInativos();
 
-    return response.status(200).json(usuarios);
+        return response.status(200).json(usuarios);
+    } catch (error) {
+        response.status(401).json(error);
+    } 
 })
 
 usuarioRoutes.get("/email/:email", async (request, response) => {
@@ -42,10 +57,16 @@ usuarioRoutes.get("/email/:email", async (request, response) => {
     const email = request.params.email;
 
     try {
-        const usuario = await usuarioController.findByEmail(email);
-        response.status(200).json(usuario);
+        await autenticacaoAdmin(request, response, () => {});
+
+        try {
+            const usuario = await usuarioController.findByEmail(email);
+            response.status(200).json(usuario);
+        } catch (error) {
+            response.status(400).json(error);
+        }
     } catch (error) {
-        response.status(400).json(error);
+        response.status(401).json(error);
     }
 })
 
@@ -66,18 +87,26 @@ usuarioRoutes.post("/admin", async (request, response) => {
     const { nomeUsuario, funcaoUsuario, emailUsuario, loginUsuario, senhaUsuario} = request.body;
 
     try {
-        await usuarioController.createAdmin({
-            nomeUsuario,
-            funcaoUsuario,
-            emailUsuario,
-            loginUsuario,
-            senhaUsuario,
-        })
+        await autenticacaoAdmin(request, response, () => {});
 
-        response.status(201).json({ message: "Usuário Administrador Criado!" });
+        try {
+        
+            await usuarioController.createAdmin({
+                nomeUsuario,
+                funcaoUsuario,
+                emailUsuario,
+                loginUsuario,
+                senhaUsuario,
+            })
+    
+            response.status(201).json({ message: "Usuário Administrador cadastrado!" });
+        } catch (error) {
+            response.status(400).json(error);
+        }
     } catch (error) {
-        response.status(400).json(error);
+        response.status(401).json(error);
     }
+    
 })
 
 usuarioRoutes.post("/recepcao", async (request, response) => {
@@ -85,17 +114,23 @@ usuarioRoutes.post("/recepcao", async (request, response) => {
     const { nomeUsuario, funcaoUsuario, emailUsuario, loginUsuario, senhaUsuario} = request.body;
 
     try {
-        await usuarioController.createRecepcao({
-            nomeUsuario,
-            funcaoUsuario,
-            emailUsuario,
-            loginUsuario,
-            senhaUsuario,
-        })
+        await autenticacaoAdmin(request, response, () => {});
 
-        response.status(201).json({ message: "Usuário Recepção Criado!" });
+        try {
+            await usuarioController.createRecepcao({
+                nomeUsuario,
+                funcaoUsuario,
+                emailUsuario,
+                loginUsuario,
+                senhaUsuario,
+            })
+    
+            response.status(201).json({ message: "Usuário Recepção cadastrado!" });
+        } catch (error) {
+            response.status(400).json(error);
+        }
     } catch (error) {
-        response.status(400).json(error);
+        response.status(401).json(error);
     }
 })
 
@@ -110,7 +145,6 @@ usuarioRoutes.put("/:id", async (request, response) => {
 
     try {
         const usuario = await usuarioController.findById(idUsuario);
-
         if(!usuario) {
             response.status(404).json({ error: "Usuário não encontrado."});   
         }

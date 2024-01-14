@@ -1,12 +1,9 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "API de Mangue Coworking - Endereço Fiscal Softex",
-        "description": "Essa é uma API onde será possível gerenciar a retirada e recebimento de encomendas na SofTex Recife.",
+        "title": "API Mangue Space Coworking - Módulo de Endereço Fiscail",
+        "description": "A API(Application Programing Interface) de Endereço Fiscal é um módulo do Sistema de Gerenciamento do Coworking Mangue Space, esse módulo será responsável pelo cadastramento das empresas contratantes do serviço da Softex, bem como, organizar em um sistema a listagem das empresas com cadastro ativo aptos para recebimento de encomendas e correspondências na recepção do prédio ITBC.",
         "termsOfService": "http://softex.com.br",
-        "contact": {
-            "email": "claudiomrcas@gmail.com"
-        },
         "version": "1.0.0"
     },
     "servers": [
@@ -16,46 +13,155 @@
         }
     ],
     "paths": {
-        "/usuario": {
+        "/usuario/autenticacao": {
             "post": {
-                "summary": "Cadastrar novo Usuário",
-                "description": "Essa rota será responsável por cadastrar um novo usuário.",
                 "tags": ["Usuario"],
+                "summary": "Autênticação de Usuário",
+                "description": "Deverá ser possível que um usuário possa se autênticar no sistema.",
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "example": {
-                                "nomeUsuario": "Johny NEWWWW",
-                                "funcaoUsuario": "DEV",
-                                "emailUsuario": "john.doe@email.com",
-                                "loginUsuario": "john",
-                                "senhaUsuario": "pass"
+                                "email": "admin@email.com",
+                                "senha": "admin"
                             }
                         }
                     }
                 },
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/AutenticacaoUsuario"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "E-mail ou senha incorretos!"
                     }
                 }
-            },
-            "get": {
-                "summary": "Listar Usuários",
-                "description": "Essa rota será responsável por listar todos os usuários cadastrados.",
+            }
+        },
+        "/usuario/admin": {
+            "post": {
                 "tags": ["Usuario"],
+                "summary": "Cadastramento de Usuário Administrador",
+                "description": "Deverá ser possível que um usuário administrador possa cadastrar outros usuários administradores.",
+                "security": [{ "bearerAuth": [] }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "nomeUsuario": "Marcelo Raposo",
+                                "funcaoUsuario": "Desenvolvedor Back-End",
+                                "emailUsuario": "marcelo.raposo@email.com",
+                                "loginUsuario": "marceloraposo",
+                                "senhaUsuario": "pass123"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "Usuário Administrador cadastrado!"
+                    },
+                    "400": {
+                        "description": "Usuário já existente!"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/usuario/recepcao": {
+            "post": {
+                "tags": ["Usuario"],
+                "summary": "Cadastramento de Usuário da Recepção",
+                "description": "Deverá ser possível que um usuário administrador possa cadastrar outros usuários da recepção para recebimento de encomendas.",
+                "security": [{ "bearerAuth": [] }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "nomeUsuario": "João da Silva",
+                                "funcaoUsuario": "Segurança",
+                                "emailUsuario": "joao.silva@email.com",
+                                "loginUsuario": "joaosilva",
+                                "senhaUsuario": "pass123"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuário Recepção cadastrado!"
+                    },
+                    "400": {
+                        "description": "Usuário já existente!"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/usuario/ativos": {
+            "get": {
+                "tags": ["Usuario"],
+                "summary": "Listagem de Usuários Ativos",
+                "description": "Deverá ser possível que um usuário administrador possa listar todos os Representantes que estão cadastrados e ativos, na base de dados do sistema.",
+                "security": [{ "bearerAuth": [] }],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Usuario"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/usuario/inativos": {
+            "get": {
+                "tags": ["Usuario"],
+                "summary": "Listagem de Usuários Ativos",
+                "description": "Deverá ser possível que um usuário administrador possa listar todos os Representantes que estão cadastrados e ativos, na base de dados do sistema.",
+                "security": [{ "bearerAuth": [] }],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Usuario"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
                     }
                 }
             }
         },
         "/usuario/email/{email}": {
             "get": {
+                "tags": ["Usuario"],
                 "summary": "Obter Usuário por Email",
                 "description": "Essa rota será responsável por obter um usuário com base no email fornecido.",
-                "tags": ["Usuario"],
+                "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
                         "name": "email",
@@ -80,15 +186,54 @@
                     },
                     "400": {
                         "description": "Usuário não encontrado"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
                     }
                 }
             }
         },
-        "/usuario/{id}": { 
+        "/usuario/{id}": {
+            "put": {
+                "tags": ["Usuario"],
+                "summary": "Atualizar dados do Usuário",
+                "description": "Deverá ser possível que um usuário possa modificar/atualizar seus dados.",
+                "security": [{ "bearerAuth": [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do Usuário para busca",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "nomeUsuario": "Charlie Brownn",
+                                "senhaUsuario": "passworddeff"
+                            }        
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    },
+                    "400": {
+                        "description": "Usuário não encontrado!"
+                    }
+                }
+            },
             "delete": {
                 "tags": ["Usuario"],
                 "summary": "Deletar Usuário por ID",
-                "description": "Esta rota é responsável por deletar um usuário com base no ID fornecido.",
+                "description": "everá ser possível que um usuário administrador possa deletar um usuário com base no ID fornecido.",
+                "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
                         "name": "id",
@@ -102,20 +247,13 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Usuario"
-                                }
-                            }
-                        }
+                        "description": "OK"
                     },
                     "400": {
-                        "description": "Usuário não encontrado"
+                        "description": "Usuário não encontrado!"
                     }
                 }
-            }        
+            }       
         }
     },
     "components": {
@@ -152,6 +290,32 @@
                     }
 
                 }
+            },
+            "AutenticacaoUsuario": {
+                "type": "object",
+                "properties": {                    
+                    "token": {
+                        "type": "string"
+                    },
+                    "user": {
+                        "type": "object",
+                        "properties": {
+                            "email": {
+                                "type": "string"
+                            },
+                            "senha": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
             }
         }
     }

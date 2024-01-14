@@ -33,7 +33,7 @@ class UsuarioController {
         const usuario = await this.usuarioRepository.findByEmail(dadosUsuario.emailUsuario);
 
         if (usuario) {
-            throw new AppError("Usuário com E-mail já existente!");
+            throw new AppError("Usuário já existente!");
         }
 
         const usuarioCriado = await this.usuarioRepository.create(dadosUsuario);
@@ -62,7 +62,7 @@ class UsuarioController {
         const usuario = await this.usuarioRepository.findByEmail(email);
 
         if(!usuario) {
-            throw new AppError("Usuário não existente!");
+            throw new AppError("Usuário não encontrado!");
         }
 
         return usuario;
@@ -73,7 +73,7 @@ class UsuarioController {
         const usuario = await this.usuarioRepository.findById(id);
 
         if(!usuario) {
-            throw new AppError("Usuário inexistente!");
+            throw new AppError("Usuário não encontrado!");
         }
 
         return usuario;
@@ -84,7 +84,7 @@ class UsuarioController {
         const usuario = await this.usuarioRepository.findById(id);
 
         if (!usuario) {
-            throw new AppError("Usuário inexistente!");
+            throw new AppError("Usuário não encontrado!");
         }
          
         await this.usuarioRepository.update(id, dadosUsuario);
@@ -95,7 +95,7 @@ class UsuarioController {
         const usuario = await this.usuarioRepository.findById(id);
 
         if (!usuario) {
-            throw new AppError("Usuário não existente!");
+            throw new AppError("Usuário não encontrado!");
         }
 
         await this.usuarioRepository.delete(id);

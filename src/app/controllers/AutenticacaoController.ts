@@ -34,6 +34,10 @@ class AutenticacaoController {
             throw new AppError("E-mail ou senha incorretos!");
         }
 
+        if (usuario.statusUsuario == 0) {
+            throw new AppError("Usuario se encontra Inativo!");
+        }
+
         const token = sign({}, "583305b64b35a829cf52e02ec37b1a42", {
             subject: String(usuario.idUsuario),
             expiresIn: "1d"
