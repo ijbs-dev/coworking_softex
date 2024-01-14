@@ -1,10 +1,15 @@
 import { Router } from "express";
 import { AdminRepository } from "../repositories/AdminRepository";
 import { AdminController } from "../controllers/AdminController";
+import { UsuarioRepository } from "../repositories/UsuarioRepository";
 
 const adminRoutes = Router();
 const adminRepository = new AdminRepository();
-const adminController = new AdminController(adminRepository);
+const usuarioRepository = new UsuarioRepository();
+const adminController = new AdminController(
+    adminRepository,
+    usuarioRepository
+);
 
 adminRoutes.get("/", async(request, response) => {
     const admins = await adminController.list();
@@ -20,32 +25,6 @@ adminRoutes.get("/id/:id", async(request, response) => {
         response.status(200).json(admin);
     } catch(error) {
         response.status(400).json(error);
-    }
-})
-
-adminRoutes.post("/", async(request, response) => {
-    const { idAdmin, idUsuario } = request.body;
-
-    try {
-        await adminController.create({
-            idAdmin,
-            idUsuario
-        })
-        response.status(201).json({ message: "Admin Criado!" });
-    } catch (error) {
-        response.status(400).json({ message: error});
-    }
-})
-
-adminRoutes.delete("/:id", async (request, response) => {
-
-    const idAdmin = Number(request.params.id);
-
-    try {
-        adminController.deleteById(idAdmin);
-        response.status(200).json({ message: "Administrador excluído! "});
-    } catch (error) {
-        response.status(400).json({ message: "Erro ao excluir administrador!" })
     }
 })
 
