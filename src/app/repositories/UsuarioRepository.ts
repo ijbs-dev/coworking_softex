@@ -46,11 +46,11 @@ class UsuarioRepository {
         }
     }
 
-    async delete(idUsuario: number): Promise<void | null> {
-        const usuario = await this.usuarioRepository.findOne({where: [{ idUsuario }] });
+    async delete(idUsuario: number): Promise<void> {
+        const usuario = await this.usuarioRepository.findOne({ where: { idUsuario } });
 
         if (usuario) {
-            await this.usuarioRepository.remove(usuario)
+            await this.usuarioRepository.remove(usuario);
         }
     }
 

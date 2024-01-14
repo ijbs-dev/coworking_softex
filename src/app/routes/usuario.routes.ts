@@ -21,7 +21,7 @@ usuarioRoutes.get("/email/:email", async (request, response) => {
         const usuario = await usuarioController.findByEmail(email);
         response.status(200).json(usuario);
     } catch (error) {
-        response.status(400).json({ message: error })
+        response.status(400).json(error);
     }
 })
 
@@ -52,7 +52,7 @@ usuarioRoutes.post("/", async (request, response) => {
 
         response.status(201).json({ message: "Usuário Criado!" });
     } catch (error) {
-        response.status(400).json({ message: error});
+        response.status(400).json(error);
     }
 
 })
@@ -86,10 +86,10 @@ usuarioRoutes.delete("/:id", async (request, response) => {
     const idUsuario = Number(request.params.id);
 
     try {
-        usuarioController.deleteByid(idUsuario);
+        await usuarioController.deleteByid(idUsuario);
         response.status(200).json({ message: "Usuario excluido!" })
     } catch (error) {
-        response.status(400).json({ message: "Erro ao excluir usuário!" })
+        response.status(400).json(error);
     }
 })
 
