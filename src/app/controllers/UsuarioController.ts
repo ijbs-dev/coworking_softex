@@ -47,6 +47,16 @@ class UsuarioController {
         return await this.usuarioRepository.list();
     }
 
+    async listAtivos(): Promise<Usuario[]> {
+
+        return await this.usuarioRepository.listAtivos();
+    }
+
+    async listInativos(): Promise<Usuario[]> {
+
+        return await this.usuarioRepository.listInativos();
+    }
+
     async findByEmail(email: string): Promise<Usuario> {
 
         const usuario = await this.usuarioRepository.findByEmail(email);

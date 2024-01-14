@@ -31,6 +31,14 @@ class UsuarioRepository {
         return await this.usuarioRepository.find();
     }
 
+    async listAtivos(): Promise<Usuario[]> {
+        return await this.usuarioRepository.find({ where: { statusUsuario: 1 } });
+    }
+
+    async listInativos(): Promise<Usuario[]> {
+        return await this.usuarioRepository.find({ where: { statusUsuario: 0 } });
+    }
+
     async findByEmail(emailUsuario: string): Promise<Usuario | null> {
         return await this.usuarioRepository.findOne({ where: [{ emailUsuario }] });
     }

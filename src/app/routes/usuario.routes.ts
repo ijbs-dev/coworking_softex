@@ -21,6 +21,20 @@ usuarioRoutes.get("/", async (request, response) => {
     return response.status(200).json(usuarios);
 })
 
+usuarioRoutes.get("/ativos", async (request, response) => {
+
+    const usuarios = await usuarioController.listAtivos();
+
+    return response.status(200).json(usuarios);
+})
+
+usuarioRoutes.get("/inativos", async (request, response) => {
+
+    const usuarios = await usuarioController.listInativos();
+
+    return response.status(200).json(usuarios);
+})
+
 usuarioRoutes.get("/email/:email", async (request, response) => {
 
     const email = request.params.email;
