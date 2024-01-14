@@ -50,7 +50,7 @@ class EnderecoRepository{
     }
 
     async update(idEndereco: number, updatedData: IEnderecoUpdate): Promise<void> {
-        const endereco = await this.enderecoRepository.findOneOrFail({ where: [{ idEndereco}] });
+        const endereco = await this.enderecoRepository.findOne({ where: { idEndereco} });
 
         if(endereco) {
             await this.enderecoRepository.update({ idEndereco: idEndereco}, {logradouro: updatedData.logradouro, numero: updatedData.numero, bairro: updatedData.bairro, uf: updatedData.uf })

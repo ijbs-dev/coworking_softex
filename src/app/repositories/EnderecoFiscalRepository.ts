@@ -33,10 +33,10 @@ class EnderecoFiscalRepository {
     }
 
     async update(numEndFiscal: number, updatedData: IEnderecoFiscalUpdate): Promise<void> {
-        const enderecoFiscal = await this.enderecoFiscalRepository.findOneOrFail({ where: [{ numEndFiscal }] });
+        const enderecoFiscal = await this.enderecoFiscalRepository.findOne({ where: { numEndFiscal } });
 
         if (enderecoFiscal) {
-            await this.enderecoFiscalRepository.update({ numEndFiscal: numEndFiscal }, { statusEndFiscal: updatedData.numEndFiscal });
+            await this.enderecoFiscalRepository.update({ numEndFiscal: numEndFiscal }, { numEndFiscal: updatedData.numEndFiscal });
         }
     }
 

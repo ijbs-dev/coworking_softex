@@ -122,18 +122,20 @@ class CadastroClienteController {
         } 
     }
 
-    async update(idCliente: number, {telefoneCliente, emailCliente, qtdPontosCliente, prazoCliente, valorMensalCliente}: IClienteUpdate , {logradouro, numero, bairro, uf}: IEnderecoUpdate, numEndFiscal: number) {
+    async update(idCliente: number, dataCliente: IClienteUpdate , dataEndereco: IEnderecoUpdate) {
         
         const cliente = await this.clienteRepository.findById(idCliente);
         if (!cliente) {
             throw new AppError("Cliente inexistente!");
         }
 
-        await this.clienteRepository.update(idCliente, { telefoneCliente, emailCliente, qtdPontosCliente, prazoCliente, valorMensalCliente });
-
-        await this.enderecoFiscalRepository.update(cliente.enderecoFiscalNumEndFiscal, { numEndFiscal });
-
-        await this.enderecoRepository.update(cliente.enderecoIdEndereco, { logradouro, numero, bairro, uf });
+        if (dataCliente) {
+            await this.clienteRepository.update(idCliente, dataCliente);
+        }
+        
+        if (dataEndereco) {
+            await this.enderecoRepository.update(cliente.enderecoIdEndereco, dataEndereco);
+        }
     }
 
     async findByCnpj(cnpj: string) {

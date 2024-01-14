@@ -35,6 +35,16 @@ class ClienteRepository {
         return await this.clienteRepository.find();
     }
 
+    async listAtivados(): Promise<Cliente[]> {
+
+        return await this.clienteRepository.find({ where: { statusCliente: 1 } });
+    }
+
+    async listInativados(): Promise<Cliente[]> {
+
+        return await this.clienteRepository.find({ where: { statusCliente: 0 } });
+    }
+
     async findById(idCliente: number): Promise<Cliente | null> {
 
         return await this.clienteRepository.findOne({ where: { idCliente } });

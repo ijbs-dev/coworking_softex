@@ -24,6 +24,14 @@ class ClienteController {
     return await this.clienteRepository.list();
   }
 
+  async listAtivados(): Promise<Cliente[]> {
+    return await this.clienteRepository.listAtivados();
+  }
+
+  async listInativados(): Promise<Cliente[]> {
+    return await this.clienteRepository.listInativados();
+  }
+
   async findByEmail(email: string): Promise<Cliente> {
 
       const cliente = await this.clienteRepository.findByEmail(email);
@@ -51,7 +59,7 @@ class ClienteController {
       const cliente = await this.clienteRepository.findById(id);
 
       if (!cliente) {
-          throw new Error("Usuário inexistente!");
+          throw new Error("Cliente inexistente!");
       }
       
       await this.clienteRepository.update(id, clienteData);

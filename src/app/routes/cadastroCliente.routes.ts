@@ -7,6 +7,8 @@ import { AdminRepository } from "../repositories/AdminRepository";
 import { CadastroClienteController } from "../controllers/cadastroClienteController";
 import PessoaJuridicaRepository from "../repositories/PessoaJuridicaRepository";
 import { RepresentanteRepository } from "../repositories/RepresentanteRepository";
+import IClienteUpdate from "../interfaces/update/IClienteUpdate";
+import IEnderecoUpdate from "../interfaces/update/IEnderecoUpdate";
 
 const cadastroDeClienteRoutes = Router();
 
@@ -110,7 +112,7 @@ cadastroDeClienteRoutes.patch("/ativar/:idCliente", async (request, response) =>
     const idCliente = Number(request.params.idCliente);
 
     try {
-        await cadastroClienteController.inativar(idCliente);
+        await cadastroClienteController.ativar(idCliente);
         response.status(200).json({ message: "Cadastro de Cliente ativado!" })
     } catch (error) {
         response.status(400).json(error);
@@ -120,15 +122,16 @@ cadastroDeClienteRoutes.patch("/ativar/:idCliente", async (request, response) =>
 cadastroDeClienteRoutes.patch("/:idCliente", async (request, response) => {
 
     const idCliente = Number(request.params.idCliente);
-    const { telefoneCliente, emailCliente, qtdPontosCliente, prazoCliente, valorMensalCliente } = request.body;
-    const { logradouro, numero, bairro, uf } = request.body;
-    const numEndFiscal = request.body;
+    const dataUpdateCliente: IClienteUpdate = request.body;
+    const dataUpdateEndeco: IEnderecoUpdate = request.body;
 
     try {
-        await cadastroClienteController.update(idCliente, { telefoneCliente, emailCliente, qtdPontosCliente, prazoCliente, valorMensalCliente }, { logradouro, numero, bairro, uf }, numEndFiscal);
+
+        await cadastroClienteController.update(idCliente, dataUpdateCliente, dataUpdateEndeco);
         response.status(200).json({ message: "Cadastro de Cliente atualizado!" })
     } catch (error) {
         response.status(400).json(error);
+        console.log(error);
     }
 })
 

@@ -16,6 +16,25 @@ clienteRoutes.get('/', async (request, response) => {
     }
 });
 
+clienteRoutes.get('/ativados', async (request, response) => {
+    
+    try {
+        const clientesAtivados = await clienteController.listAtivados();
+        response.status(200).json(clientesAtivados);
+    } catch (error) {
+        response.status(400).json( { message: "Não foi possível listar os Clientes!" })
+    }
+});
+
+clienteRoutes.get('/inativados', async (request, response) => {
+    
+    try {
+        const clientesAtivados = await clienteController.listInativados();
+        response.status(200).json(clientesAtivados);
+    } catch (error) {
+        response.status(400).json( { message: "Não foi possível listar os Clientes!" })
+    }
+});
 
 clienteRoutes.get('/id/:id', async (request, response) => {
 
@@ -54,7 +73,6 @@ clienteRoutes.post("/", async (request, response) => {
     }
 })
 
-
 clienteRoutes.put('/:id', async (request, response) => {
 
     const idCliente = Number(request.params.id);
@@ -69,7 +87,6 @@ clienteRoutes.put('/:id', async (request, response) => {
     }
 
 });
-
 
 clienteRoutes.delete('/:id', async (request, response) => {
 
