@@ -36,29 +36,4 @@ pessoaJuridicaRoutes.get("/cnpj/:cnpj", async (request, response) => {
     }
 })
 
-pessoaJuridicaRoutes.post("/", async (request, response) => {
-
-    const dadosPessoaJuridica = request.body;
-
-    try {
-        await pessoaJuridicaController.create(dadosPessoaJuridica);
-        response.status(201).json({ message: "Pessoa Juridica criada com sucesso!" });
-    } catch (error) {
-        response.status(400).json({ message: "Pessoa Juridica não foi criada!" });
-    }
-
-})
-
-pessoaJuridicaRoutes.delete("/:id", async (request, response) => {
-
-    const idPJuridica = Number(request.params.id);
-
-    try {
-        await pessoaJuridicaController.delete(idPJuridica);
-        response.status(200).json({ message: "Pessoa Juridica deletada!" });
-    } catch (error) {
-        response.status(400).json({ message: "Pessoa Juridica não deletada!" });
-    }
-})
-
 export { pessoaJuridicaRoutes };

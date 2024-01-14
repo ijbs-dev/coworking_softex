@@ -2,6 +2,7 @@ import { EnderecoRepository } from "../repositories/EnderecoRepository";
 import Endereco from "../entities/Endereco";
 import IEnderecoUpdate from "../interfaces/update/IEnderecoUpdate";
 import IEnderecoCreate from "../interfaces/create/IEnderecoCreate";
+import { AppError } from "../errors/AppError";
 
 class EnderecoController {
     
@@ -12,7 +13,6 @@ class EnderecoController {
         await this.enderecoRepository.create(dadosEndereco);
     }
 
-
     async list(): Promise<Endereco[]> {
         return await this.enderecoRepository.list();
     }
@@ -22,7 +22,7 @@ class EnderecoController {
         const endereco = await this.enderecoRepository.findById(id);
 
         if(!endereco) {
-            throw new Error("Endereço inexistente!");
+            throw new AppError("Endereço inexistente!");
         }
 
         return endereco;
@@ -33,7 +33,7 @@ class EnderecoController {
         const endereco = await this.enderecoRepository.findById(id);
         
         if(!endereco) {
-            throw new Error("Endereço inexistente!");
+            throw new AppError("Endereço inexistente!");
         }
 
         await this.enderecoRepository.update(id, dadosEndereco);
@@ -44,7 +44,7 @@ class EnderecoController {
         const endereco = await this.enderecoRepository.findById(id);
 
         if(!endereco) {
-            throw new Error("Endereço inexistente!");
+            throw new AppError("Endereço inexistente!");
         }
 
         await this.enderecoRepository.delete(id);

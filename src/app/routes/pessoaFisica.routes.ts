@@ -36,29 +36,4 @@ pessoaFisicaRoutes.get("/cpf/:cpf", async (request, response) => {
     }
 })
 
-pessoaFisicaRoutes.post("/", async (request, response) => {
-
-    const dadosPessoaFisica = request.body;
-
-    try {
-        await pessoaFisicaController.create(dadosPessoaFisica);
-        response.status(201).json({ message: "Pessoa fisica criada com sucesso!" });
-    } catch (error) {
-        response.status(400).json({ message: "Pessoa fisica não foi criada!" });
-    }
-
-})
-
-pessoaFisicaRoutes.delete("/:id", async (request, response) => {
-
-    const idPFisica = Number(request.params.id);
-
-    try {
-        await pessoaFisicaController.delete(idPFisica);
-        response.status(200).json({ message: "Pessoa Fisica deletada!" });
-    } catch (error) {
-        response.status(400).json({ message: "Pessoa Fisica não deletada!" });
-    }
-})
-
 export { pessoaFisicaRoutes };
