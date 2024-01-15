@@ -951,6 +951,88 @@
                     }
                 }
             }
+        },
+        "/recebimentoencomenda/": {
+            "post": {
+                "tags": ["Recebimento de Encomenda"],
+                "summary": "Cadastramento de Recebimento de Encomendas",
+                "description": "O recebimento de encomendas acontece na recepção do ITBC. Um usuário da recepção deverá identificar se existe um Cliente ativo para poder receber a encomenda recém chegada. Após a verificação e constatação de cadastro ativo, o usuário terminará o recebimento e o representante cadastrado no Cliente, receberá uma notificação via Whatsapp e E-mail.",
+                "security": [{ "bearerAuth": [] }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "obsEncomenda": "Encomenda um pouco avariada nas extremidades",
+                                "obsRecebEncomenda": "Entregue pelos Correios",
+                                "numEndFiscal": 44,
+                                "idRecepcao": 2
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Recebimento de Encomenda cadastrado!"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Recebimento de Encomenda"],
+                "summary": "Listagem dos Recebimentos de Encomendas",
+                "description": "Deverá ser possível que um usuário possa listar todos os Recebimentos de Encomendas que estão cadastrados, na base de dados do sistema.",
+                "security": [{ "bearerAuth": [] }],
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/recebimentoencomenda/id/{id}": {
+            "get": {
+                "tags": ["Recebimento de Encomenda"],
+                "summary": "Busca de Recebimento de Encomenda por ID",
+                "description": "Deverá ser possível que um usuário possa buscar um Recebimento de Encomenda pelo número do ID na base de dados do sistema.",
+                "security": [{ "bearerAuth": [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do Recebimento de Encomenda para busca",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RecebimentoEncomenda"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Recebimendo de Encomenda não encontrado!"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -1090,6 +1172,29 @@
                         "type": "datetime"
                     },
                     "idPJuridica": {
+                        "type": "number"
+                    }
+                }
+            },
+            "RecebimentoEncomenda": {
+                "type": "object",
+                "properties": {                    
+                    "dataHoraRecebEncomenda": {
+                        "type": "datetime"
+                    },
+                    "idRecebEncomenda": {
+                        "type": "number"
+                    },
+                    "obsRecebEncomenda": {
+                        "type": "string"
+                    },
+                    "encomendaIdEncomenda": {
+                        "type": "number"
+                    },
+                    "enderecoFiscalNumEndFiscal": {
+                        "type": "number"
+                    },
+                    "idRecepcao": {
                         "type": "number"
                     }
                 }

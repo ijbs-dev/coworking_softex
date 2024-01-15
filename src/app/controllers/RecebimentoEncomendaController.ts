@@ -1,4 +1,5 @@
 import RecebimentoEncomenda from "../entities/RecebimentoEncomenda";
+import { AppError } from "../errors/AppError";
 import { EncomendaRepository } from "../repositories/EncomendaRepository";
 import { RecebimentoEncomendaRepository } from "../repositories/RecebimentoEncomendaRepository";
 
@@ -26,7 +27,7 @@ class RecebimentoEncomendaController {
         const recebimentoEncomenda = await this.recebimentoEncomendaRepository.findById(idRecebEncomenda);
 
         if(!recebimentoEncomenda) {
-            throw new Error("Recebimendo de Encomenda inexistente!");
+            throw new AppError("Recebimendo de Encomenda não encontrado!");
         }
         return recebimentoEncomenda;
     }
