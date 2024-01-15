@@ -146,14 +146,18 @@ CREATE TABLE IF NOT EXISTS `Encomenda` (
 );
 
 DELIMITER //
+
 CREATE TRIGGER before_insert_Encomenda
 BEFORE INSERT ON Encomenda
 FOR EACH ROW
 BEGIN
     SET NEW.Obs_Encomenda = CONCAT('Encomenda em ', NOW());
 END;
+
 //
-DELIMITER;
+
+DELIMITER ;
+
 
  -- -----------------------------------------------------
 -- Table `RecebimentoEncomenda`
@@ -177,10 +181,10 @@ CREATE TRIGGER before_insert_RecebimentoEncomenda
 BEFORE INSERT ON RecebimentoEncomenda
 FOR EACH ROW
 BEGIN
-    SET NEW.DataHora_Receb_Encomenda = NOW();
-END;
-//
-DELIMITER ;
+     SET NEW.DataHora_Receb_Encomenda = NOW();
+ END;
+ //
+ DELIMITER ;
 
 -- -----------------------------------------------------
 -- Table `Recepcao`
@@ -206,15 +210,15 @@ CREATE TABLE IF NOT EXISTS `RetiradaEncomenda` (
   -- FOREIGN KEY removed
 );
 
-DELIMITER //
-CREATE TRIGGER before_insert_RetiradaEncomenda
-BEFORE INSERT ON RetiradaEncomenda
-FOR EACH ROW
-BEGIN
-    SET NEW.DataHora_Retir_encomenda = NOW();
-END;
-//
-DELIMITER ;
+ DELIMITER //
+ CREATE TRIGGER before_insert_RetiradaEncomenda
+ BEFORE INSERT ON RetiradaEncomenda
+ FOR EACH ROW
+ BEGIN
+     SET NEW.DataHora_Retir_encomenda = NOW();
+ END;
+ //
+ DELIMITER ;
 
 -- -----------------------------------------------------
 -- Table `Representante`
