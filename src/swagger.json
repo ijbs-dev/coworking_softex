@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "API Mangue Space Coworking - Módulo de Endereço Fiscail",
-        "description": "A API(Application Programing Interface) de Endereço Fiscal é um módulo do Sistema de Gerenciamento do Coworking Mangue Space, esse módulo será responsável pelo cadastramento das empresas contratantes do serviço da Softex, bem como, organizar em um sistema a listagem das empresas com cadastro ativo aptos para recebimento de encomendas e correspondências na recepção do prédio ITBC.",
+        "description": "<strong>A API(Application Programing Interface) de Endereço Fiscal</strong> é um <strong>módulo do Sistema de Gerenciamento do Coworking Mangue Space</strong>, esse módulo será responsável por: <ul><li>Cadastramento e gerenciamento das empresas contratantes do serviço da Softex;</li><li>Organizar em um sistema a listagem das empresas com cadastro ativo aptos para recebimento de encomendas e correspondências;</li><li>Notificar os Representantes das empresas cadastradas após o recebimento de encomendas e correpondências.</li></ul>",
         "termsOfService": "http://softex.com.br",
         "version": "1.0.0"
     },
@@ -17,7 +17,7 @@
             "post": {
                 "tags": ["Usuario"],
                 "summary": "Autênticação de Usuário",
-                "description": "Deverá ser possível que um usuário possa se autênticar no sistema.",
+                "description": "Deverá ser possível que um <strong>usuário</strong> possa se autênticar no sistema.",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -50,7 +50,7 @@
             "post": {
                 "tags": ["Usuario"],
                 "summary": "Cadastramento de Usuário Administrador",
-                "description": "Deverá ser possível que um usuário administrador possa cadastrar outros usuários administradores.",
+                "description": "Deverá ser possível que um <strong>usuário administrador</strong> possa cadastrar outros usuários administradores.",
                 "security": [{ "bearerAuth": [] }],
                 "requestBody": {
                     "content": {
@@ -82,7 +82,7 @@
             "post": {
                 "tags": ["Usuario"],
                 "summary": "Cadastramento de Usuário da Recepção",
-                "description": "Deverá ser possível que um usuário administrador possa cadastrar outros usuários da recepção para recebimento de encomendas.",
+                "description": "Deverá ser possível que um <strong>usuário administrador</strong> possa cadastrar outros usuários da recepção para recebimento de encomendas.",
                 "security": [{ "bearerAuth": [] }],
                 "requestBody": {
                     "content": {
@@ -114,7 +114,7 @@
             "get": {
                 "tags": ["Usuario"],
                 "summary": "Listagem de Usuários Ativos",
-                "description": "Deverá ser possível que um usuário administrador possa listar todos os Representantes que estão cadastrados e ativos, na base de dados do sistema.",
+                "description": "Deverá ser possível que um <strong>usuário administrador</strong> possa listar todos os usuários que estão cadastrados e ativos, na base de dados do sistema.",
                 "security": [{ "bearerAuth": [] }],
                 "responses": {
                     "200": {
@@ -137,7 +137,7 @@
             "get": {
                 "tags": ["Usuario"],
                 "summary": "Listagem de Usuários Ativos",
-                "description": "Deverá ser possível que um usuário administrador possa listar todos os Representantes que estão cadastrados e ativos, na base de dados do sistema.",
+                "description": "Deverá ser possível que um <strong>usuário administrador</strong> possa listar todos os usuários que estão cadastrados e inativos, na base de dados do sistema.",
                 "security": [{ "bearerAuth": [] }],
                 "responses": {
                     "200": {
@@ -159,8 +159,8 @@
         "/usuario/email/{email}": {
             "get": {
                 "tags": ["Usuario"],
-                "summary": "Obter Usuário por Email",
-                "description": "Essa rota será responsável por obter um usuário com base no email fornecido.",
+                "summary": "Busca de Usuário por Email",
+                "description": "Deverá ser possível que um <strong>usuário administrador</strong> possa buscar um usuário que está cadastrado, na base de dados do sistema.",
                 "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
@@ -196,8 +196,8 @@
         "/usuario/ativar/{id}": {
             "patch": {
                 "tags": ["Usuario"],
-                "summary": "Aativação do Usuário",
-                "description": "Deverá ser possível que um usuário administrador possa ativar um usuário.",
+                "summary": "Ativação do Usuário",
+                "description": "Deverá ser possível que um <strong>usuário administrador</strong> possa ativar um usuário.",
                 "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
@@ -227,7 +227,7 @@
             "patch": {
                 "tags": ["Usuario"],
                 "summary": "Inativação do Usuário",
-                "description": "Deverá ser possível que um usuário administrador possa inativar um usuário.",
+                "description": "Deverá ser possível que um <strong>usuário administrador</strong> possa inativar um usuário.",
                 "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
@@ -257,7 +257,7 @@
             "put": {
                 "tags": ["Usuario"],
                 "summary": "Atualizar dados do Usuário",
-                "description": "Deverá ser possível que um usuário possa modificar/atualizar seus dados.",
+                "description": "Deverá ser possível que um <strong>usuário</strong> possa modificar/atualizar seus dados.",
                 "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
@@ -295,7 +295,7 @@
             "delete": {
                 "tags": ["Usuario"],
                 "summary": "Deletar Usuário por ID",
-                "description": "everá ser possível que um usuário administrador possa deletar um usuário com base no ID fornecido.",
+                "description": "everá ser possível que um <strong>usuário administrador</strong> possa deletar um usuário com base no ID fornecido.",
                 "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
@@ -325,7 +325,7 @@
             "post": {
                 "tags": ["Cliente"],
                 "summary": "Cadastramento de Cliente PF",
-                "description": "Deverá ser possível que um usuário administrador possa cadastrar um cliente Pessoa Física na base de dados do sistema.",
+                "description": "Deverá ser possível que um <strong>usuário administrador</strong> possa cadastrar um cliente Pessoa Física na base de dados do sistema.",
                 "security": [{ "bearerAuth": [] }],
                 "requestBody": {
                     "content": {
@@ -365,7 +365,7 @@
             "post": {
                 "tags": ["Cliente"],
                 "summary": "Cadastramento de Cliente PJ",
-                "description": "Deverá ser possível que um usuário administrador possa cadastrar um cliente Pessoa Jurídica na base de dados do sistema.",
+                "description": "Deverá ser possível que um <strong>usuário administrador</strong> possa cadastrar um cliente Pessoa Jurídica na base de dados do sistema.",
                 "security": [{ "bearerAuth": [] }],
                 "requestBody": {
                     "content": {
@@ -409,7 +409,7 @@
             "get": {
                 "tags": ["Cliente"],
                 "summary": "Listagem de Clientes Ativos",
-                "description": "Deverá ser possível que um usuário possa listar todos os Clientes que estão cadastrados e ativos na base de dados do sistema.",
+                "description": "Deverá ser possível que um <strong>usuário</strong> possa listar todos os Clientes que estão cadastrados e ativos na base de dados do sistema.",
                 "security": [{ "bearerAuth": [] }],
                 "responses": {
                     "200": {
@@ -425,7 +425,7 @@
             "get": {
                 "tags": ["Cliente"],
                 "summary": "Listagem de Clientes Inativos",
-                "description": "Deverá ser possível que um usuário administrador possa listar todos os Clientes que estão cadastrados e inativos, na base de dados do sistema.",
+                "description": "Deverá ser possível que um <strong>usuário administrador</strong> possa listar todos os Clientes que estão cadastrados e inativos, na base de dados do sistema.",
                 "security": [{ "bearerAuth": [] }],
                 "responses": {
                     "200": {
@@ -441,7 +441,7 @@
             "get": {
                 "tags": ["Cliente"],
                 "summary": "Busca de Cliente por CNPJ",
-                "description": "Deverá ser possível que um usuário possa buscar um Cliente pelo número de CNPJ na base de dados do sistema.",
+                "description": "Deverá ser possível que um <strong>usuário</strong> possa buscar um Cliente pelo número de CNPJ na base de dados do sistema.",
                 "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
@@ -478,7 +478,7 @@
             "get": {
                 "tags": ["Cliente"],
                 "summary": "Busca de Cliente por CPF",
-                "description": "Deverá ser possível que um usuário possa buscar um Cliente pelo número de CPF na base de dados do sistema.",
+                "description": "Deverá ser possível que um <strong>usuário</strong> possa buscar um Cliente pelo número de CPF na base de dados do sistema.",
                 "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
@@ -515,7 +515,7 @@
             "get": {
                 "tags": ["Cliente"],
                 "summary": "Busca de Cliente por ID",
-                "description": "Deverá ser possível que um usuário possa buscar um Cliente pelo número do ID na base de dados do sistema.",
+                "description": "Deverá ser possível que um <strong>usuário</strong> possa buscar um Cliente pelo número do ID na base de dados do sistema.",
                 "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
@@ -552,7 +552,7 @@
             "patch": {
                 "tags": ["Cliente"],
                 "summary": "Ativação do Cliente",
-                "description": "Deverá ser possível que um usuário administrador possa ativar um Cliente que foi inativado. Observações: Quando a ativação do Cliente for efetuada com sucesso, o endereço postal, e os representantes do mesmo, caso seja uma PJ, deverão ser ativados.",
+                "description": "Deverá ser possível que um <strong>usuário administrador</strong> possa ativar um Cliente que foi inativado. Observações: Quando a ativação do Cliente for efetuada com sucesso, o endereço postal, e os representantes do mesmo, caso seja uma PJ, deverão ser ativados.",
                 "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
@@ -582,7 +582,7 @@
             "patch": {
                 "tags": ["Cliente"],
                 "summary": "Inativação do Cliente",
-                "description": "Deverá ser possível que um usuário administrador possa inativar um Cliente, isso acontece quando o usuário administrador o faz ou quando acaba o prazo de contrato. A inativação do cliente é um artifício utilizado para impedir que um cliente já cadastrado seja excluído por completo da base de dados, pois ele pode ser ativado novamente a qualquer momento. Observações: Quando a inativação do Cliente for efetuada com sucesso, o endereço postal, e os representantes do mesmo, caso seja uma PJ, deverão ser inativados.",
+                "description": "Deverá ser possível que um <strong>usuário administrador</strong> possa inativar um Cliente, isso acontece quando o usuário administrador o faz ou quando acaba o prazo de contrato. A inativação do cliente é um artifício utilizado para impedir que um cliente já cadastrado seja excluído por completo da base de dados, pois ele pode ser ativado novamente a qualquer momento. Observações: Quando a inativação do Cliente for efetuada com sucesso, o endereço postal, e os representantes do mesmo, caso seja uma PJ, deverão ser inativados.",
                 "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
@@ -612,7 +612,7 @@
             "patch": {
                 "tags": ["Cliente"],
                 "summary": "Atualizar dados do Cliente",
-                "description": "Deverá ser possível que um usuário administrador possa modificar/atualizar dados de um Cliente da base de dados do sistema.",
+                "description": "Deverá ser possível que um <strong>usuário administrador</strong> possa modificar/atualizar dados de um Cliente da base de dados do sistema.",
                 "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
@@ -659,7 +659,7 @@
             "get": {
                 "tags": ["Endereço Fiscal"],
                 "summary": "Listagem de Endereços Fiscais Ativos",
-                "description": "Deverá ser possível que um usuário possa listar todos os Endereços Fiscais que estão cadastrados e ativos na base de dados do sistema.",
+                "description": "Deverá ser possível que um <strong>usuário</strong> possa listar todos os Endereços Fiscais que estão cadastrados e ativos na base de dados do sistema.",
                 "security": [{ "bearerAuth": [] }],
                 "responses": {
                     "200": {
@@ -728,7 +728,7 @@
             "post": {
                 "tags": ["Representante"],
                 "summary": "Cadastramento de Representante",
-                "description": "Deverá ser possível um usuário administrador fazer o cadastramento de representantes da empresa na base de dados do sistema.",
+                "description": "Deverá ser possível um <strong>usuário administrador</strong> fazer o cadastramento de representantes da empresa na base de dados do sistema.",
                 "security": [{ "bearerAuth": [] }],
                 "requestBody": {
                     "content": {
@@ -759,7 +759,7 @@
             "get": {
                 "tags": ["Representante"],
                 "summary": "Listagem de Representantes Ativos",
-                "description": "Deverá ser possível que um usuário possa listar todos os Representantes que estão cadastrados e ativos, na base de dados do sistema.",
+                "description": "Deverá ser possível que um <strong>usuário</strong> possa listar todos os Representantes que estão cadastrados e ativos, na base de dados do sistema.",
                 "security": [{ "bearerAuth": [] }],
                 "responses": {
                     "200": {
@@ -775,7 +775,7 @@
             "get": {
                 "tags": ["Representante"],
                 "summary": "Listagem de Representantes Inativos",
-                "description": "Deverá ser possível que um usuário administrador possa listar todos os Representantes que estão cadastrados e inativos, na base de dados do sistema.",
+                "description": "Deverá ser possível que um <strong>usuário</strong> administrador possa listar todos os Representantes que estão cadastrados e inativos, na base de dados do sistema.",
                 "security": [{ "bearerAuth": [] }],
                 "responses": {
                     "200": {
@@ -791,7 +791,7 @@
             "get": {
                 "tags": ["Representante"],
                 "summary": "Busca de Representante por E-mail",
-                "description": "Deverá ser possível que um usuário possa buscar um Representante pelo número do E-mail na base de dados do sistema.",
+                "description": "Deverá ser possível que um <strong>usuário</strong> possa buscar um Representante pelo número do E-mail na base de dados do sistema.",
                 "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
@@ -828,7 +828,7 @@
             "patch": {
                 "tags": ["Representante"],
                 "summary": "Ativação do Representante",
-                "description": "Deverá ser possível que um usuário administrador possa ativar um Representante que foi inativado.",
+                "description": "Deverá ser possível que um <strong>usuário administrador</strong> possa ativar um Representante que foi inativado.",
                 "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
@@ -858,7 +858,7 @@
             "patch": {
                 "tags": ["Representante"],
                 "summary": "Inativação do Representante",
-                "description": "Deverá ser possível que um usuário administrador possa inativar um Representante. A inativação do representante é um artifício utilizado para impedir que um Representante já cadastrado seja excluído por completo da base de dados, pois ele pode ser ativado novamente a qualquer momento.",
+                "description": "Deverá ser possível que um <strong>usuário administrador</strong> possa inativar um Representante. A inativação do representante é um artifício utilizado para impedir que um Representante já cadastrado seja excluído por completo da base de dados, pois ele pode ser ativado novamente a qualquer momento.",
                 "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
@@ -888,7 +888,7 @@
             "patch": {
                 "tags": ["Representante"],
                 "summary": "Atualizar dados do Representante",
-                "description": "Deverá ser possível que um usuário administrador possa modificar/atualizar dados de um Representante da base de dados do sistema.",
+                "description": "Deverá ser possível que um <strong>usuário administrador</strong> possa modificar/atualizar dados de um Representante da base de dados do sistema.",
                 "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
@@ -926,7 +926,7 @@
             "delete": {
                 "tags": ["Representante"],
                 "summary": "Deletar Representante por ID",
-                "description": "Deverá ser possível que um usuário administrador possa deletar um Representante com base no ID fornecido.",
+                "description": "Deverá ser possível que um <strong>usuário administrador</strong> possa deletar um Representante com base no ID fornecido.",
                 "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
@@ -956,7 +956,7 @@
             "post": {
                 "tags": ["Recebimento de Encomenda"],
                 "summary": "Cadastramento de Recebimento de Encomendas",
-                "description": "O recebimento de encomendas acontece na recepção do ITBC. Um usuário da recepção deverá identificar se existe um Cliente ativo para poder receber a encomenda recém chegada. Após a verificação e constatação de cadastro ativo, o usuário terminará o recebimento e o representante cadastrado no Cliente, receberá uma notificação via Whatsapp e E-mail.",
+                "description": "O recebimento de encomendas acontece na recepção do ITBC. Um <strong>usuário</strong> da recepção deverá identificar se existe um Cliente ativo para poder receber a encomenda recém chegada. Após a verificação e constatação de cadastro ativo, o usuário terminará o recebimento e o representante cadastrado no Cliente, receberá uma notificação via Whatsapp e E-mail.",
                 "security": [{ "bearerAuth": [] }],
                 "requestBody": {
                     "content": {
@@ -985,7 +985,7 @@
             "get": {
                 "tags": ["Recebimento de Encomenda"],
                 "summary": "Listagem dos Recebimentos de Encomendas",
-                "description": "Deverá ser possível que um usuário possa listar todos os Recebimentos de Encomendas que estão cadastrados, na base de dados do sistema.",
+                "description": "Deverá ser possível que um <strong>usuário</strong> possa listar todos os Recebimentos de Encomendas que estão cadastrados, na base de dados do sistema.",
                 "security": [{ "bearerAuth": [] }],
                 "responses": {
                     "200": {
@@ -1001,7 +1001,7 @@
             "get": {
                 "tags": ["Recebimento de Encomenda"],
                 "summary": "Busca de Recebimento de Encomenda por ID",
-                "description": "Deverá ser possível que um usuário possa buscar um Recebimento de Encomenda pelo número do ID na base de dados do sistema.",
+                "description": "Deverá ser possível que um <strong>usuário</strong> possa buscar um Recebimento de Encomenda pelo número do ID na base de dados do sistema.",
                 "security": [{ "bearerAuth": [] }],
                 "parameters": [
                     {
