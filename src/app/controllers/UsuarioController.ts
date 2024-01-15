@@ -79,6 +79,36 @@ class UsuarioController {
         return usuario;
     }
 
+    async inativar(idUsuario: number) {
+
+        const usuario = await this.usuarioRepository.findById(idUsuario);
+
+        if (!usuario) {
+            throw new AppError("Usuário não encontrado!");
+        }
+
+        if (usuario.statusUsuario == 0) {
+            throw new AppError("Usuário já está Inativo!");
+        }
+
+        await this.usuarioRepository.inativar(idUsuario);
+    }
+
+    async ativar(idUsuario: number) {
+
+        const usuario = await this.usuarioRepository.findById(idUsuario);
+
+        if (!usuario) {
+            throw new AppError("Usuário não encontrado!");
+        }
+
+        if (usuario.statusUsuario == 1) {
+            throw new AppError("Usuário já está ativo!");
+        }
+
+        await this.usuarioRepository.ativar(idUsuario);
+    }
+
     async update(id: number, dadosUsuario: IUsuarioUpdate): Promise<void> {
 
         const usuario = await this.usuarioRepository.findById(id);

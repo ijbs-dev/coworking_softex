@@ -56,6 +56,24 @@ class UsuarioRepository {
         }
     }
 
+    async inativar(idUsuario: number): Promise<void> {
+        
+        const usuario = await this.usuarioRepository.findOne({ where: { idUsuario } });
+
+        if (usuario) {
+            await this.usuarioRepository.update({ idUsuario: idUsuario }, { statusUsuario: 0 });   
+        }
+    }
+
+    async ativar(idUsuario: number): Promise<void> {
+        
+        const usuario = await this.usuarioRepository.findOne({ where: { idUsuario } });
+
+        if (usuario) {
+            await this.usuarioRepository.update({ idUsuario: idUsuario }, { statusUsuario: 1 });
+        }
+    }
+
     async delete(idUsuario: number): Promise<void> {
         const usuario = await this.usuarioRepository.findOne({ where: { idUsuario } });
 

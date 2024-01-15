@@ -193,6 +193,66 @@
                 }
             }
         },
+        "/usuario/ativar/{id}": {
+            "patch": {
+                "tags": ["Usuario"],
+                "summary": "Aativação do Usuário",
+                "description": "Deverá ser possível que um usuário administrador possa ativar um usuário.",
+                "security": [{ "bearerAuth": [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do Usuário para ativação",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário ativado!"
+                    },
+                    "400": {
+                        "description": "Usuário não encontrado! || Usuário já está ativo!"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/usuario/inativar/{id}": {
+            "patch": {
+                "tags": ["Usuario"],
+                "summary": "Inativação do Usuário",
+                "description": "Deverá ser possível que um usuário administrador possa inativar um usuário.",
+                "security": [{ "bearerAuth": [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do Usuário para inativação",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário inativado!"
+                    },
+                    "400": {
+                        "description": "Usuário não encontrado! || Usuário já está Inativo!"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
         "/usuario/{id}": {
             "put": {
                 "tags": ["Usuario"],
