@@ -1,6 +1,7 @@
 import { Router } from "express";
 import EnderecoFiscalRepository from "../repositories/EnderecoFiscalRepository";
 import { EnderecoFiscalController } from "../controllers/EnderecoFiscalController";
+import { autenticacao, autenticacaoAdmin } from "../middleware/autenticacao";
 
 const enderecoFiscalRoutes = Router();
 const enderecoFiscalRepository = new EnderecoFiscalRepository();
@@ -13,26 +14,54 @@ enderecoFiscalRoutes.get("/", async (request, response) => {
 })
 
 enderecoFiscalRoutes.get("/ativos", async (request, response) => {
-    const enderecosFiscais = await enderecoFiscalController.listAtivos();
+    
+    try {
+        await autenticacao(request, response, () => {});
 
-    return response.status(200).json(enderecosFiscais);
+        try {
+            const enderecosFiscais = await enderecoFiscalController.listAtivos();
+
+            return response.status(200).json(enderecosFiscais);
+        } catch (error) {
+            return response.status(400).json(error);
+        }
+    } catch (error) {
+        return response.status(401).json(error);
+    }
 })
 
 enderecoFiscalRoutes.get("/Inativos", async (request, response) => {
-    const enderecosFiscais = await enderecoFiscalController.listInativos();
+    
+    try {
+        await autenticacaoAdmin(request, response, () => {});
 
-    return response.status(200).json(enderecosFiscais);
+        try {
+            const enderecosFiscais = await enderecoFiscalController.listInativos();
+
+            return response.status(200).json(enderecosFiscais);
+        } catch (error) {
+            return response.status(400).json(error);
+        }
+    } catch (error) {
+        return response.status(401).json(error);
+    }
 })
 
 enderecoFiscalRoutes.get("/:numEndFiscal", async (request, response) => {
-    
+
     const numEndFiscal = Number(request.params.numEndFiscal);
 
     try {
-        const enderecoFiscal = await enderecoFiscalController.findByNumEndFiscal(numEndFiscal);
-        response.status(200).json(enderecoFiscal);
+        await autenticacao(request, response, () => {});
+
+        try {
+            const enderecoFiscal = await enderecoFiscalController.findByNumEndFiscal(numEndFiscal);
+            response.status(200).json(enderecoFiscal);
+        } catch (error) {
+            response.status(400).json(error);
+        }
     } catch (error) {
-        response.status(400).json(error);
+        response.status(401).json(error);
     }
 })
 

@@ -594,6 +594,75 @@
                     }
                 }
             }
+        },
+        "/enderecofiscal/ativos": {
+            "get": {
+                "tags": ["Endereço Fiscal"],
+                "summary": "Listagem de Endereços Fiscais Ativos",
+                "description": "Deverá ser possível que um usuário possa listar todos os Endereços Fiscais que estão cadastrados e ativos na base de dados do sistema.",
+                "security": [{ "bearerAuth": [] }],
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/enderecofiscal/inativos": {
+            "get": {
+                "tags": ["Endereço Fiscal"],
+                "summary": "Listagem de Endereços Fiscais Inativos",
+                "description": "Deverá ser possível que um <strong>usuário administrador</strong> possa listar todos os Endereços Fiscais que estão cadastrados e inativos na base de dados do sistema.",
+                "security": [{ "bearerAuth": [] }],
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/enderecofiscal/{numEndFiscal}": {
+            "get": {
+                "tags": ["Endereço Fiscal"],
+                "summary": "Busca de Endereços Fiscais",
+                "description": "Deverá ser possível que um <strong>usuário</strong> possa buscar um Endereços Fiscais que está cadastrado na base de dados do sistema.",
+                "security": [{ "bearerAuth": [] }],
+                "parameters": [
+                    {
+                        "name": "numEndFiscal",
+                        "in": "path",
+                        "description": "Número de Endereço Fiscal para busca",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EnderecoFiscal"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Endereço Fiscal não encontrado!"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -688,6 +757,23 @@
                     },
                     "enderecoFiscalNumEndFiscal": {
                         "type": "number"
+                    }
+                }
+            },
+            "EnderecoFiscal": {
+                "type": "object",
+                "properties": {                    
+                    "statusEndFiscal": {
+                        "type": "number"
+                    },
+                    "numEndFiscal": {
+                        "type": "number"
+                    },
+                    "createdAtEndFiscal": {
+                        "type": "datetime"
+                    },
+                    "updatedAtEndFiscal": {
+                        "type": "datetime"
                     }
                 }
             }

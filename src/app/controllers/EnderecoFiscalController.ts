@@ -36,7 +36,7 @@ class EnderecoFiscalController {
         const enderecoFiscal = await this.enderecoFiscalRepository.findByNumEndFiscal(numEndFiscal);
 
         if(!enderecoFiscal) {
-            throw new AppError("Endereço Fiscal inexistente!");
+            throw new AppError("Endereço Fiscal não encontrado!");
         }
 
         return enderecoFiscal;
