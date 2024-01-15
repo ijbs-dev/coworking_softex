@@ -153,7 +153,7 @@ BEGIN
     SET NEW.Obs_Encomenda = CONCAT('Encomenda em ', NOW());
 END;
 //
-DELIMITER ;
+DELIMITER;
 
  -- -----------------------------------------------------
 -- Table `RecebimentoEncomenda`

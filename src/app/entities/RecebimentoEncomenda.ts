@@ -34,4 +34,8 @@ export default class RecebimentoEncomenda {
     @OneToOne(() => Recepcao, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     @JoinColumn({ name: 'Recepcao_Id_Recepcao', referencedColumnName: 'idRecepcao' })
     recepcao: Recepcao;
+
+    constructor() {
+        this.dataHoraRecebEncomenda = new Date();
+    }
 }

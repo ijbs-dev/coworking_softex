@@ -7,21 +7,20 @@ import IEncomendaUpdate from "../interfaces/update/IEncomendaUpdate";
 
 class EncomendaRepository {
     
-  
     private encomendaRepository: Repository<Encomenda>;
 
     constructor() {
         this.encomendaRepository = AppDataSource.getRepository(Encomenda);
     }
 
-
     async create({ obsEncomenda, numEndFiscal}: IEncomendaCreate): Promise<Encomenda> {
         const encomenda = await this.encomendaRepository.create({
             obsEncomenda,
             numEndFiscal
         });
-
-        return await this.encomendaRepository.save(encomenda);
+    
+        await this.encomendaRepository.save(encomenda);
+        return encomenda;
     }
 
     async list(): Promise<Encomenda[]> {

@@ -13,13 +13,17 @@ class RecebimentoEncomendaRepository {
         this.recebimentoEncomendaRepository = AppDataSource.getRepository(RecebimentoEncomenda);
     }
 
-    async create({ obsRecebEncomenda, encomendaIdEncomenda, enderecoFiscalNumEndFiscal }: IRecebimentoEncomendaCreate): Promise<RecebimentoEncomenda> {
+    async create({ obsRecebEncomenda, encomendaIdEncomenda, enderecoFiscalNumEndFiscal, idRecepcao }: IRecebimentoEncomendaCreate): Promise<RecebimentoEncomenda> {
         const recebimentoEncomenda = await this.recebimentoEncomendaRepository.create({
             obsRecebEncomenda,
             encomendaIdEncomenda,
-            enderecoFiscalNumEndFiscal
+            enderecoFiscalNumEndFiscal,
+            idRecepcao
         });
-        return await this.recebimentoEncomendaRepository.save(recebimentoEncomenda);
+
+        await this.recebimentoEncomendaRepository.save(recebimentoEncomenda);
+
+        return recebimentoEncomenda;
     }
 
     async list(): Promise<RecebimentoEncomenda[]> {
