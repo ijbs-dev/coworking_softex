@@ -51,7 +51,7 @@ class RepresentanteController {
         const representante = await this.representanteRepository.findByEmail(email);
 
         if(!representante) {
-            throw new AppError("Representante inexistente!!");
+            throw new AppError("Representante não encontrado!");
         }
 
         return representante;
@@ -62,7 +62,7 @@ class RepresentanteController {
         const representante = await this.representanteRepository.findById(id);
 
         if (!representante) {
-            throw new AppError("Representante inexistente!");
+            throw new AppError("Representante não encontrado!");
         }
          
         await this.representanteRepository.update(id, { emailRepresent, telefoneRepresent });
@@ -73,7 +73,7 @@ class RepresentanteController {
         const representante = await this.representanteRepository.findById(id);
 
         if (!representante) {
-            throw new AppError("Representante não existente!");
+            throw new AppError("Representante não encontrado!");
         }
 
         await this.representanteRepository.delete(id);
@@ -84,7 +84,7 @@ class RepresentanteController {
         const representante = await this.representanteRepository.findById(idRepresent);
 
         if (!representante) {
-            throw new AppError("Representante não existente!");
+            throw new AppError("Representante não encontrado!");
         }
 
         if (representante.statusRepresent == 0) {
@@ -99,7 +99,7 @@ class RepresentanteController {
         const representante = await this.representanteRepository.findById(idRepresent);
 
         if (!representante) {
-            throw new AppError("Representante não existente!");
+            throw new AppError("Representante não encontrado!");
         }
 
         if (representante.statusRepresent == 1) {

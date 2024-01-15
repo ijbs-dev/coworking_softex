@@ -663,6 +663,234 @@
                     }
                 }
             }
+        },
+        "/representante": {
+            "post": {
+                "tags": ["Representante"],
+                "summary": "Cadastramento de Representante",
+                "description": "Deverá ser possível um usuário administrador fazer o cadastramento de representantes da empresa na base de dados do sistema.",
+                "security": [{ "bearerAuth": [] }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "nomeRepresent": "Carlos Pena",
+                                "emailRepresent": "carlos.pena@HOTMAIL.com",
+                                "telefoneRepresent": "1981-1711",
+                                "idPJuridica": 3
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Representante Cadastrado!"
+                    },
+                    "400": {
+                        "description": "Representante já cadastrado com este E-mail!"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/representante/ativos": {
+            "get": {
+                "tags": ["Representante"],
+                "summary": "Listagem de Representantes Ativos",
+                "description": "Deverá ser possível que um usuário possa listar todos os Representantes que estão cadastrados e ativos, na base de dados do sistema.",
+                "security": [{ "bearerAuth": [] }],
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/representante/inativos": {
+            "get": {
+                "tags": ["Representante"],
+                "summary": "Listagem de Representantes Inativos",
+                "description": "Deverá ser possível que um usuário administrador possa listar todos os Representantes que estão cadastrados e inativos, na base de dados do sistema.",
+                "security": [{ "bearerAuth": [] }],
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/representante/email/{email}": {
+            "get": {
+                "tags": ["Representante"],
+                "summary": "Busca de Representante por E-mail",
+                "description": "Deverá ser possível que um usuário possa buscar um Representante pelo número do E-mail na base de dados do sistema.",
+                "security": [{ "bearerAuth": [] }],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "E-mail do Representante para busca",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Representante"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Representante não encontrado!"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/Representante/ativar/{id}": {
+            "patch": {
+                "tags": ["Representante"],
+                "summary": "Ativação do Representante",
+                "description": "Deverá ser possível que um usuário administrador possa ativar um Representante que foi inativado.",
+                "security": [{ "bearerAuth": [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do Representante para ativação",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Representante ativado!"
+                    },
+                    "400": {
+                        "description": "Representante não encontrado! || Representante já está ativo!"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/Representante/inativar/{id}": {
+            "patch": {
+                "tags": ["Representante"],
+                "summary": "Inativação do Representante",
+                "description": "Deverá ser possível que um usuário administrador possa inativar um Representante. A inativação do representante é um artifício utilizado para impedir que um Representante já cadastrado seja excluído por completo da base de dados, pois ele pode ser ativado novamente a qualquer momento.",
+                "security": [{ "bearerAuth": [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do Representante para inativação",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Representante inativado!"
+                    },
+                    "400": {
+                        "description": "Representante não encontrado! || Representante já está Inativo!"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/representante/{id}": {
+            "patch": {
+                "tags": ["Representante"],
+                "summary": "Atualizar dados do Representante",
+                "description": "Deverá ser possível que um usuário administrador possa modificar/atualizar dados de um Representante da base de dados do sistema.",
+                "security": [{ "bearerAuth": [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do Representante para busca",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "emailRepresent": "atualizado@email.com",
+                                "telefoneRepresent": "0000-0000"
+                            }        
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Representante atualizado!"
+                    },
+                    "400": {
+                        "description": "Representante não encontrado!"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Representante"],
+                "summary": "Deletar Representante por ID",
+                "description": "Deverá ser possível que um usuário administrador possa deletar um Representante com base no ID fornecido.",
+                "security": [{ "bearerAuth": [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do Representante para Apagar",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Representante excluido!"
+                    },
+                    "400": {
+                        "description": "Representante não encontrado!"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -774,6 +1002,35 @@
                     },
                     "updatedAtEndFiscal": {
                         "type": "datetime"
+                    }
+                }
+            },
+            "Representante": {
+                "type": "object",
+                "properties": {                    
+                    "statusRepresent": {
+                        "type": "number"
+                    },
+                    "idRepresent": {
+                        "type": "number"
+                    },
+                    "nomeRepresent": {
+                        "type": "string"
+                    },
+                    "emailRepresent": {
+                        "type": "string"
+                    },
+                    "telefoneRepresent": {
+                        "type": "string"
+                    },
+                    "updatedAtRepresent": {
+                        "type": "datetime"
+                    },
+                    "createdAtRepresent": {
+                        "type": "datetime"
+                    },
+                    "idPJuridica": {
+                        "type": "number"
                     }
                 }
             }
