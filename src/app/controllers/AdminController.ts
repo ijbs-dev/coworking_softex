@@ -18,7 +18,7 @@ class AdminController {
         const admin = await this.adminRepository.findById(id);
     
         if(!admin) {
-            throw new AppError("Administrado inexistente!");
+            throw new AppError("Admin inexistente!");
         }
 
         const usuario = await this.usuarioRepository.findById(admin?.idUsuario);

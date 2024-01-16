@@ -47,6 +47,7 @@ usuarioRoutes.get("/ativos", async (request, response) => {
 usuarioRoutes.get("/inativos", async (request, response) => {
 
     try {
+     
         await autenticacaoAdmin(request, response, () => {});
         const usuarios = await usuarioController.listInativos();
 

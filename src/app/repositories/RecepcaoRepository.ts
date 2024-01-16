@@ -28,6 +28,17 @@ class RecepcaoRepository {
     async findByIdUsuario(idUsuario: number): Promise<Recepcao | null> {
         return await this.recepcaoRepository.findOne({ where: { idUsuario } });
     }
+
+    async update(idRecepcao: number, { idUsuario }: IRecepcao): Promise<Recepcao | null> {
+        const recepcao = await this.recepcaoRepository.findOneOrFail({ where: [{ idRecepcao }] });
+        recepcao.idUsuario = idUsuario;
+        return await this.recepcaoRepository.save(recepcao);
+    }
+    async delete(idRecepcao: number): Promise<Recepcao | null> {
+        const recepcao = await this.recepcaoRepository.findOneOrFail({ where: [{ idRecepcao }] });
+        return await this.recepcaoRepository.remove(recepcao);
+    }
+
 }
 
 
