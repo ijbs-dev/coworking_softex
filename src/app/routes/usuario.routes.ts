@@ -34,7 +34,11 @@ usuarioRoutes.get("/ativos", async (request, response) => {
         await autenticacaoAdmin(request, response, () => {});
         const usuariosAtivos = await usuarioController.listAtivos();
 
+        if(usuariosAtivos.length === 0) {
+            return response.status(404).json({ message: "Nenhum usuário ativo encontrado."});
+        } else {
         return response.status(200).json(usuariosAtivos);
+        }
     } catch (error) {
         response.status(401).json(error);
     }  
@@ -46,7 +50,11 @@ usuarioRoutes.get("/inativos", async (request, response) => {
         await autenticacaoAdmin(request, response, () => {});
         const usuarios = await usuarioController.listInativos();
 
+        if(usuarios.length === 0) {
+            return response.status(404).json({ message: "Nenhum usuário inativo encontrado."});
+        } else {
         return response.status(200).json(usuarios);
+    }
     } catch (error) {
         response.status(401).json(error);
     } 
@@ -158,43 +166,51 @@ usuarioRoutes.put("/:id", async (request, response) => {
 })
 
 usuarioRoutes.patch("/inativar/:id", async (request, response) => {
-
     const idUsuario = Number(request.params.id);
 
     try {
         await autenticacaoAdmin(request, response, () => {});
-        
+
         try {
-                   
-            await usuarioController.inativar(idUsuario);            
-            response.status(200).json({ message: "Usuário inativado!" });
-            
-            
+            const usuarioExists = await usuarioController.findById(idUsuario);
+
+            if (!usuarioExists) {
+                response.status(404).json({ error: "Usuário não encontrado." });
+            } else {
+                await usuarioController.inativar(idUsuario);
+                response.status(200).json({ message: "Usuário inativado!" });
+            }
         } catch (error) {
-            response.status(400).json(error)
+            response.status(500).json({ error: "Erro interno do servidor." });
         }
     } catch (error) {
-        response.status(401).json(error)
+        response.status(401).json({ error: "Unauthorized" });
     }
-})
+});
 
 usuarioRoutes.patch("/ativar/:id", async (request, response) => {
-
     const idUsuario = Number(request.params.id);
 
     try {
         await autenticacaoAdmin(request, response, () => {});
 
         try {
-            await usuarioController.ativar(idUsuario);
-            response.status(200).json({ message: "Usuario ativado!" });
+            const usuarioExists = await usuarioController.findById(idUsuario);
+
+            if (!usuarioExists) {
+                response.status(404).json({ error: "Usuário não encontrado." });
+            } else {
+                await usuarioController.ativar(idUsuario);
+                response.status(200).json({ message: "Usuario ativado!" });
+            }
         } catch (error) {
-            response.status(400).json(error);
+            response.status(500).json({ error: "Erro interno do servidor." });
         }
     } catch (error) {
-        response.status(401).json(error);
+        response.status(401).json({ error: "Unauthorized" });
     }
-})
+});
+
 
 usuarioRoutes.delete("/:id", async (request, response) => {
     
