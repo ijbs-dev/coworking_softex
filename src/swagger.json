@@ -73,7 +73,7 @@
                         "description": "Usuário já existente!"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -105,7 +105,7 @@
                         "description": "Usuário já existente!"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -128,7 +128,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -151,7 +151,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -188,7 +188,7 @@
                         "description": "Usuário não encontrado"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -218,7 +218,7 @@
                         "description": "Usuário não encontrado! || Usuário já está ativo!"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -248,7 +248,7 @@
                         "description": "Usuário não encontrado! || Usuário já está Inativo!"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -288,7 +288,7 @@
                         "description": "Usuário não encontrado!"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             },
@@ -316,7 +316,7 @@
                         "description": "Usuário não encontrado!"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }       
@@ -353,10 +353,10 @@
                         "description": "Cliente cadastrado com sucesso!"
                     },
                     "400": {
-                        "description": "Bad Request"
+                        "description": "Requisição Inválida!"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -397,10 +397,10 @@
                         "description": "Cliente cadastrado com sucesso!"
                     },
                     "400": {
-                        "description": "Bad Request"
+                        "description": "Requisição Inválida!"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -416,7 +416,7 @@
                         "description": "Ok"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -432,7 +432,7 @@
                         "description": "Ok"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -469,7 +469,7 @@
                         "description": "Não existe um Cliente com este CNPJ"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -506,7 +506,7 @@
                         "description": "Não existe um Cliente com este CPF"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -543,7 +543,7 @@
                         "description": "Cliente não encontrado!"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -573,7 +573,7 @@
                         "description": "Cliente não encontrado! || Cliente já se encontra ativo no sistema!"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -603,7 +603,7 @@
                         "description": "Cliente não encontrado! || Cliente já se encontra inativo no sistema!"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -650,7 +650,7 @@
                         "description": "Cliente não encontrado!"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -666,7 +666,7 @@
                         "description": "Ok"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -682,7 +682,7 @@
                         "description": "Ok"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -719,7 +719,7 @@
                         "description": "Endereço Fiscal não encontrado!"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -750,7 +750,7 @@
                         "description": "Representante já cadastrado com este E-mail!"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -766,7 +766,7 @@
                         "description": "Ok"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -782,7 +782,7 @@
                         "description": "Ok"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -819,7 +819,7 @@
                         "description": "Representante não encontrado!"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -849,7 +849,7 @@
                         "description": "Representante não encontrado! || Representante já está ativo!"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -879,7 +879,7 @@
                         "description": "Representante não encontrado! || Representante já está Inativo!"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -919,7 +919,7 @@
                         "description": "Representante não encontrado!"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             },
@@ -947,7 +947,7 @@
                         "description": "Representante não encontrado!"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -975,10 +975,10 @@
                         "description": "Recebimento de Encomenda cadastrado!"
                     },
                     "400": {
-                        "description": "Bad Request"
+                        "description": "Requisição Inválida!"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             },
@@ -992,7 +992,7 @@
                         "description": "Ok"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
@@ -1029,11 +1029,96 @@
                         "description": "Recebimendo de Encomenda não encontrado!"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Não Autorizado!"
                     }
                 }
             }
-        }
+        },
+        "/retiradaencomenda/": {
+            "post": {
+                "tags": ["Retirada Encomenda"],
+                "summary": "Cadastramento de Retirada de Encomendas",
+                "description": "A retirada de encomendas acontece na recepção do ITBC. Um <strong>representante</strong> do Cliente PJ deverá identificar se existe um Cliente ativo para poder retirar a encomenda recém chegada. Após a verificação e constatação de cadastro ativo, o representante fará a retirada da encomenda.",
+                "security": [{ "bearerAuth": [] }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "idRetirEncomenda": 14,
+                                "dataHoraRetirEncomenda": "2024-01-09T22:34:54.000Z",
+                                "obsRetirEncomenda": "Entregue pelos Correios",
+                                "idEncomenda": 6,
+                                "idRepresent": 2
+                              
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Retirada de Encomenda cadastrado!"
+                    },
+                    "400": {
+                        "description": "Requisição Inválida!"
+                    },
+                    "401": {
+                        "description": "Não Autorizado!"
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Retirada Encomenda"],
+                "summary": "Listagem dos Retiradas de Encomendas",
+                "description": "Deverá ser possível que um <strong>representante</strong> possa listar todos as Retiradas de Encomendas que estão cadastrados, na base de dados do sistema.",
+                "security": [{ "bearerAuth": [] }],
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    },
+                    "401": {
+                        "description": "Não Autorizado!"
+                    }
+                }
+            }
+        },
+        "/retiradaencomenda/id/{id}": {
+            "get": {
+                "tags": ["Retirada Encomenda"],
+                "summary": "Busca de Retirada de Encomenda por ID",
+                "description": "Deverá ser possível que um <strong>representante</strong> possa buscar um Retirada de Encomenda pelo número do ID na base de dados do sistema.",
+                "security": [{ "bearerAuth": [] }],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do Retirada de Encomenda para busca",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RetiradaEncomenda"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Retirada de Encomenda não encontrado!"
+                    },
+                    "401": {
+                        "description": "Não Autorizado!"
+                    }
+                }
+            }
+        }   
+
     },
     "components": {
         "schemas": {
@@ -1195,6 +1280,26 @@
                         "type": "number"
                     },
                     "idRecepcao": {
+                        "type": "number"
+                    }
+                }
+            },
+            "RetiradaEncomenda": {
+                "type": "object",
+                "properties": {                    
+                    "dataHoraRetirEncomenda": {
+                        "type": "datetime"
+                    },
+                    "idRetirEncomenda": {
+                        "type": "number"
+                    },
+                    "obsRetirEncomenda": {
+                        "type": "string"
+                    },
+                    "idEncomenda": {
+                        "type": "number"
+                    },
+                    "idRepresent": {
                         "type": "number"
                     }
                 }

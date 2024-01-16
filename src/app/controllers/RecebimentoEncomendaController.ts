@@ -32,15 +32,6 @@ class RecebimentoEncomendaController {
         return recebimentoEncomenda;
     }
 
-    // async update(idRecebEncomenda: number, dadosRecebimentoEncomenda: IRecebimentoEncomendaUpdate): Promise<void> {
-    //     const recebimentoEncomenda = await this.recebimentoEncomendaRepository.findById(idRecebEncomenda, dadosRecebimentoEncomenda);
-
-    //     if(!recebimentoEncomenda) {
-    //         throw new Error("Recebimento de Encomenda inexistente!");
-    //     }
-    //     await this.recebimentoEncomendaRepository.update(idRecebEncomenda, recebimentoEncomenda);
-    // }
-
     async deleteById(id: number): Promise<void> {
         
         const recebimentoEncomenda = await this.recebimentoEncomendaRepository.findById(id);
