@@ -56,10 +56,10 @@
                     "content": {
                         "application/json": {
                             "example": {
-                                "nomeUsuario": "Marcelo Raposo",
+                                "nomeUsuario": "Calos Admin",
                                 "funcaoUsuario": "Desenvolvedor Back-End",
-                                "emailUsuario": "marcelo.raposo@email.com",
-                                "loginUsuario": "marceloraposo",
+                                "emailUsuario": "calos.admin@email.com",
+                                "loginUsuario": "calosadmin",
                                 "senhaUsuario": "pass123"
                             }
                         }

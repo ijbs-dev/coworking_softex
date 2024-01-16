@@ -165,8 +165,11 @@ usuarioRoutes.patch("/inativar/:id", async (request, response) => {
         await autenticacaoAdmin(request, response, () => {});
         
         try {
-            await usuarioController.inativar(idUsuario);
-            response.status(200).json({ message: "Usuário inativado!" })
+                   
+            await usuarioController.inativar(idUsuario);            
+            response.status(200).json({ message: "Usuário inativado!" });
+            
+            
         } catch (error) {
             response.status(400).json(error)
         }
@@ -184,7 +187,7 @@ usuarioRoutes.patch("/ativar/:id", async (request, response) => {
 
         try {
             await usuarioController.ativar(idUsuario);
-            response.status(200).json({ message: "Representante ativado!" });
+            response.status(200).json({ message: "Usuario ativado!" });
         } catch (error) {
             response.status(400).json(error);
         }

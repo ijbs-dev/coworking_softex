@@ -241,10 +241,11 @@ CREATE TABLE IF NOT EXISTS `Representante` (
 -- Inserir dados na tabela Usuario
 INSERT INTO Usuario (Nome_Usuario, Funcao_Usuario, Email_Usuario, Login_Usuario, Senha_Usuario, Status_Usuario, Created_at_Usuario, Updated_at_Usuario)
 VALUES
+('Rick kilen', 'Manager', 'admin@email.com', 'Ruy_Barban', 'admin', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 ('John Doe', 'Developer', 'john.doe@email.com', 'john_doe', 'password123', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 ('Jane Smith', 'Manager', 'jane.smith@email.com', 'jane_smith', 'password456', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('Bob Johnson', 'Designer', 'bob.johnson@email.com', 'bob_johnson', 'password789', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('Alice Williams', 'Analyst', 'alice.williams@email.com', 'alice_williams', 'passwordabc', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Bob Johnson', 'Designer', 'bob.johnson@email.com', 'bob_johnson', 'password789', 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('Alice Williams', 'Analyst', 'alice.williams@email.com', 'alice_williams', 'passwordabc', 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 ('Charlie Brown', 'Engineer', 'charlie.brown@email.com', 'charlie_brown', 'passworddef', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- Inserir dados na tabela Admin
