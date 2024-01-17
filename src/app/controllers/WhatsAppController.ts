@@ -17,7 +17,7 @@ const sendWhatsAppMessage = async(body: string) => {
         .create({
             body: 'Olá, você recebeu uma encomenda no seu Endereço Fiscal na Softex (PE).',
             from: 'whatsapp:+14155238886',
-            to: 'whatsapp:+5581995377769'
+            to: 'whatsapp:+558195377769'
         })
         console.log(`WhatsApp mensagem enviada, código SID: ${message.sid}`);
     } catch (error: any) {
