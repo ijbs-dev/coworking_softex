@@ -7,7 +7,7 @@ require('dotenv').config();
 // Notificação whatsapp Twilio
 
 const accountSid = "AC213011da1c2440c182679eace906b979";
-const authToken = "34717d5cd629022e6816fab63272039c";
+const authToken = "ebf14ed36f6ae0bae12ab014bb7d5e85";
 const client = require('twilio')(accountSid, authToken);
 
 const sendWhatsAppMessage = async(body: string) => {
